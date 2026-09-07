@@ -366,6 +366,30 @@ eines nachgestellten.
 **Die Lehre:** Ein Test, der nur wegen eines Entwicklerstücks grün war, hat nie
 das geprüft, was er behauptete.
 
+### Der Import beim ersten echten Lauf
+
+Der Ablauf lief — und scheiterte. Zwei Fehler, beide in meinem Skript:
+
+**1. `406 Not Acceptable` von overpass-api.de.** Ein Statuscode, der nach einem
+Problem mit den Kopfzeilen aussieht (Accept, Content-Type) und mich zunächst
+in die falsche Richtung schickte. Es war ein **Syntaxfehler in der Abfrage**:
+In der Ausgabezeile steht erst die Ausführlichkeit, dann die Geometrie —
+`out tags center`, nicht `out center tags`.
+
+**2. `429 Too Many Requests` vom zweiten Spiegel, und dann Ende.** Overpass ist
+ein Dienst, den Freiwillige bezahlen. Auf einem GitHub-Runner teilen sich viele
+dieselbe Adresse, ein „zu viele Anfragen" ist dort der Normalfall, nicht die
+Ausnahme. Mein Skript hatte **einen** Versuch je Spiegel und gab danach auf.
+
+Beides behoben: vier Spiegel statt zwei, vier Runden reihum mit wachsender
+Pause (15, 30, 60 Sekunden), acht Sekunden zwischen den Gegenden. Dazu eine
+Kennung im `User-Agent` — Overpass erwartet, dass man sich zu erkennen gibt,
+und Node schickt von sich aus keine.
+
+**Die Lehre:** Ein Ablauf, der gegen einen fremden Dienst arbeitet, ist erst
+fertig, wenn er dessen schlechte Tage übersteht. „Läuft einmal durch" ist kein
+Zustand, sondern ein Zufall.
+
 ## Was diese Runde gekostet hat, und was sie wert war
 
 Drei Sachen sind aufgefallen, die **kein Test gefunden hätte** und die man nur
