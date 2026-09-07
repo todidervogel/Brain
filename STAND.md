@@ -23,7 +23,8 @@ Rechner steht.
 | Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8, Priorität 1 |
 | Echte Kartendaten | **gelb** — Import gebaut, Workflow muss laufen | Runde 8 |
 | Server von außen erreichbar | **grün** — Workflow steht, Secret fehlt noch | Runde 8, ngrok |
-| Präsentationswebseite | **grün** — Startseite ist jetzt eine | Runde 8 |
+| Präsentationswebseite | **grün** — für Besucher ohne Konto | Runde 8 |
+| Einstieg in die Anwendung | **grün** — angemeldet direkt in den Feed | Runde 8 |
 | Dev-Sachen draußen | **grün** — bis auf `topic`/`admin` | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
 
 ## Woran ich gerade arbeite

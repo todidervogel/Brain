@@ -316,6 +316,56 @@ Verwaltung 200.
 - **Ein Loch geschlossen**, das erst durch ngrok eins wurde.
 
 
+## Nachträge aus dem Gespräch
+
+### „Passwort vergessen?" — zweimal falsch gesessen
+
+Erst klebte die Zeile am Passwortfeld (negativer Abstand), dann hatte sie zwar
+Luft, saß aber weiter zwischen Feld und Knopf. Der eigentliche Fehler war die
+**Stelle**, nicht der Abstand: Dort trennt sie das Formular von seiner Aktion.
+
+Instagram, Spotify, Netflix und Apple setzen den Link **unter den
+Anmelde-Knopf**, mittig. Das ist auch logisch — es ist der Ausweg für den Fall,
+dass der normale Weg nicht klappt, und den sucht man nicht vor dem Versuch.
+Damit fällt der Sonderabstand ganz weg; die Zeile ist ein gewöhnliches Element
+im Formular.
+
+### Die Anwendung fängt mit dem Feed an
+
+*„Diese ‚Sieh, was es zu essen gibt'-Seite gibt es bei der Handy- und der
+Web-App-Version nicht … das soll gleich mit dem Feed anfangen."*
+
+`/` entscheidet jetzt:
+
+| Wer | Landet auf |
+|---|---|
+| Browser, nicht angemeldet | Präsentationsseite |
+| Browser, angemeldet | `/feed` |
+| App | `/feed` — ohne Anmeldung `/anmelden` |
+
+Das ist genau das Instagram-Modell, das im Auftrag als Vorbild genannt wurde:
+eingeloggt der Feed, ausgeloggt die Seite, die erklärt, worum es geht. Die
+Präsentationsseite ist damit nicht weg — sie steht nur nicht mehr im Weg.
+
+### Die Suche schlägt etwas vor
+
+Unter den Chips war weiße Fläche. Dabei ist das die Stelle, an der man sich
+umsieht, ohne zu wissen wonach — Instagram macht daraus sein Explore. Jetzt
+steht dort ein Raster mit Videos aus der Gegend und darunter die Betriebe.
+
+### Ein Test, der an einem Entwicklerstück hing
+
+„Profil zeigt beim Laden eine Ladeanzeige" schlug fehl, sobald die künstliche
+Verzögerung entfernt war. Das war kein Fehler im Programm: Im Alleinbetrieb
+liegen die Daten im selben Browser, es gibt nichts zu warten.
+
+Die Prüfung ist nach `gegen-server.mjs` gewandert. Dort gibt es einen echten
+Aufruf, der sich verzögern lässt — und damit einen echten Ladezustand statt
+eines nachgestellten.
+
+**Die Lehre:** Ein Test, der nur wegen eines Entwicklerstücks grün war, hat nie
+das geprüft, was er behauptete.
+
 ## Was diese Runde gekostet hat, und was sie wert war
 
 Drei Sachen sind aufgefallen, die **kein Test gefunden hätte** und die man nur
