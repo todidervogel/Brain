@@ -28,6 +28,17 @@ Bewusst so — es fehlt der Server, nicht die Idee.
 - **Passwörter im Klartext** im Browser. Für einen Prototyp mit erfundenen
   Konten in Ordnung, für alles andere nicht.
 
+## Einstellungen, die nur von Hand gehen
+
+- **Standardzweig auf `main`** in `design` und `Brain` (Settings → General →
+  Default branch). Solange dort der alte Entwurfszweig steht, weist GitHub
+  jede Veröffentlichung von `main` aus ab — die Umgebung `github-pages`
+  lässt von Haus aus nur den Standardzweig hinein. `Website-`, `App` und
+  `Server` stehen richtig.
+- **Kein öffentlicher Server.** Die veröffentlichte Webseite läuft deshalb im
+  Alleinbetrieb. Und solange der Server nur unter http erreichbar wäre, kann
+  eine https-Seite ihn ohnehin nicht ansprechen (E20).
+
 ## Aus früheren Runden noch offen
 
 - **Icons und Animationen verfeinern** (Runde 3). Es wurde nach einer

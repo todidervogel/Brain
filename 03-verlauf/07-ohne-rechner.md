@@ -23,7 +23,14 @@ Feld für die Serveradresse. Zwei Feinheiten, die man leicht übersieht:
 
 Geprüft: mit `VITE_BASE=/Website-/` gebaut, unter genau diesem Pfad
 ausgeliefert, Startseite und `/karte` im Browser geöffnet — beides lädt, keine
-Fehler in der Konsole.
+Fehler in der Konsole. Der Push hat den Ablauf ausgelöst, Bau und
+Veröffentlichung sind grün:
+
+> **<https://todidervogel.github.io/Website-/>**
+
+(Die Seite selbst konnte ich von hier aus nicht abrufen — der Netzzugang
+dieser Umgebung lässt github.io nicht durch. Grün ist der Lauf, mit
+„Reported success" und genau dieser Adresse im Protokoll.)
 
 **2. Ein echter Fehler in der App gefunden.**
 Die Anleitung versprach, die APK könne mit `--api http://192.168.x.x:4000`
@@ -53,10 +60,25 @@ APK über Actions, Webseite über Pages, Code am Handy ändern — und was in
 Termux realistisch ist (der Server ja, er hat keine Abhängigkeiten; die
 Website mühsam; das Android-SDK nein).
 
+**5. Zwei Repositories zeigen noch auf den alten Zweig.**
+Im `design`-Repo scheitert das Veröffentlichen: Bau grün, Veröffentlichen
+abgewiesen, ohne einen einzigen Schritt. Grund ist der **Standardzweig** —
+dort steht noch `claude/design-spec-screens-components-omyfb5`, und GitHub
+lässt in die Umgebung `github-pages` von Haus aus nur den Standardzweig
+hinein. In `Brain` steht ebenso noch `claude/app-website-mvp-3w6arm`.
+
+Das lässt sich von hier aus nicht ändern — die verfügbaren GitHub-Werkzeuge
+können Repository-Einstellungen nicht schreiben.
+
+Nebenbei aufgefallen: Im `design`-Repo lag noch der APK-Ablauf aus dem
+Monolithen. Ohne `android/` und `tools/build.mjs` wäre er dort sofort
+gescheitert — entfernt.
+
 ## Offen
 
-- Die Pages-Quelle muss einmal von Hand eingestellt werden: Settings → Pages
-  → Source: „GitHub Actions". Das kann kein Ablauf für sich selbst tun.
+- **Standardzweig auf `main` stellen** in `design` und `Brain`:
+  Settings → General → Default branch. Erst danach veröffentlicht die
+  Galerie. `Website-`, `App` und `Server` stehen schon richtig.
 - Ein öffentlich erreichbarer Server unter https fehlt weiterhin. Erst damit
   wird die Pages-Seite mehr als eine Vorschau.
 - Schritt 2 (alle Dev-Sachen entfernen) ist weiter unangetastet, siehe

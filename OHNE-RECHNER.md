@@ -10,7 +10,7 @@ auch, damit niemand eine halbe Stunde in einer Sackgasse verbringt.
 |---|---|---|
 | APK bauen und installieren | **ja** | GitHub Actions, unten Schritt für Schritt |
 | Webseite als Adresse aufrufen | **ja** | GitHub Pages, unten |
-| Design-Galerie ansehen | ja | dieselbe Pages-Einstellung im Repo `design` |
+| Design-Galerie ansehen | fast | ein Klick fehlt noch, siehe unten |
 | Code ändern | ja | im Browser über github.com bearbeiten, Push löst den Bau aus |
 | Server dauerhaft betreiben | nein | dafür braucht es einen Rechner oder einen Hoster |
 | APK **auf** dem Handy bauen | praktisch nein | Gradle + Android-SDK in Termux, siehe unten |
@@ -35,13 +35,14 @@ Quellen". Das ist normal für eine APK, die nicht aus dem Play Store kommt.
 
 ## Webseite als Adresse — GitHub Pages
 
-Einmalig im Repository `Website-`: **Settings → Pages → Source: „GitHub
-Actions"**. Danach baut jeder Push auf `main` die Seite; von Hand über
-**Actions → „Webseite veröffentlichen" → Run workflow**.
+Läuft schon:
 
-```
-https://<konto>.github.io/Website-/
-```
+> **<https://todidervogel.github.io/Website-/>**
+
+Jeder Push auf `main` baut sie neu; von Hand geht es über **Actions →
+„Webseite veröffentlichen" → Run workflow**. (Falls Pages in einem anderen
+Repository erst noch eingeschaltet werden muss: **Settings → Pages → Source:
+„GitHub Actions"**.)
 
 Damit lässt sich der ganze MVP am Handy im Browser ansehen, ohne irgendetwas
 zu installieren.
@@ -49,6 +50,17 @@ zu installieren.
 **Aber:** So veröffentlicht läuft die Seite im **Alleinbetrieb** — die Daten
 liegen im Browser des Besuchers, jedes Gerät für sich. Das reicht zum
 Anschauen und Durchklicken, nicht für „zwei Geräte sehen denselben Stand".
+
+### Was bei der Galerie noch fehlt
+
+Im Repository `design` scheitert die Veröffentlichung, weil dort noch der
+alte Entwurfszweig als **Standardzweig** eingetragen ist. GitHub lässt in die
+Umgebung `github-pages` von Haus aus nur den Standardzweig hinein — der Bau
+läuft durch, das Veröffentlichen wird abgewiesen.
+
+Zu beheben mit einem Klick: **Settings → General → Default branch → `main`**.
+Dasselbe gilt im Repository `Brain`, dort steht noch
+`claude/app-website-mvp-3w6arm`. Danach den Ablauf einmal von Hand starten.
 
 ## Die Falle: https-Seite und http-Server
 
