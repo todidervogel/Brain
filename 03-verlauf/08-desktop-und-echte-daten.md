@@ -149,6 +149,58 @@ Unter dem Namen stehen „Videos · Follower · Folgt" — **ohne Zahlen**. Das 
 kein Layout-Fehler, das ist ein fehlender Wert. Beim Hinsehen gefunden, nicht
 beim Lesen des Codes. Genau dafür sind die Bilder da.
 
+## Was am Desktop gebaut wurde
+
+Ein neues Stylesheet `design/src/styles/desktop.css`. Alles darin steht in
+`@media (min-width: 1024px)` — unterhalb davon ändert sich keine einzige
+Regel, das Handy-Layout bleibt unangetastet.
+
+| Screen | Vorher | Jetzt |
+|---|---|---|
+| Alle App-Screens | Kopfleiste, sonst nichts | Seitenleiste links: Feed · Karte · Suche · Profil. Ab 1024px Symbole, ab 1280px mit Beschriftung |
+| Profil | Bild mittig, alles darunter | Bild links, Name, Zahlen, Text und Knöpfe rechts daneben |
+| Betriebsseite | eine Spalte, halbe Seite leer | Zwei Spalten. Links Videos, Speisekarte, Bewertungen. Rechts ein Steckbrief, der beim Scrollen stehen bleibt |
+| Feed | schwarze Fläche über 1440px | Rahmen im Verhältnis 9:16, mittig; Aktionen rechts daneben, Blättern links |
+
+### Die Falle im Feed
+
+Ab 1024px blendet das CSS die untere Leiste aus. Der Feed ist eine
+`FullscreenPage` — die hatte nie eine Kopfleiste und bekam auch keine
+Seitenleiste. Ergebnis: **Am Rechner gab es im Feed überhaupt keine
+Navigation.** Der einzige Ausweg war der Zurück-Knopf des Browsers.
+
+Das stand in keinem Test, weil kein Test fragt „komme ich hier wieder weg". Im
+Bild sieht man es sofort.
+
+### Die Rahmen-Rechnung, die zweimal falsch war
+
+Der Feed-Rahmen sitzt mittig, und Aktionsleiste und Blätterknöpfe richten sich
+an seinen Kanten aus. Beim ersten Versuch habe ich den linken Randabstand für
+den rechten wiederverwendet — das stimmt nur, solange der Rahmen mittig im
+Fenster steht. Sobald links die Seitenleiste dazukam, lagen die Aktionen
+plötzlich **im** Bild und kreuzten den Bildtext.
+
+Jetzt stehen beide Abstände getrennt als Variablen an `.feed`, und die
+Seitenleistenbreite geht als `--nav-b` in die Rechnung ein.
+
+## Überläufe, erster Schwung
+
+Beide auf dem Handy gefunden — also genau dort, wo sie am meisten stören:
+
+**1. Fünf Knöpfe auf 390 Pixel.** Die Aktionsleiste zeigte Speisekarte, Route,
+Anrufen, Speichern und Teilen nebeneinander. Macht 65px pro Knopf; „Speisekarte“
+passt da nicht hinein und lief heraus.
+
+Der Grund war nicht das CSS, sondern eine Doppelung: **Speichern und Teilen
+stehen auf dem Handy schon als Symbole im Titelbild.** Sie fallen unter 1024px
+jetzt weg — drei Knöpfe zu 114px, alles lesbar. Am Rechner ist Platz, dort
+stehen weiter alle.
+
+**2. Abgeschnittene Reiter.** „Bewertungen“ und „Gespeichert“ endeten an der
+Bildschirmkante. Technisch war nichts kaputt — die Zeile scrollt. Nur sah man
+das nicht. Jetzt blendet eine weiche Maske die Kante aus; ein halb sichtbares
+Wort heißt „hier geht es weiter“ statt „hier ist etwas kaputt“.
+
 ## Verlauf dieser Runde
 
 *(wächst mit)*
@@ -159,3 +211,7 @@ beim Lesen des Codes. Genau dafür sind die Bilder da.
 - **Hingesehen statt geraten.** `tools/bilder.mjs` gebaut: fotografiert alle
   Screens in vier Breiten und meldet nebenbei jeden waagerechten Überlauf.
   Befund unten.
+- **Priorität 1 erledigt.** Seitenleiste, Profil, Betriebsseite, Feed. Dabei
+  eine Falle gefunden, die schlimmer war als das Layout: Am Rechner **kam man
+  aus dem Feed nicht mehr heraus.**
+- **Zwei echte Überläufe behoben** (Priorität 2, erster Schwung).

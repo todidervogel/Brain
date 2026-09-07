@@ -19,8 +19,8 @@ gibt.
 | Aufteilung in fünf Repos | **grün** | [[REPOS]] |
 | Webseite veröffentlicht | **grün** | <https://todidervogel.github.io/Website-/> |
 | APK-Bau | **grün seit Runde 7** | [[03-verlauf/07-ohne-rechner]] |
-| Design Handy | **gelb** — Überläufe, Überschneidungen | Runde 8, Priorität 2 |
-| Design Desktop | **rot** — gibt es nicht | Runde 8, Priorität 1 |
+| Design Handy | **gelb** — zwei Überläufe behoben, Durchgang läuft | Runde 8, Priorität 2 |
+| Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8, Priorität 1 |
 | Echte Kartendaten | **rot** — zehn erfundene Betriebe | Runde 8 |
 | Server von außen erreichbar | **rot** | Runde 8, ngrok |
 | Präsentationswebseite | **rot** — gibt es nicht | Runde 8 |
@@ -28,12 +28,12 @@ gibt.
 
 ## Woran ich gerade arbeite
 
-Runde 8. Reihenfolge nach der Ansage: **Desktop zuerst, Design zweitens.**
-Der laufende Plan steht in [[03-verlauf/08-desktop-und-echte-daten]].
+Runde 8, Priorität 2: der Durchgang durch alle Screens in vier Breiten mit
+`Website-/tools/bilder.mjs`. Priorität 1 (Desktop) steht.
 
 ## Was ich als Nächstes vorhabe
 
-1. Desktop-Layout für die Web-App — ohne untere Leiste, ohne gestrecktes Handy
+1. ~~Desktop-Layout für die Web-App~~ ✓
 2. Überläufe und Überschneidungen beheben, per Bildschirmfoto selbst geprüft
 3. Dev-Sachen aus `App`, `Website-`, `Server` raus (nur `design` behält sie)
 4. Karte mit echten Kacheln, echte Betriebe aus drei Gegenden
@@ -52,7 +52,11 @@ Der laufende Plan steht in [[03-verlauf/08-desktop-und-echte-daten]].
   Überschneidungen, nicht ein fehlendes `overflow: hidden`.
 - **Ein Design, das ich nie gesehen habe, kann ich nicht beurteilen.** Ab
   Runde 8 mache ich Bildschirmfotos und sehe sie mir an, statt aus dem CSS zu
-  schließen, dass es passt.
+  schließen, dass es passt. Das hat sich sofort ausgezahlt: die fehlenden
+  Zahlen am Profil, die Sackgasse im Feed und der überlaufende Knopf standen
+  in keinem Test — im Bild sah man alle drei auf einen Blick.
+- **Tests prüfen, ob etwas da ist. Nicht, ob man wieder wegkommt.** Der Feed
+  hatte am Rechner keine Navigation. Jeder Verhaltenstest war grün.
 
 ## Verknüpfungen
 
