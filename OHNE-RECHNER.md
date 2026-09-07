@@ -24,6 +24,9 @@ auch, damit niemand eine halbe Stunde in einer Sackgasse verbringt.
 4. Warten, bis der Lauf grün ist — einige Minuten.
 5. Den Lauf öffnen, unten unter **Artifacts** `tellerrand-apk` antippen.
 
+Geprüft: Der Ablauf läuft durch, die APK ist rund 3,5 MB groß und liegt
+90 Tage lang bereit.
+
 Das Ergebnis ist eine ZIP-Datei. Android-Dateimanager können sie öffnen; darin
 liegt `app-debug.apk`. Wer sich das sparen will, setzt einen Tag — dann hängt
 die APK an einer Vorab-Version und lässt sich direkt herunterladen. Tags gehen

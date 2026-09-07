@@ -44,7 +44,36 @@ Behoben mit `android/app/src/debug/AndroidManifest.xml`
 Veröffentlichung. `tools/pruefen.mjs` prüft die Datei jetzt mit, damit sie
 nicht wieder verschwindet.
 
-**3. Die Grenze aufgeschrieben, statt sie später zu erleben.**
+**3. Der APK-Bau hat nie funktioniert.**
+Aufgefallen erst, weil ich den Ablauf zur Kontrolle gestartet habe. Gradle
+brach ab, bevor er anfing:
+
+```
+Could not read script 'android/capacitor-cordova-android-plugins/
+cordova.variables.gradle' as it does not exist.
+```
+
+Die Datei liegt bewusst nicht im Repository — `android/.gitignore` schließt
+`capacitor-cordova-android-plugins`, `assets/public` und die erzeugten
+Konfigurationsdateien aus, weil Capacitor sie erzeugt. Nur hat sie niemand
+erzeugt: `tools/build.mjs` kopierte `dist` von Hand ins Android-Projekt und
+rief `cap sync` nie auf, und der Ablauf installierte die Abhängigkeiten der
+App gar nicht erst.
+
+Jetzt macht es Capacitor selbst. `webDir` zeigt dafür auf `.website/dist`.
+Nebeneffekt, der vorher fehlte: `assets/capacitor.config.json` wird
+mitgeschrieben — ohne sie gälten in der App die Voreinstellungen, also weder
+unser Schema noch `allowMixedContent`. Die Korrektur aus Punkt 2 wäre ohne
+diese Datei wirkungslos geblieben.
+
+Geprüft: Lauf 3 ist grün, `tellerrand-apk` liegt als Artefakt bereit
+(3,5 MB).
+
+**Die Lehre:** Ein Ablauf, der nie gelaufen ist, ist kein Ablauf. Beim
+Aufteilen in Runde 6 wurde der APK-Bau übernommen und für erledigt gehalten,
+ohne ihn ein einziges Mal zu starten.
+
+**4. Die Grenze aufgeschrieben, statt sie später zu erleben.**
 Eine über Pages ausgelieferte Seite läuft unter https und kann einen
 http-Server im WLAN grundsätzlich nicht erreichen. Es gibt also drei
 brauchbare Aufbauten, nicht vier:
@@ -55,12 +84,12 @@ brauchbare Aufbauten, nicht vier:
 | APK, kein Server | im Handy |
 | APK plus Server im WLAN | beim Server |
 
-**4. `OHNE-RECHNER.md`** fasst den ganzen Weg über den Browser zusammen:
+**5. `OHNE-RECHNER.md`** fasst den ganzen Weg über den Browser zusammen:
 APK über Actions, Webseite über Pages, Code am Handy ändern — und was in
 Termux realistisch ist (der Server ja, er hat keine Abhängigkeiten; die
 Website mühsam; das Android-SDK nein).
 
-**5. Zwei Repositories zeigen noch auf den alten Zweig.**
+**6. Zwei Repositories zeigen noch auf den alten Zweig.**
 Im `design`-Repo scheitert das Veröffentlichen: Bau grün, Veröffentlichen
 abgewiesen, ohne einen einzigen Schritt. Grund ist der **Standardzweig** —
 dort steht noch `claude/design-spec-screens-components-omyfb5`, und GitHub
