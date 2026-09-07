@@ -3,8 +3,32 @@
 Ausdrücklich angekündigt: *„im Schritt 2 entfernen wir dann alle Dev-Dinger,
 die jetzt noch da sind."*
 
-Diese Liste ist die Vorbereitung dafür. **Noch nichts davon ist gemacht** —
-die Sachen werden für die interne Abnahme gebraucht.
+**In Runde 8 zum größten Teil erledigt.** Was jetzt noch hier steht, ist das,
+was bewusst geblieben ist — und der Grund dafür.
+
+## Zuerst: der einzige harte Punkt
+
+**Der Verwaltungszugang `topic` / `admin` muss weg**, bevor die Anwendung
+echte Nutzerdaten sieht. In Runde 8 ausdrücklich so bestellt und vorläufig
+gebaut; `admin` ist kein Passwort, sondern ein Platzhalter.
+
+Dasselbe gilt für die Klartext-Passwörter im Ausgangsbestand. Beides löst sich
+mit einer echten Anmeldung (Supabase Auth) auf.
+
+## Erledigt in Runde 8
+
+| Was | Wie |
+|---|---|
+| Design-Panel | Datei und Einbindung entfernt |
+| Screen-Übersicht `/uebersicht` | Route, Datei und Routentabelle entfernt. Der Routen-Sweep liest die Adressen jetzt direkt aus dem Router — eine Liste daneben hätte irgendwann nicht mehr gepasst |
+| Zustandsschalter `useVariant` | An 21 Stellen aufgelöst, Funktion entfernt |
+| Ziel-Umschalter Website ⇄ App | `platform` wird nur noch erkannt, nicht mehr gesetzt |
+| Rollen-Schnellwechsel `switchTo` | Ersatzlos gestrichen |
+| Testkonten-Hinweise unter der Anmeldung | Entfernt. Die Texte bleiben im `design`-Repo, dort gehören sie hin |
+| Künstliche Verzögerung `VITE_LATENCY` | Entfernt |
+| Offener Reset-Endpunkt | Jetzt nur für die Verwaltung. Ohne Anmeldung 403 — hinter einem ngrok-Link war das vorher ein Löschknopf für jeden, der die Adresse kennt |
+
+## Was geblieben ist, und warum
 
 ## Streichliste
 

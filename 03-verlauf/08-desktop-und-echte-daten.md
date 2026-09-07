@@ -257,6 +257,41 @@ Zum Label: Ganz ohne geht es nicht. Die Kacheln stehen unter der ODbL, und die
 verlangt eine Namensnennung. Es ist ein 10px-Vermerk unten rechts geworden —
 kleiner geht, aber weglassen wäre eine Lizenzverletzung.
 
+## Dev-Sachen raus
+
+Aus `App`, `Website-` und `Server`. Das `design`-Repo behält seinen Dev-Modus
+mit Beispielen — dort gehört er hin, das ist die Werkstatt.
+
+Die Streichliste steht in [[../04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]],
+mit dem, was bewusst geblieben ist.
+
+**Ein Fehler beim Aufräumen, festgehalten weil er lehrreich ist.** Der
+Zustandsschalter `useVariant(…)` steckte an 21 Stellen. Mein erster Versuch
+löste ihn mechanisch auf: öffnende Klammer suchen, passende schließende
+zählen, Inhalt einsetzen. Das ging schief, weil solche Aufrufe über mehrere
+Zeilen gehen und **vor der schließenden Klammer ein Komma steht**:
+
+```js
+const { data } = useVariant(
+  useQuery(…, { initial: [] }),
+)
+```
+
+Nach dem Auflösen blieb `const { data } = useQuery(…),` stehen — die nächste
+Zeile begann mit `const`, und der Bau brach ab. Nebenbei traf derselbe Lauf
+die Definition selbst und machte daraus `export function result {`.
+
+Zurückgesetzt, das Komma beim Auflösen mitgenommen, neu gemacht. Die Lehre ist
+nicht „keine mechanischen Umbauten", sondern: **danach bauen, bevor man
+weitermacht.** Der Bau hat es in drei Sekunden gefunden.
+
+**Der wichtigste Punkt war gar kein Dev-Ding, sondern ein Loch.**
+`POST /api/reset` löschte den ganzen Datenbestand ohne jeden Nachweis.
+Auf dem eigenen Rechner bequem. Hinter dem ngrok-Link, den wir in derselben
+Runde gebaut haben, ist es ein Löschknopf für jeden, der die Adresse kennt.
+Jetzt nur für die Verwaltung: ohne Anmeldung 403, als Nutzer 403, als
+Verwaltung 200.
+
 ## Verlauf dieser Runde
 
 *(wächst mit)*

@@ -1,5 +1,21 @@
 # Testkonten
 
+> **Neu in Runde 8, ausdrücklich so bestellt.** Der Verwaltungszugang `topic`
+> mit dem Passwort `admin` ist ein Platzhalter, kein Passwort. Er steht in
+> jeder Wortliste, die es gibt. **Bevor irgendetwas davon echte Nutzerdaten
+> sieht, muss dieser Zugang weg** — siehe [[../04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]].
+
+| Rolle | Anmeldung | Passwort | Landet auf |
+|---|---|---|---|
+| Verwaltung | `topic` | `admin` | `/admin` |
+| Gastro | `test@gastro.de` | `12345aA?` | `/gastro` |
+| Nutzer | `test@user.de` | `12345aA?` | `/feed` |
+
+Angemeldet wird mit Benutzernamen **oder** E-Mail — `findByLogin` nimmt beides.
+Der Gastro-Zugang hängt an einem eigenen Betrieb (`p3`, Dong Xuan Imbiss) und
+wird bei fremden Betrieben vom Server abgewiesen; geprüft.
+
+
 **Alle Konten sind erfunden.** Sie existieren nur im Browser des Prototyps.
 Niemals echte Zugangsdaten hier eintragen.
 

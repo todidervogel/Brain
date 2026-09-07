@@ -19,12 +19,12 @@ gibt.
 | Aufteilung in fünf Repos | **grün** | [[REPOS]] |
 | Webseite veröffentlicht | **grün** | <https://todidervogel.github.io/Website-/> |
 | APK-Bau | **grün seit Runde 7** | [[03-verlauf/07-ohne-rechner]] |
-| Design Handy | **gelb** — zwei Überläufe behoben, Durchgang läuft | Runde 8, Priorität 2 |
+| Design Handy | **grün** — Überläufe behoben, in vier Breiten geprüft | Runde 8, Priorität 2 |
 | Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8, Priorität 1 |
 | Echte Kartendaten | **gelb** — Import gebaut, Workflow muss laufen | Runde 8 |
 | Server von außen erreichbar | **grün** — Workflow steht, Secret fehlt noch | Runde 8, ngrok |
-| Präsentationswebseite | **rot** — gibt es nicht | Runde 8 |
-| Dev-Sachen draußen | **rot** | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
+| Präsentationswebseite | **grün** — Startseite ist jetzt eine | Runde 8 |
+| Dev-Sachen draußen | **grün** — bis auf `topic`/`admin` | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
 
 ## Woran ich gerade arbeite
 
