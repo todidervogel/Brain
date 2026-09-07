@@ -132,12 +132,45 @@ Neu gebaut: Ziel, Rolle (Gast/Nutzer/Gastro/Admin), Darstellung
 ## Was geprüft wurde
 
 - `vite build` läuft durch.
-- Alle 57 Routen automatisiert aufgerufen, in fünf Kombinationen
+- Alle 55 Routen automatisiert aufgerufen, in fünf Kombinationen
   (Website·Gast·hell, Website·Nutzer·dunkel, App·Nutzer·dunkel,
   App·Gastro·hell, Website·Admin·hell) — auf JS-Fehler, Konsolenfehler,
   fehlende Übersetzungen und sichtbare Platzhalter.
-- Gezielte Verhaltenstests für die neuen Abläufe.
-- Prüfskripte liegen unter `design/tools/pruefung/`.
+- 27 gezielte Verhaltenstests für die neuen Abläufe — alle grün.
+- Prüfskripte liegen unter `design/tools/pruefung/` (siehe README dort).
+
+## Was die Prüfung gefunden hat
+
+Sieben Dinge, die ohne die Tests nicht aufgefallen wären. Alle behoben.
+
+1. **Google Fonts blockierten den Seitenaufbau.** `index.html` lud Inter von
+   Googles Servern. Das ist gleich dreifach ungünstig: Es blockiert das erste
+   Bild, in der verpackten App ist die Datei offline gar nicht erreichbar, und
+   rechtlich ist die Einbindung ohne Einwilligung nach dem Urteil des
+   LG München I (20.01.2022, 3 O 17493/20) angreifbar — die IP-Adresse der
+   Besucherin wandert zu Google. Jetzt wird nichts mehr nachgeladen: Inter,
+   wenn es vorhanden ist, sonst die Systemschrift. Vor dem Start sollte Inter
+   selbst ausgeliefert werden.
+2. **Der Feed schob das Video weg, das man gerade ansah.** Ein Video wurde
+   beim Anzeigen als „gesehen" vermerkt; bei der nächsten Aktualisierung —
+   etwa nach einem Klick auf „Gefällt mir" — rutschte es damit ans Ende der
+   Liste und ein anderes erschien. Jetzt wird erst beim Weiterblättern
+   vermerkt.
+3. **Die Erfolgsmeldung nach dem Hochladen war nie zu sehen.** Der Entwurf
+   wurde sofort nach dem Absenden geleert, woraufhin der Schrittwächter auf
+   Schritt 1 zurücksprang. Der Entwurf wird jetzt erst beim Verlassen geleert.
+4. **Der Gericht-Dialog ließ sich nicht speichern.** Er übernahm seine
+   Startwerte, während die Speisekarte noch lud — die Kategorie blieb leer und
+   die Pflichtprüfung schlug zu. Die Dialoge werden jetzt erst beim Öffnen
+   eingehängt.
+5. **Die schwebenden Kartenknöpfe waren auf dem Handy nicht zu treffen.** Sie
+   lagen unter dem Ergebnisblatt und der unteren Leiste. Ausgerechnet der
+   Schalter für die reine Kartenansicht.
+6. **Fehlender Text.** Auf der Gastro-Seite stand „öffnet hours.today 11:30".
+   Deshalb gibt es jetzt eine Prüfung, die alle `t()`-Aufrufe gegen `de.json`
+   hält — ohne Browser, in einer Sekunde.
+7. **Die Trefferliste stand zweimal im Dokument.** Auf dem Handy wurde die
+   Seitenspalte zwar ausgeblendet, aber trotzdem erzeugt.
 
 ## Was offen blieb
 

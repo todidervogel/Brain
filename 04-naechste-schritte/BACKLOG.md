@@ -33,6 +33,7 @@ dafür gebaut: Sie wird ersetzt, die Screens bleiben.
 | E-Mail und SMS | Resend/Postmark, ein SMS-Anbieter |
 | Bilder | Supabase Storage oder Cloudflare Images |
 | Fehlerüberwachung | Sentry Free-Tier |
+| Schrift Inter | Selbst ausliefern (woff2 im Projekt, `@font-face`). Nicht von Google laden — Datenschutz und Ladezeit, siehe Kommentar in `index.html` |
 
 ## Schritt 5 — Vor dem Start
 

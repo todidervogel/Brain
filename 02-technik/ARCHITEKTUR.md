@@ -116,3 +116,16 @@ Gastro-Seite, in der Suche und auf der Karte. Ohne Nachrechnen von Hand.
 - **Keine Verschlüsselung.** Passwörter stehen im Klartext im Browser. Das
   ist für einen Prototyp in Ordnung und für alles andere nicht — deshalb
   gehören hier ausschließlich erfundene Konten hinein.
+
+## Geprüft wird mit drei Skripten
+
+Unter `design/tools/pruefung/`:
+
+| Skript | Was es prüft | Dauer |
+|---|---|---|
+| `i18n-check.mjs` | jeden `t('…')`-Aufruf gegen `de.json` | Sekunden, kein Browser |
+| `routen-sweep.mjs` | alle 55 Routen in fünf Rollen auf Fehler und Platzhalter | wenige Minuten |
+| `verhalten.mjs` | 27 Abläufe: Anmeldung, Rollen, Upload, Speisekarte, Admin | wenige Minuten |
+
+Die Ladezustände sind nur zu sehen, wenn die Fassade auch wartet — für den
+Verhaltenslauf lohnt `npm run build:test` (setzt `VITE_LATENCY=400`).
