@@ -12,7 +12,9 @@ auch, damit niemand eine halbe Stunde in einer Sackgasse verbringt.
 | Webseite als Adresse aufrufen | **ja** | GitHub Pages, unten |
 | Design-Galerie ansehen | fast | ein Klick fehlt noch, siehe unten |
 | Code ändern | ja | im Browser über github.com bearbeiten, Push löst den Bau aus |
-| Server dauerhaft betreiben | nein | dafür braucht es einen Rechner oder einen Hoster |
+| Server starten | **ja, seit Runde 8** | Actions → „Server über ngrok", unten |
+| Echte Betriebe holen | **ja, seit Runde 8** | Actions → „Testdaten holen", unten |
+| Server *dauerhaft* betreiben | nein | ein Workflow endet nach spätestens 5,5 Stunden |
 | APK **auf** dem Handy bauen | praktisch nein | Gradle + Android-SDK in Termux, siehe unten |
 
 ## APK bauen — nur mit dem Browser
@@ -64,6 +66,47 @@ läuft durch, das Veröffentlichen wird abgewiesen.
 Zu beheben mit einem Klick: **Settings → General → Default branch → `main`**.
 Dasselbe gilt im Repository `Brain`, dort steht noch
 `claude/app-website-mvp-3w6arm`. Danach den Ablauf einmal von Hand starten.
+
+## Den Server starten — ohne Rechner
+
+Seit Runde 8 gibt es dafür einen Ablauf. **Einmalig einrichten:**
+
+1. Im Repository `Server`: **Settings → Secrets and variables → Actions →
+   New repository secret**
+   Name `NGROK_AUTHTOKEN`, Wert: der Token aus dem ngrok-Dashboard.
+2. Optional, wenn eine feste Adresse vorhanden ist: unter **Variables** eine
+   Variable `NGROK_DOMAIN` anlegen, Wert ohne `https://`.
+
+**Danach jedes Mal:** Actions → **Server über ngrok** → Run workflow. Nach
+etwa einer Minute steht die Adresse in der Zusammenfassung des Laufs,
+zusammen mit den Zugängen.
+
+Was man dabei wissen muss:
+
+- Der Lauf endet nach `minuten` (höchstens 330). Danach ist die Adresse tot.
+- **Alles, was in der Zwischenzeit angelegt wurde, ist dann weg.** Der
+  Datenbestand lebt in einer Datei auf dem Runner.
+- Ohne feste Adresse gibt es bei jedem Start eine neue — dann muss die APK neu
+  gebaut oder die Pages-Seite neu veröffentlicht werden.
+
+Ein Workflow ist kein Hoster. Für den Dauerbetrieb braucht es eine echte
+Maschine; das steht in den offenen Punkten.
+
+## Echte Betriebe holen
+
+Actions → **Testdaten holen** → Run workflow. Der Ablauf fragt OpenStreetMap
+nach allen Restaurants, Cafés, Bars, Imbissen und Bäckereien in
+
+- **Alcossebre**, 25 km
+- **77836 Rheinmünster**, 30 km
+- **77704 Oberkirch**, 30 km
+
+übersetzt sie ins Datenmodell und checkt sie als `src/data/orte.json` ein.
+Beim nächsten Start des Servers sind sie da.
+
+Warum nicht Google Maps: Deren Daten dürfen laut Nutzungsbedingungen nicht
+übernommen werden, und ohne Bezahlkonto kommt man ohnehin nicht heran.
+OpenStreetMap hat für diese Gegenden dieselben Betriebe.
 
 ## Die Falle: https-Seite und http-Server
 
