@@ -390,6 +390,50 @@ und Node schickt von sich aus keine.
 fertig, wenn er dessen schlechte Tage übersteht. „Läuft einmal durch" ist kein
 Zustand, sondern ein Zufall.
 
+### Der Import, Lauf für Lauf
+
+Sieben Anläufe, bis 360 echte Betriebe drin waren. Jeder scheiterte an etwas
+anderem, und **alle fünf Fehler waren meine.**
+
+| # | Was passierte | Ursache |
+|---|---|---|
+| 1 | `406 Not Acceptable` | Syntaxfehler in der Abfrage: `out center tags` statt `out tags center`. Ein Statuscode, der nach Kopfzeilen aussieht |
+| 2 | Daten geholt, geprüft — **und weggeworfen** | `git diff --quiet` sieht eine Datei nicht, die es vorher nicht gab. „Nichts Neues", in null Sekunden |
+| 3 | 25 Minuten im selben Schritt | Nodes `fetch` hat kein Zeitlimit. Ein stummer Spiegel hielt alles an, und meine gerade eingebauten Wiederholungen kamen nie zum Zug |
+| 4 | 360 Betriebe, davon **55 doppelt** | Die Umkreise von Rheinmünster und Oberkirch überlappen sich. Baden-Baden liegt in beiden |
+| 5 | Oberkirch: **null** Betriebe in 5 km | Meine Dublettensperre beanspruchte jede Nummer schon beim Einlesen — auch die, die eine Gegend gar nicht behielt. Rheinmünster liest 30 km weit und hat die Nachbargegend leergeräumt |
+| 6 | Bau der Website bricht ab | `seed.js` las die Daten mit `node:fs`. Dieselbe Fachlogik läuft im Browser, und dort gibt es kein Dateisystem |
+
+**Der lehrreichste ist Nummer 4** — nicht wegen des Fehlers, sondern wegen der
+Prüfung. Ich hatte eine: „Kürzel sind eindeutig". Sie war grün, während 55
+Betriebe doppelt in der Liste standen. Der Import hängte dem zweiten Eintrag
+einfach einen Ortsnamen an, und damit war die Prüfung zufrieden.
+
+> Eine Prüfung, die ein Problem umbenennt statt es zu melden, ist schlimmer
+> als keine. Sie kostet nicht nur nichts — sie kauft falsche Sicherheit.
+
+Jetzt prüft `orte-pruefen.mjs` die OSM-Nummer. Die lässt sich nicht umbenennen.
+
+**Nummer 6 war ein Bruch der Regel, auf der die ganze Aufteilung steht:** Die
+Fachlogik darf nicht wissen, wo sie läuft. Ich habe sie mit einem `node:fs` in
+zwei Zeilen aufgehoben und es erst beim Bauen gemerkt. Die Daten liegen jetzt
+als Modul, nicht als Datei — Node und Vite importieren beide gleich.
+
+### Was jetzt drin ist
+
+| Gegend | Umkreis | Betriebe | im 5-km-Umkreis |
+|---|---|---|---|
+| Alcossebre | 25 km | 120 | 73 |
+| Rheinmünster | 30 km | 120 | 34 |
+| Oberkirch | 30 km | 120 | 69 |
+
+324 mit Adresse, 200 mit Telefon, 164 mit Webseite, 130 mit Öffnungszeiten.
+238 Restaurants, 36 Bäckereien, 32 Bars, 26 Cafés, 18 Imbisse.
+
+Die zehn erfundenen Berliner bleiben daneben stehen — sie sind die Einzigen
+mit Videos, Bewertungen und Speisekarten und zeigen, wie die Anwendung mit
+Inhalt aussieht.
+
 ## Was diese Runde gekostet hat, und was sie wert war
 
 Drei Sachen sind aufgefallen, die **kein Test gefunden hätte** und die man nur
