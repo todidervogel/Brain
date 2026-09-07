@@ -28,6 +28,19 @@ Bewusst so — es fehlt der Server, nicht die Idee.
 - **Passwörter im Klartext** im Browser. Für einen Prototyp mit erfundenen
   Konten in Ordnung, für alles andere nicht.
 
+## Aus Runde 8
+
+- **Leerzustände wissen nicht, warum sie leer sind.** Bei fehlender Verbindung
+  erklärt das Störungsband es oben auf der Seite, aber darunter steht weiter
+  „noch keine Videos hochgeladen". Sauber wäre, wenn jeder Leerzustand den
+  Grund kennt.
+- **Kartenkacheln kommen direkt von OpenStreetMap.** Für einen Prototyp in
+  Ordnung, für einen Start nicht: Deren Nutzungsbedingungen erlauben keine
+  Massenabrufe. Vor der Veröffentlichung braucht es einen eigenen
+  Kachelserver oder einen bezahlten Anbieter.
+- **Der Admin-Zugang `topic` / `admin` ist ein Platzhalter.** Vorläufig so
+  bestellt. Bevor irgendetwas echte Nutzerdaten sieht, muss er weg.
+
 ## Einstellungen, die nur von Hand gehen
 
 - **Standardzweig auf `main`** in `design` und `Brain` (Settings → General →

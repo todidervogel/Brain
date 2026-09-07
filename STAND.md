@@ -21,8 +21,8 @@ gibt.
 | APK-Bau | **grün seit Runde 7** | [[03-verlauf/07-ohne-rechner]] |
 | Design Handy | **gelb** — zwei Überläufe behoben, Durchgang läuft | Runde 8, Priorität 2 |
 | Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8, Priorität 1 |
-| Echte Kartendaten | **rot** — zehn erfundene Betriebe | Runde 8 |
-| Server von außen erreichbar | **rot** | Runde 8, ngrok |
+| Echte Kartendaten | **gelb** — Import gebaut, Workflow muss laufen | Runde 8 |
+| Server von außen erreichbar | **grün** — Workflow steht, Secret fehlt noch | Runde 8, ngrok |
 | Präsentationswebseite | **rot** — gibt es nicht | Runde 8 |
 | Dev-Sachen draußen | **rot** | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
 

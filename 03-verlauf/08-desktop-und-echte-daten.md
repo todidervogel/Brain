@@ -201,6 +201,62 @@ Bildschirmkante. Technisch war nichts kaputt — die Zeile scrollt. Nur sah man
 das nicht. Jetzt blendet eine weiche Maske die Kante aus; ein halb sichtbares
 Wort heißt „hier geht es weiter“ statt „hier ist etwas kaputt“.
 
+## Serverausfall: eine Falschaussage, keine Störungsmeldung
+
+Im Auftrag stand nur ein Halbsatz — *„wenn der Server nicht verfügbar ist,
+dann gibt es in der App Fehler"*. Beim Nachstellen war es schlimmer als
+erwartet. Auf der Startseite stand dann:
+
+> In deinem Umkreis wurden noch keine Videos hochgeladen.
+
+Das ist keine Störungsmeldung. Das ist eine **Aussage über den Inhalt**,
+während in Wahrheit gar keine Verbindung zustande kam. Wer das liest, sucht
+den Fehler bei sich oder hält die App für leer.
+
+Der Grund: Ein gescheiterter Aufruf und ein leeres Ergebnis sahen in der
+Oberfläche gleich aus. `request()` unterscheidet jetzt drei Fälle — kommt gar
+nicht an (Server aus, WLAN weg, Tunnel abgelaufen), antwortet mit 5xx, oder
+antwortet mit einem fachlichen Nein. Die ersten beiden melden die Verbindung
+als weg; ein Aufruf, der durchkommt, meldet sie zurück und lässt alle
+Abfragen neu laufen.
+
+Darüber sitzt ein Band mit Erklärung und einem Knopf. `tools/verbindung.mjs`
+prüft die ganze Schleife: Server da, Server weg, Wiederholen ohne Server,
+Wiederholen mit Server. 5 von 5.
+
+**Offen geblieben:** Die einzelnen Leerzustände sagen weiterhin ihren Satz
+über den Inhalt. Das Band darüber erklärt es zwar, aber sauber wäre, wenn
+jeder Leerzustand wüsste, warum er leer ist. Steht in den offenen Punkten.
+
+## Karte: echte Kacheln, und eine alte Verzerrung
+
+Eingebaut ohne Kartenbibliothek. MapLibre oder Leaflet bringen 40 bis 250 KB
+mit und wollen ihre eigene Zustandsverwaltung; gebraucht wird hier ein Raster
+aus Bildern an der richtigen Stelle. Das sind dreißig Zeilen Rechnung in
+`Website-/src/lib/map.js`.
+
+Dabei kam ein Fehler heraus, der vorher niemandem auffallen konnte:
+
+> Die alte Markerrechnung nahm für die **Höhe denselben Maßstab wie für die
+> Breite**. Das stimmt nur bei einem quadratischen Kasten. Auf der breiten
+> Karte am Rechner war alles senkrecht auseinandergezogen.
+
+Solange nichts darunter lag, sah man es nicht — es gab keine Bezugslinie.
+Sobald echte Kacheln daruntergelegt werden, wandert das Restaurant zwei
+Straßen neben sein Haus. Jetzt rechnen Kacheln und Marker beide in
+Web-Mercator, aus derselben Funktion.
+
+**Kacheln kann ich von hier nicht sehen:** Der Netzzugang dieser Umgebung
+lässt `tile.openstreetmap.org` nicht durch, genau wie Overpass. Deshalb prüft
+`tools/karte-pruefen.mjs` die Rechnung mit Zahlen statt mit Augen: Mittelpunkt
+in der Mitte, ein Kilometer nach Osten so lang wie ein Kilometer nach Norden,
+Norden oben, keine Lücke am Rand, gültige Zoomstufen von 0,5 bis 2000 km.
+17 von 17.
+
+Zum Label: Ganz ohne geht es nicht. Die Kacheln stehen unter der ODbL, und die
+verlangt eine Namensnennung. Es ist ein 10px-Vermerk unten rechts geworden —
+kleiner geht, aber weglassen wäre eine Lizenzverletzung.
+
 ## Verlauf dieser Runde
 
 *(wächst mit)*
