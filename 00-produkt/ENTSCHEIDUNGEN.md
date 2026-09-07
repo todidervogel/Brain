@@ -98,3 +98,49 @@ Ladezustände zu sehen — und die sollen im Entwurf stimmen.
 Es ist kein Produktbestandteil, aber es macht die Abnahme möglich: Ziel,
 Rolle, Darstellung, leere und ladende Zustände, Banner, Daten zurücksetzen.
 Fällt in **Schritt 2** weg, siehe `04-naechste-schritte/`.
+
+## E13 · Vier Repositories statt einem (Runde 6)
+
+Ausdrücklicher Wunsch. `design` (Bausteine), `Server` (Fachlogik),
+`Website-` (Screens), `App` (Android-Hülle), `Brain` (dieses Wissen).
+
+**Verworfen:** ein Monorepo mit Arbeitsbereichen, wie das Konzept
+(Abschnitt 4) es eigentlich vorsieht. Es wäre technisch die einfachere
+Lösung — die Aufteilung war aber gewünscht.
+
+**Preis:** `Website-/src/design` und `Website-/src/domain` sind eingecheckte
+Kopien. Dafür genügt `npm install && npm run dev`; dagegen laufen sie
+auseinander, wenn niemand `npm run sync` ausführt.
+
+## E14 · Fachlogik zieht auf den Server (Runde 6)
+
+Die Fachlogik ist synchron, kennt weder Browser noch Netz und arbeitet auf
+einem eingehängten Store. Der Server hängt eine Datei ein, die Website den
+Browserspeicher. Dieselben Funktionen, zwei Wirte.
+
+Folge: Die Website läuft weiterhin ohne Server und verhält sich dabei genauso.
+
+## E15 · Rechte stehen in einer Aufrufliste (Runde 6)
+
+`domain/calls.js` sagt zu jedem Aufruf, wer ihn machen darf. Beide Wirte
+benutzen dieselbe Datei. Was dort nicht steht, ist nicht möglich.
+
+**Verworfen:** frei zugängliche Endpunkte mit Prüfung im Frontend. Das Konzept
+(Abschnitt 7) verlangt ausdrücklich Regeln, die nicht am Frontend hängen.
+
+## E16 · Öffnungszeiten ohne Sprache (Runde 6)
+
+Die Fachlogik liefert `{ open, until, nextDay, nextAt }`, den Satz baut die
+Oberfläche. Vorher stand `t('hours.openUntil')` mitten in der Logik — auf
+einem Server hat das nichts zu suchen.
+
+## E17 · Kein Zurücksetzen des Passworts ohne Nachweis (Runde 6)
+
+Ohne E-Mail-Versand gibt es keinen sauberen Weg. Die Seite sagt das offen,
+statt einen vorzutäuschen. Ändern lässt sich das Passwort im angemeldeten
+Zustand.
+
+## E18 · Alles auf `main`, Backups als Branch (Runde 6)
+
+Ausdrücklicher Wunsch. Der Stand vor der Aufteilung liegt in jedem Repository
+als `backup/monolith-2026-09-07`.

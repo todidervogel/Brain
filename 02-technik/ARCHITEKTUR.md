@@ -1,54 +1,60 @@
 # Architektur der Logikschicht
 
-Stand: 07.09.2026 · Repository `design`, Branch `claude/app-website-mvp-3w6arm`
+Stand: 07.09.2026 · Repositories `Server` und `Website-`, Branch `main`
+
+> **Seit Runde 6 ist der Code aufgeteilt.** Wie die vier Repositories
+> zusammenhängen, steht in [`AUFTEILUNG.md`](AUFTEILUNG.md). Diese Seite
+> beschreibt die Logikschicht selbst — sie liegt jetzt im Repo `Server` und
+> wird von der Website als Kopie eingespielt.
 
 Bis Runde 4 war der Prototyp rein statisch: alle Screens vorhanden, aber
 nichts davon tat etwas. Seit Runde 5 hat er eine vollständige Logik — mit
 einer Datenhaltung, echter Anmeldung, Formularprüfung und Ladezuständen.
 
-## Der Grundgedanke: eine Fassade, ein Austauschpunkt
+## Der Grundgedanke: eine Fachlogik, zwei Wirte
 
-Das Konzept (Abschnitt 4) verlangt ausdrücklich, dass externe Dienste hinter
-einer eigenen Schicht liegen, damit ein Wechsel — hier auf Supabase — nicht
-den ganzen Code anfasst. Genau so ist es gebaut:
+Das Konzept (Abschnitt 4) verlangt, dass externe Dienste hinter einer eigenen
+Schicht liegen, damit ein Wechsel — hier auf Supabase — nicht den ganzen Code
+anfasst. Der Schnitt liegt inzwischen noch tiefer:
 
 ```
-  Screens (src/routes/…)
+  Screens (Website-/src/routes/…)
         │  kennen nur useQuery(() => api.…)
         ▼
-  src/lib/store/api.js         ← die Fassade. HIER wird später Supabase eingesetzt.
+  Website-/src/lib/store/api.js      ← wählt den Weg
         │
-        ▼
-  src/lib/store/db.js          ← Datenhaltung: ein Baum im localStorage
+        ├── ohne VITE_API ──► domain/calls.js ──► localStorage
         │
-        ▼
-  src/data/seed.js             ← Ausgangsbestand (erfundene Inhalte)
+        └── mit  VITE_API ──► HTTP ──► Server ──► domain/calls.js ──► data/db.json
 ```
 
-Kein einziger Screen greift direkt auf `db.js` oder `seed.js` zu.
-Beim Umzug auf einen echten Server wird `api.js` ersetzt — die Screens
-merken davon nichts, weil sie schon heute mit Versprechen (`Promise`)
-arbeiten und Lade- und Fehlerzustände kennen.
+`domain/` ist beide Male dieselbe Fachlogik — synchron, ohne Browser, ohne
+Netz, auf einem eingehängten Store. Kein Screen greift direkt darauf zu.
+
+Beim Umzug auf Supabase wird die Datenhaltung unter `domain/` ersetzt und die
+Rechte aus `domain/calls.js` werden zu RLS-Policies. Die Screens merken davon
+nichts, weil sie schon heute mit Versprechen arbeiten und Lade- und
+Fehlerzustände kennen.
 
 ## Die Dateien im Einzelnen
 
 | Datei | Aufgabe |
 |---|---|
-| `src/data/seed.js` | Ausgangsdaten: 10 Betriebe, Speisekarten, Videos, Bewertungen, Nutzer, Meldungen, Einladungen. Struktur folgt dem Datenmodell aus Konzept Abschnitt 6. |
-| `src/lib/store/db.js` | Ein Zustandsbaum, gespeichert im `localStorage` unter `app-db` (versioniert). `insert`, `patch`, `remove`, `update`, `subscribe`, `resetDb`. |
-| `src/lib/store/api.js` | Die Fassade. Bereiche: `places`, `menu`, `videos`, `reviews`, `social`, `users`, `notifications`, `reports`, `admin`, `search`, `gastro`. Alle Funktionen geben ein Versprechen zurück, mit kleiner künstlicher Verzögerung. |
-| `src/lib/store/geo.js` | Luftlinie (Haversine), deutsche Entfernungsschreibweise, Umrechnung auf die Kartenfläche. |
-| `src/lib/store/hours.js` | Öffnungszeiten in Minuten seit Mitternacht; rechnet „jetzt geöffnet" wirklich aus, auch über Mitternacht hinaus. |
-| `src/lib/store/index.jsx` | React-Anbindung: `useQuery`, `useMutation`, `useDbValue`, `useDbVersion`. |
-| `src/lib/session.jsx` | Anmeldung, Abmeldung, Registrierung mit Bestätigungscode, Passwortwechsel, Rollen. |
-| `src/lib/form.js` | `useForm` mit Regelwerk (`rules.required`, `.email`, `.password`, `.matches`, …) und deutschen Fehlermeldungen. |
-| `src/lib/upload.jsx` | Der Entwurf des Upload-Assistenten über fünf Schritte hinweg, mit Schrittwächter. |
-| `src/lib/auth.jsx` | Routenwächter und die Schranke „dafür brauchst du ein Konto". |
-| `src/lib/design-state.jsx` | Oberflächenzustand: Ziel (Website/App), Gerät, Darstellung, Umkreis, Position, reine Kartenansicht. |
+| `Server/src/data/seed.js` | Ausgangsdaten: 10 Betriebe, Speisekarten, Videos, Bewertungen, Nutzer, Meldungen, Einladungen. Struktur folgt dem Datenmodell aus Konzept Abschnitt 6. |
+| `Server/src/domain/store.js` | Der eingehängte Datenzugriff: `get`, `update`, `insert`, `patch`, `remove`, `nextId`. Der Server hängt eine Datei ein, die Website den Browserspeicher. |
+| `Server/src/domain/calls.js` | **Die Aufrufliste.** Was es gibt und wer es darf. Beide Wirte benutzen sie. |
+| `Server/src/domain/geo.js` | Luftlinie (Haversine), deutsche Entfernungsschreibweise, Umrechnung auf die Kartenfläche. |
+| `Server/src/domain/hours.js` | Öffnungszeiten in Minuten seit Mitternacht; rechnet „jetzt geöffnet" wirklich aus, auch über Mitternacht hinaus. |
+| `Website-/src/lib/store/index.jsx` | React-Anbindung: `useQuery`, `useMutation`. |
+| `Website-/src/lib/session.jsx` | Anmeldung, Abmeldung, Registrierung mit Bestätigungscode, Passwortwechsel, Rollen. |
+| `Website-/src/lib/form.js` | `useForm` mit Regelwerk (`rules.required`, `.email`, `.password`, `.matches`, …) und deutschen Fehlermeldungen. |
+| `Website-/src/lib/upload.jsx` | Der Entwurf des Upload-Assistenten über fünf Schritte hinweg, mit Schrittwächter. |
+| `Website-/src/lib/auth.jsx` | Routenwächter und die Schranke „dafür brauchst du ein Konto". |
+| `Website-/src/lib/design-state.jsx` | Oberflächenzustand: Ziel (Website/App), Gerät, Darstellung, Umkreis, Position, reine Kartenansicht. |
 
 ## Warum die künstliche Verzögerung?
 
-`api.js` wartet zwischen 130 und 400 ms, bevor es antwortet
+Im Alleinbetrieb wartet `api.js` zwischen 130 und 400 ms, bevor es antwortet
 (`VITE_LATENCY`, in Tests auf `0`). Ohne diese Wartezeit gäbe es keine
 Ladezustände zu sehen — und genau die sollen im Entwurf stimmen. Ein
 Skelett, das nie erscheint, ist kein Entwurf, sondern eine Behauptung.
@@ -119,7 +125,7 @@ Gastro-Seite, in der Suche und auf der Karte. Ohne Nachrechnen von Hand.
 
 ## Geprüft wird mit drei Skripten
 
-Unter `design/tools/pruefung/`:
+Unter `Website-/tools/`:
 
 | Skript | Was es prüft | Dauer |
 |---|---|---|

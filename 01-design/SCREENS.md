@@ -1,6 +1,6 @@
 # Alle Screens
 
-55 Routen. Die Tabelle in `design/src/routes/index.js` ist die einzige Quelle
+55 Routen. Die Tabelle in `Website-/src/routes/index.js` ist die einzige Quelle
 — sowohl für den Router als auch für die Übersichtsseite unter `/uebersicht`.
 
 ## Öffentlich (TEIL C)

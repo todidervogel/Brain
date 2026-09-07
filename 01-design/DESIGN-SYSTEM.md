@@ -1,6 +1,6 @@
 # Design-System
 
-Quelle: `design/src/styles/tokens.css` — dort und nur dort stehen Farbwerte.
+Quelle: `Website-/src/styles/tokens.css` — dort und nur dort stehen Farbwerte.
 In Komponenten wird ausschließlich über Variablen zugegriffen.
 
 ## Haltung

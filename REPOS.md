@@ -1,24 +1,74 @@
 # Die fünf Repositories
 
-| Repository | Wofür | Stand (07.09.2026) |
+Alles liegt auf **`main`**. Backups älterer Stände stehen als eigene Branches
+daneben (siehe unten).
+
+| Repository | Was drin ist | Selbst starten |
 |---|---|---|
-| `todidervogel/design` | **Der Prototyp.** Website und App in einer Codebasis (Vite + React, Capacitor für Android). Enthält inzwischen nicht nur den Entwurf, sondern die vollständige MVP-Logik. | Aktiv, alle Arbeit passiert hier |
-| `todidervogel/Brain` | **Dieses Repository.** Wissen, Kontext, Entscheidungen, Verlauf. | Aktiv |
-| `todidervogel/App` | Für die spätere native App (React Native + Expo, ab MVP 1 laut Konzept). | Leer, nur README |
-| `todidervogel/Server` | Für das Backend (Supabase-Migrationen, Edge Functions, OSM-Import). | Leer, nur README |
-| `todidervogel/Website-` | Für die spätere Next.js-Website mit serverseitigem Rendern (SEO der Gastro-Seiten). | Leer, nur README |
+| **`Server`** | Fachlogik, Datenhaltung, HTTP-API mit Rechteprüfung | `npm start` → :4000 |
+| **`Website-`** | Alle Screens, Routen, Formulare, Sitzung | `npm run dev` → :5173 |
+| **`App`** | Android-Hülle (Capacitor), Bauweg für die APK | `npm run build:apk` |
+| **`design`** | Design-System und eine Galerie zum Ansehen | `npm run dev` → :5173 |
+| **`Brain`** | Dieses Wissen: Konzept, Entscheidungen, Verlauf | zum Lesen |
 
-## Warum liegt alles in `design`?
+## Wie sie zusammenhängen
 
-Weil es für den Test das Richtige ist: eine Codebasis, ein Build, ein APK,
-eine Website. Die Trennung in `App` / `Server` / `Website-` folgt dem
-Zielbild aus dem Konzept (Abschnitt 4) und wird erst gebraucht, wenn
+```
+   design ──────┐                Server ──────┐
+   (Bausteine)  │                (Fachlogik)  │
+                ▼                             ▼
+            Website-  ◄── holt beides als Kopie (npm run sync)
+                │
+                ▼
+               App  ◄── packt die gebaute Website in ein Android-Projekt
+                │
+                ▼
+        Website- ──HTTP──► Server        (wenn VITE_API gesetzt ist)
+```
 
-- die Daten wirklich auf einem Server liegen (dann: `Server`),
-- die Gastro-Seiten von Google gefunden werden müssen (dann: `Website-`,
-  Next.js mit serverseitigem Rendern),
-- die App echte Kamera, GPS und Push braucht (dann: `App`, React Native).
+**Zwei Quellen, eine Anwendung.** Das Design-System und die Fachlogik haben je
+ein eigenes Repository; die Website spielt sich beide als Kopie ein und checkt
+sie mit ein. Grund: `npm install && npm run dev` soll genügen — ohne zweites
+Repository, ohne Netz, ohne Paketregister.
 
-Bis dahin wäre eine Aufteilung dreifache Arbeit am selben Entwurf.
+Geändert wird trotzdem nur im Original:
 
-**Arbeitsbranch in allen Repositories:** `claude/app-website-mvp-3w6arm`
+```bash
+# im Repo Website-
+npm run sync:design    # holt src/design aus dem Repo design
+npm run sync:domain    # holt src/domain aus dem Repo Server
+npm run sync           # beides
+
+npm run sync:design -- --from ../design    # aus einem lokalen Ordner
+```
+
+Wer in `Website-/src/design` oder `Website-/src/domain` hineinschreibt,
+verliert es beim nächsten Abgleich. Beide Ordner tragen deshalb einen Hinweis
+in der README.
+
+## Den ganzen MVP starten
+
+```bash
+# Fenster 1
+cd Server && npm start
+
+# Fenster 2
+cd Website- && VITE_API=http://localhost:4000 npm run dev
+```
+
+Dann zwei Browserfenster öffnen: In einem als Gastro
+(`chef@trattoria-bella.de` / `Gastro123`) ein Gericht anlegen, im anderen die
+Speisekarte neu laden. Es ist da. Ohne Server geht das nicht — dort trägt
+jeder Browser seine eigenen Daten.
+
+## Branches
+
+| Branch | Wo | Was |
+|---|---|---|
+| `main` | überall | der aktuelle Stand |
+| `backup/monolith-2026-09-07` | überall | der Stand vor der Aufteilung |
+| `claude/app-website-mvp-3w6arm` | überall | der Arbeitszweig davor, unverändert |
+
+Im Repo `design` steht auf `backup/monolith-2026-09-07` noch der vollständige
+gemeinsame Prototyp mit allen Screens, der Fachlogik und dem Android-Projekt.
+Falls nach der Aufteilung etwas fehlt, liegt es dort.
