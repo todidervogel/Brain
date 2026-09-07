@@ -116,6 +116,39 @@ zweiter Durchgang durch dieselben Dateien Verschwendung wäre. Die Dev-Sachen
 danach, weil sie beim Prüfen noch nützlich sind — sobald sie weg sind, komme
 ich nicht mehr in zwei Klicks in eine Gastro-Rolle.
 
+## Befund: Es wurde nichts gelöscht — es war nie da
+
+Im Auftrag steht, das gute Desktop-Design sei irgendwann gelöscht worden. Ich
+habe im Backup-Branch nachgezählt: **19 Desktop-Regeln damals, 19 heute.**
+Verloren gegangen ist nichts.
+
+Der wahre Befund ist unangenehmer. Es gibt zwei Sorten von Screens:
+
+| Screen | Am Desktop | Urteil |
+|---|---|---|
+| Verwaltung (`/admin`) | Seitenleiste links, Kacheln, Tabelle | **funktioniert** |
+| Gastro-Konsole | dasselbe Muster | **funktioniert** |
+| Karte | Liste links, Karte rechts | brauchbar, Zeilen zu eng |
+| Speisekarte | schmale Spalte, mittig | **richtig so** — eine Karte liest man schmal |
+| Startseite | Handy-Layout, auf 1440 px gezogen | **kaputt** |
+| Feed | dito | **kaputt** |
+| Profil | Bild mittig, Name mittig, Zahlen mittig | **kaputt** — das ist die Handy-Ansicht |
+| Betriebsseite | eine Spalte über die volle Breite, halbe Seite leer | **kaputt** |
+
+Das Muster: Wo eine **Konsole** gebaut wurde, gibt es ein Desktop-Layout. Wo
+ein **öffentlicher Screen** gebaut wurde, wurde vom Handy aus gedacht und für
+breit nur die Schriftgröße stehen gelassen.
+
+Wahrscheinlich ist genau das gemeint mit „du hattest schon ein gutes
+Desktop-Design": die Verwaltungsansicht. Die ist nie verschwunden — sie war nur
+nie auf den öffentlichen Teil übertragen worden.
+
+### Was am Profil außerdem auffiel
+
+Unter dem Namen stehen „Videos · Follower · Folgt" — **ohne Zahlen**. Das ist
+kein Layout-Fehler, das ist ein fehlender Wert. Beim Hinsehen gefunden, nicht
+beim Lesen des Codes. Genau dafür sind die Bilder da.
+
 ## Verlauf dieser Runde
 
 *(wächst mit)*
@@ -123,3 +156,6 @@ ich nicht mehr in zwei Klicks in eine Gastro-Rolle.
 - **Aufgenommen.** Auftrag sortiert, zwei Widersprüche geklärt (APK läuft
   wieder; Google Maps → OpenStreetMap), Overpass-Sperre umgangen über einen
   Workflow. Token-Warnung ausgesprochen.
+- **Hingesehen statt geraten.** `tools/bilder.mjs` gebaut: fotografiert alle
+  Screens in vier Breiten und meldet nebenbei jeden waagerechten Überlauf.
+  Befund unten.
