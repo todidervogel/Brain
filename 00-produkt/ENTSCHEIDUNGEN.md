@@ -144,3 +144,25 @@ Zustand.
 
 Ausdrücklicher Wunsch. Der Stand vor der Aufteilung liegt in jedem Repository
 als `backup/monolith-2026-09-07`.
+
+## E19 · Die Webseite wird über GitHub Pages veröffentlicht (Runde 7)
+
+Damit sie am Handy einfach als Adresse aufrufbar ist, ohne irgendetwas zu
+installieren. Bewusst in Kauf genommen: So veröffentlicht läuft sie im
+Alleinbetrieb, mit den Beispieldaten im Browser des Besuchers.
+
+Verworfen: die Seite gleich gegen einen öffentlichen Server zu stellen. Dafür
+gibt es noch keinen Hoster, und ohne https wäre es ohnehin nicht möglich
+(siehe E20).
+
+## E20 · Eine https-Seite erreicht keinen http-Server (Runde 7)
+
+Keine Entscheidung, sondern eine Grenze, die man kennen muss: Browser
+blockieren gemischte Inhalte. Eine über Pages ausgelieferte Seite kann den
+Testserver im WLAN deshalb nicht ansprechen — die App dagegen schon, weil der
+Debug-Bau unverschlüsselte Verbindungen ausdrücklich erlaubt
+(`android/app/src/debug/AndroidManifest.xml`).
+
+Folge für Schritt 3: Sobald der Server öffentlich unter https steht, fällt die
+Einschränkung weg. Bis dahin sind die drei brauchbaren Aufbauten in
+`OHNE-RECHNER.md` beschrieben.

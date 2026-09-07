@@ -81,6 +81,11 @@ anonymisiert stehen — genau wie es die Datenschutzerklärung beschreiben muss.
 
 ## Aufs Handy
 
+Wer gar keinen Rechner benutzen will: **`OHNE-RECHNER.md`** beschreibt den
+ganzen Weg über den Browser — APK über GitHub Actions, Webseite über GitHub
+Pages, und die eine Falle dabei (eine https-Seite darf keinen http-Server im
+WLAN ansprechen).
+
 ```bash
 git clone https://github.com/todidervogel/App
 cd App
@@ -136,3 +141,4 @@ Alles erfunden. Bestätigungscode bei der Registrierung: `123456`.
 | Anmeldung geht, aber nach dem Neuladen ist man wieder draußen | Der Browser darf nichts speichern (privates Fenster) |
 | App bleibt weiß | Absolute Pfade — `npm run pruefen` im App-Repo sieht genau das nach |
 | Handy erreicht den Server nicht | Nicht im selben WLAN, oder `localhost` statt der Rechneradresse |
+| Über GitHub Pages geöffnet, Server antwortet nicht | Die Seite läuft unter https, der Server unter http — der Browser blockiert das. Siehe `OHNE-RECHNER.md` |

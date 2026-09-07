@@ -12,6 +12,7 @@ Agent dazukommt, reicht es, hier zu lesen.
 | Ich will … | Datei |
 |---|---|
 | **es selbst ausprobieren** | **`SELBST-TESTEN.md`** |
+| es ohne Rechner ausprobieren, nur am Handy | `OHNE-RECHNER.md` |
 | wissen, was in welchem Repository liegt | `REPOS.md` |
 | verstehen, was gebaut wird | `00-produkt/KONZEPT.md` |
 | wissen, warum etwas so ist | `00-produkt/ENTSCHEIDUNGEN.md` |
