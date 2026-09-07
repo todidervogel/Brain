@@ -3,13 +3,13 @@
 > Diese Datei wird bei **jeder** Aktion angefasst. Wer wissen will, wo das
 > Projekt gerade steht, liest hier und sonst nirgends.
 >
-> Letzte Änderung: Runde 8, Auftrag aufgenommen und geplant.
+> Letzte Änderung: Runde 8 abgeschlossen.
 
 ## In einem Satz
 
-Ein MVP, der technisch trägt, aber gestalterisch noch nicht vorzeigbar ist —
-und der bisher nur vom Rechner aus bedienbar war, obwohl es keinen Rechner
-gibt.
+Ein MVP, der technisch trägt, am Rechner wie am Handy ein eigenes Gesicht hat
+und sich vollständig über GitHub bedienen lässt — ohne dass irgendwo ein
+Rechner steht.
 
 ## Ampel
 
@@ -28,17 +28,21 @@ gibt.
 
 ## Woran ich gerade arbeite
 
-Runde 8, Priorität 2: der Durchgang durch alle Screens in vier Breiten mit
-`Website-/tools/bilder.mjs`. Priorität 1 (Desktop) steht.
+Nichts — Runde 8 ist abgeschlossen. Der nächste Schritt hängt an zwei Dingen,
+die nur von Hand gehen: das ngrok-Secret hinterlegen und den Standardzweig in
+`design` und `Brain` auf `main` stellen.
 
 ## Was ich als Nächstes vorhabe
 
-1. ~~Desktop-Layout für die Web-App~~ ✓
-2. Überläufe und Überschneidungen beheben, per Bildschirmfoto selbst geprüft
-3. Dev-Sachen aus `App`, `Website-`, `Server` raus (nur `design` behält sie)
-4. Karte mit echten Kacheln, echte Betriebe aus drei Gegenden
-5. Server über ngrok vom Handy startbar
-6. Präsentationswebseite davor
+Runde 8 ist durch. Was als Nächstes ansteht:
+
+1. **Kartenbedienung** — Verschieben und Zoomen mit Maus und Finger
+2. **Leerzustände**, die wissen, warum sie leer sind
+3. **Eigener Kachelserver** vor einer Veröffentlichung (OSM erlaubt keine
+   Massenabrufe)
+4. **Echte Anmeldung** statt Klartext-Passwörtern — damit fällt auch
+   `topic`/`admin` weg
+5. **Videos und Bilder**, die es wirklich gibt
 
 ## Was mich beschäftigt
 

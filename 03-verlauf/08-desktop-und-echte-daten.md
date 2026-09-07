@@ -1,6 +1,7 @@
 # Runde 8 — Desktop, echtes Design, echte Daten
 
-**Status:** läuft. Diese Datei wächst mit, während gearbeitet wird.
+**Status:** Hauptarbeit erledigt. Was offen blieb, steht unten und in
+[[../00-produkt/OFFENE-PUNKTE]].
 
 ## Der Auftrag, wie ich ihn verstehe
 
@@ -305,4 +306,42 @@ Verwaltung 200.
 - **Priorität 1 erledigt.** Seitenleiste, Profil, Betriebsseite, Feed. Dabei
   eine Falle gefunden, die schlimmer war als das Layout: Am Rechner **kam man
   aus dem Feed nicht mehr heraus.**
-- **Zwei echte Überläufe behoben** (Priorität 2, erster Schwung).
+- **Überläufe behoben** (Priorität 2), in vier Breiten nachgesehen.
+- **Echte Betriebe**, Serverstart und Kartendaten als Ablauf — alles drei vom
+  Handy auslösbar.
+- **Karte mit echten Kacheln**, dabei eine alte Verzerrung gefunden.
+- **Serverausfall** wird gesagt statt als leerer Inhalt ausgegeben.
+- **Präsentationsseite** vor der Anwendung.
+- **Entwicklerzeug raus** aus App, Website und Server.
+- **Ein Loch geschlossen**, das erst durch ngrok eins wurde.
+
+
+## Was diese Runde gekostet hat, und was sie wert war
+
+Drei Sachen sind aufgefallen, die **kein Test gefunden hätte** und die man nur
+sieht, wenn man hinsieht oder es wirklich ausprobiert:
+
+1. **Am Rechner kam man aus dem Feed nicht mehr heraus.** Kein Test fragt
+   „komme ich hier wieder weg".
+2. **Die Marker waren senkrecht verzerrt.** Ohne Karte darunter fehlte die
+   Bezugslinie — der Fehler war unsichtbar, bis etwas Echtes danebenlag.
+3. **Ohne Server behauptete die Seite, es gäbe keine Videos.** Das ist keine
+   Störungsmeldung, sondern eine Falschaussage.
+
+Dazu ein viertes, das erst durch die eigene Arbeit entstand: `POST /api/reset`
+war auf dem eigenen Rechner harmlos. Sobald derselbe Server über ngrok
+öffentlich wird, ist es ein Löschknopf für jeden, der die Adresse kennt.
+**Jede Änderung an der Erreichbarkeit ändert, was ein Endpunkt bedeutet.**
+
+## Offen geblieben
+
+- **Kartenbedienung.** Kacheln und Marker stimmen, aber Verschieben und Zoomen
+  mit der Maus gibt es noch nicht. Der Umkreisregler ersetzt das nur halb.
+- **Leerzustände wissen nicht, warum sie leer sind** — siehe offene Punkte.
+- **Der Datenimport ist noch nicht gelaufen.** Der Ablauf steht, aber Overpass
+  ist von hier gesperrt; der erste echte Lauf passiert auf GitHub.
+- **Das ngrok-Secret fehlt.** Ohne `NGROK_AUTHTOKEN` bricht der Ablauf gleich
+  im ersten Schritt ab, mit einem Hinweis darauf.
+- **Die drei Symbole.** Im Auftrag stand, „diese drei Symbole" müssten
+  überarbeitet werden. Es ist nicht eindeutig, welche gemeint sind — im Feed
+  sind es sechs, im Titelbild zwei, am Profil drei. Nachgefragt statt geraten.
