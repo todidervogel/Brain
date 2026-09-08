@@ -35,6 +35,28 @@ vom Bauen. Grund: Die APK wird einmal gebaut, der Server zieht öfter um.
 `domain/` ist beide Male dieselbe Fachlogik, synchron, ohne Browser, ohne
 Netz, auf einem eingehängten Store. Kein Screen greift direkt darauf zu.
 
+### Jeder Weg über das Netz hat eine Frist
+
+Seit Runde 12 wartet kein Aufruf mehr unbegrenzt. `fetch` hat von sich aus
+keine Frist, und eine Gegenstelle, die annimmt und dann schweigt, ließ die
+Oberfläche stillstehen: Der Anmelde-Knopf drehte sich für immer, und das
+Verbindungsband, das genau davon berichten soll, hing an demselben Aufruf.
+
+    15 s   normal
+     8 s   Nachfragen, die nur „lebst du?" bedeuten (/api/health)
+    60 s   wenn wirklich Daten hochgehen, ab 100 kB Rumpf
+     8 s   wenn die Störung ohnehin schon feststeht
+
+Läuft die Uhr ab, ist der Fehler als `offline` gekennzeichnet, wie ein
+Verbindungsfehler auch. Die Oberfläche unterscheidet nicht zwischen „kam nicht
+an" und „kam nicht zurück", für die Lesende ist es dasselbe.
+
+Dazu kommt `ngrok-skip-browser-warning` bei jedem Aufruf. Ein kostenloser
+Tunnel schiebt Browsern sonst eine Warnseite mit Status 200 unter, die wie
+eine Antwort aussieht und keine ist. Der Server gibt die Kopfzeile in
+`access-control-allow-headers` frei, sonst lässt der Browser sie bei der
+Voranfrage nicht durch.
+
 Beim Umzug auf Supabase wird die Datenhaltung unter `domain/` ersetzt und die
 Rechte aus `domain/calls.js` werden zu RLS-Policies. Die Screens merken davon
 nichts, weil sie schon heute mit Versprechen arbeiten und Lade- und

@@ -32,6 +32,9 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 | Betriebe in Deutschland | **grün**, 91 Gegenden, nur auf dem Server | Runde 11 |
 | Kartenstil bearbeitbar | **grün**, Farbe ja, Zeichnung nein | Runde 11, [[../Server/docs/KARTE]] |
 | Lauf gegen den echten Server | **grün**, 9 von 9, prüft die Anmeldung wirklich am Server | Runde 11 |
+| Kein Aufruf ohne Frist | **grün**, 15 s normal, 8 s beim Nachfragen, 60 s beim Hochladen | Runde 12 |
+| Meldung bei schweigendem Server | **grün**, Band und Formular sagen es beide | Runde 12 |
+| App durch den ngrok-Tunnel | **grün**, Warnseite übersprungen, Kopfzeile freigegeben | Runde 12 |
 | Design Handy | **grün**, in vier Breiten geprüft | Runde 8 |
 | Design Desktop | **grün**, Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
 | Echte Betriebe | **grün**, 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
@@ -44,7 +47,7 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 
 ## Woran ich gerade arbeite
 
-Nichts, Runde 9 ist abgeschlossen.
+Nichts, Runde 12 ist abgeschlossen.
 
 ## Arbeitsregeln
 
@@ -71,6 +74,17 @@ Drei Dinge, die ich nicht selbst erledigen kann:
    Der Server erinnert bei jedem Start daran.
 
 ## Was mich diese Runde gelehrt hat
+
+- **Alles, was auf ein Netz wartet, braucht eine eigene Uhr.** Das
+  Verbindungsband sollte sagen „der Server antwortet nicht" und hing dabei
+  selbst an einer Antwort des Servers. Ohne Frist wartet `fetch` unbegrenzt.
+- **„Falscher Text" und „gar kein Text" sind zwei verschiedene Fehler.** In
+  Runde 11 habe ich den ersten behoben und für den ganzen gehalten. Die
+  Rückmeldung hatte beides sauber getrennt, ich hatte es zusammengezogen.
+- **Ein Formular darf nie stumm bleiben.** Ein `try` ohne `catch` um das
+  Absenden ist eine Zusage, dass nichts wirft. Solche Zusagen halten nicht.
+
+Aus Runde 11, weiter gültig:
 
 - **Reproduzieren, nicht raten.** Bei der Zurück-Taste war meine erste
   Vermutung falsch. Die Messung hat die richtige Ursache in einer Minute
