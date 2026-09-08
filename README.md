@@ -47,7 +47,7 @@ flowchart LR
         AU[AUFTEILUNG]
     end
     subgraph V ["03 · Verlauf"]
-        VR["01-04 · Entwurf<br/>05 · Logik<br/>06 · Aufteilung<br/>07 · ohne Rechner<br/>08 · Desktop<br/>09 · Datenbank<br/>10 · Sichtbar"]
+        VR["01-04 · Entwurf<br/>05 · Logik<br/>06 · Aufteilung<br/>07 · ohne Rechner<br/>08 · Desktop<br/>09 · Datenbank<br/>10 · Sichtbar<br/>11 · Fehler"]
     end
     subgraph N ["04 · Nächste Schritte"]
         S2[SCHRITT-2]

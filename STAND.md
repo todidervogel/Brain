@@ -26,6 +26,11 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 | Adresse muss niemand abtippen | **grün**, der Server veröffentlicht sie, APK und App holen sie | Runde 10 |
 | Man sieht dem Server beim Laufen zu | **grün**, Statuszeile alle 30 Sekunden im Protokoll | Runde 10 |
 | App sagt, wenn kein Server da ist | **grün**, Band mit einem Knopf, der die Adresse holt | Runde 10 |
+| Anmeldung bei totem Server | **grün**, ein Satz statt eines Schlüssels | Runde 11 |
+| Zurück-Taste am Handy | **grün**, einmal drücken genügt | Runde 11 |
+| Route und Teilen | **grün**, Drei-Punkte-Menü, Google Maps | Runde 11 |
+| Betriebe in Deutschland | **grün**, 91 Gegenden, nur auf dem Server | Runde 11 |
+| Kartenstil bearbeitbar | **grün**, Farbe ja, Zeichnung nein | Runde 11, [[../Server/docs/KARTE]] |
 | Design Handy | **grün**, in vier Breiten geprüft | Runde 8 |
 | Design Desktop | **grün**, Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
 | Echte Betriebe | **grün**, 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
@@ -63,6 +68,15 @@ Drei Dinge, die ich nicht selbst erledigen kann:
 2. **Den Standardzweig** in `design` und `Brain` auf `main` stellen.
 3. **Das Passwort von `topic` ändern**, bevor der Server öffentlich läuft.
    Der Server erinnert bei jedem Start daran.
+
+## Was mich diese Runde gelehrt hat
+
+- **Reproduzieren, nicht raten.** Bei der Zurück-Taste war meine erste
+  Vermutung falsch. Die Messung hat die richtige Ursache in einer Minute
+  gezeigt.
+- **Ein Schlüssel im Formular ist immer ein Anzeigefehler.** Jetzt fängt
+  `errorText` das ab, statt sich auf vollständige Übersetzungen zu verlassen.
+- **Ein Menü, das man nicht sieht, sieht aus wie ein kaputter Knopf.**
 
 ## Was ich als Nächstes vorhabe
 
