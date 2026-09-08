@@ -275,3 +275,61 @@ neu: `SERVER` entscheidet beim Laden, ob die Fachlogik im Browser läuft oder
 Zustand mitzunehmen.
 
 `--api` beim Bauen bleibt für den Fall, dass die Adresse feststeht.
+
+## E29 · Die Karte lädt, was man ansieht (Runde 13)
+
+Vorher stand die Karte fest auf der eigenen Position und zeigte den
+eingestellten Umkreis. Man konnte sie ansehen und nicht benutzen.
+
+Jetzt ist sie eine Karte: schieben, zoomen mit zwei Fingern, Rad, Doppeltipp
+und Knöpfen. Geladen wird der sichtbare Ausschnitt, mit einer Obergrenze von
+200 Betrieben. Das ist der Unterschied zwischen ein paar Dutzend und
+zwölftausend, sobald der Bestand ganz Deutschland umfasst.
+
+Weiterhin ohne Kartenbibliothek. MapLibre oder Leaflet bringen 40 bis 250 KB
+mit und wollen ihre eigene Zustandsverwaltung; gebraucht werden ein Raster aus
+Bildern und zwei Umrechnungen. Was fehlt, braucht dieser MVP nicht: Drehen,
+Neigen, Vektorkacheln.
+
+## E30 · Der Standort kommt vom Gerät, mit Rückfall (Runde 13)
+
+Ohne Standort ist eine Umkreissuche eine Behauptung. Die App fragt beim ersten
+Start danach, die Webseite nur dann, wenn die Erlaubnis schon erteilt ist:
+Ein Dialog, der ungefragt aufspringt, wird weggeklickt und gilt danach als
+abgelehnt.
+
+Wer ablehnt, sieht weiter die zuletzt bekannte oder die Vorgabeposition. Eine
+Karte, die ins Nichts springt, wäre schlechter als eine ungenaue.
+
+Im Manifest stehen `ACCESS_COARSE_LOCATION` und `ACCESS_FINE_LOCATION`. Der
+grobe Standort genügt für „was ist in der Nähe", und wer nur den erlaubt, soll
+die App trotzdem benutzen können. Eine Kameraberechtigung steht bewusst nicht
+dort: Aufgenommen wird über die Dateiauswahl des Systems.
+
+## E31 · Ein QR-Code muss ein QR-Code sein (Runde 13)
+
+Im Gastro-Bereich stand ein Symbol aus der Icon-Sammlung, das aussah wie ein
+Code, daneben zwei Knöpfe zum Herunterladen, die nichts taten. Ein Betrieb
+hätte das ausgedruckt und aufgehängt, und Gäste hätten auf ein Bild gescannt,
+in dem keine Adresse steht. Das ist schlimmer als eine fehlende Funktion.
+
+Jetzt erzeugt `qrcode` einen echten Code aus der öffentlichen Adresse. Die
+Bibliothek ist die erste Abhängigkeit, die wir für eine Funktion aufnehmen,
+und der Grund ist Prüfbarkeit: Maskierung, Reed-Solomon-Korrektur und
+Formatbits kann man nicht von Hand schreiben und dann ansehen, ob sie stimmen.
+Ein falscher Code sieht aus wie ein richtiger.
+
+Gedruckt wird über den Druckdialog des Systems statt über ein erzeugtes PDF.
+Der Dialog kennt das Papier, kann selbst in eine Datei drucken und kostet
+keine weitere Bibliothek.
+
+## E32 · Was es nicht gibt, wird nicht gezeigt (Runde 13)
+
+Kommentare, der Reiter „Freunde", das Bestellen und „Autor blockieren" waren
+als ausgegraute Knöpfe mit Schloss zu sehen. Ein Knopf mit Schloss ist ein
+Versprechen ohne Datum, und man tippt trotzdem darauf.
+
+Ab jetzt blendet `MVP_STAGE` diese Stellen aus, statt sie auszugrauen. Sie
+kommen zurück, wenn sie funktionieren. Blockieren gehört zu den echten
+Videos: Es braucht eine Liste je Konto, einen Filter im Feed und eine Stelle
+in den Einstellungen, um es zurückzunehmen.

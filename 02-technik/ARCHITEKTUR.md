@@ -35,6 +35,25 @@ vom Bauen. Grund: Die APK wird einmal gebaut, der Server zieht öfter um.
 `domain/` ist beide Male dieselbe Fachlogik, synchron, ohne Browser, ohne
 Netz, auf einem eingehängten Store. Kein Screen greift direkt darauf zu.
 
+### Die Karte
+
+Kein Fremdcode. `Website-/src/lib/map.js` rechnet Web-Mercator in beide
+Richtungen, `karten-blick.js` misst den Bildschirm und hält beides zusammen,
+`karten-gesten.js` nimmt Finger und Maus entgegen. Gezeichnet wird ein Raster
+aus Bildern.
+
+Zwei Dinge, die man leicht falsch macht und die hier geprüft sind:
+
+  * Beim Zoomen bleibt der Punkt unter dem Finger stehen (`zentrumHalten`).
+    Ohne das springt der Ausschnitt bei jedem Schritt.
+  * Kacheln und Marker kommen aus **derselben** Rechnung im **selben**
+    Zeichenschritt. Solange der Kachelschirm sich selbst maß und nach oben
+    meldete, lagen die Marker beim Schieben ein Bild versetzt hinterher.
+
+Geladen wird der sichtbare Ausschnitt, nicht der eingestellte Umkreis. Das
+Rechteck geht als `bounds` in `places.list`, und dort wird grob vorgefiltert,
+bevor Entfernungen und Öffnungszeiten gerechnet werden.
+
 ### Jeder Weg über das Netz hat eine Frist
 
 Seit Runde 12 wartet kein Aufruf mehr unbegrenzt. `fetch` hat von sich aus

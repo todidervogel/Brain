@@ -35,6 +35,12 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 | Kein Aufruf ohne Frist | **grün**, 15 s normal, 8 s beim Nachfragen, 60 s beim Hochladen | Runde 12 |
 | Meldung bei schweigendem Server | **grün**, Band und Formular sagen es beide | Runde 12 |
 | App durch den ngrok-Tunnel | **grün**, Warnseite übersprungen, Kopfzeile freigegeben | Runde 12 |
+| Karte bedienbar | **grün**, schieben, zoomen, lädt den Ausschnitt | Runde 13 |
+| Kacheln in der App | **grün**, über fetch mit Kopfzeile, mit Zwischenspeicher | Runde 13 |
+| Eigener Standort | **grün**, Berechtigung im Manifest und Plugin dabei | Runde 13 |
+| Keine Attrappen im MVP | **grün**, Teilen, QR, Sortieren, Hilfe tun etwas | Runde 13 |
+| Herkunft jedes Betriebs | **grün**, osmId wird geprüft | Runde 13 |
+| Videos | **rot**, Aufnahme ohne Kamera, Feed ohne Bild | [[04-naechste-schritte/PLAN-VOLLE-APP]] |
 | Design Handy | **grün**, in vier Breiten geprüft | Runde 8 |
 | Design Desktop | **grün**, Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
 | Echte Betriebe | **grün**, 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
@@ -47,7 +53,8 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 
 ## Woran ich gerade arbeite
 
-Nichts, Runde 12 ist abgeschlossen.
+Nichts, Runde 13 ist abgeschlossen. Was als Nächstes ansteht, steht in
+[[04-naechste-schritte/PLAN-VOLLE-APP]].
 
 ## Arbeitsregeln
 
@@ -75,6 +82,15 @@ Drei Dinge, die ich nicht selbst erledigen kann:
 
 ## Was mich diese Runde gelehrt hat
 
+- **Ein Knopf mit Erfolgsmeldung, der nichts tut, ist schlimmer als ein toter
+  Knopf.** Fünfmal „Link kopiert" ohne Kopie.
+- **Ein Symbol, das aussieht wie eine Sache, ist nicht die Sache.** Der
+  QR-Code war ein Icon.
+- **Zuhörer für Gesten gehören auf eine eigene Ebene**, sonst fangen sie die
+  Knöpfe ab, die darauf liegen.
+
+Aus Runde 12, weiter gültig:
+
 - **Alles, was auf ein Netz wartet, braucht eine eigene Uhr.** Das
   Verbindungsband sollte sagen „der Server antwortet nicht" und hing dabei
   selbst an einer Antwort des Servers. Ohne Frist wartet `fetch` unbegrenzt.
@@ -95,15 +111,16 @@ Aus Runde 11, weiter gültig:
 
 ## Was ich als Nächstes vorhabe
 
-1. **Kartenbedienung**, Verschieben und Zoomen mit Maus und Finger. Die
-   Kacheln kommen jetzt; bedienen lässt sich die Karte noch nicht.
-2. **Leerzustände**, die wissen, warum sie leer sind. Seit die Beispieldaten
-   weg sind, sieht man sie zum ersten Mal wirklich.
-3. **Videos und Bilder, die es wirklich gibt**, bisher sind Videos Kacheln
-   ohne Datei.
-4. **Der Alleinbetrieb als Rückfallebene**, nicht als gleichwertige Wahl.
-5. **Echte Anmeldung** mit Bestätigung per Mail, damit fällt der
-   Überspringen-Knopf weg und `topic`/`admin` gleich mit.
+Ausführlich in [[04-naechste-schritte/PLAN-VOLLE-APP]]. In Kürze:
+
+1. **Videos wirklich machen.** Aufnahme über die Dateiauswahl, ablegen,
+   ausliefern, abspielen, in der Moderation ansehen. Der Kern des Produkts.
+2. **Kommentare und Blockieren**, direkt danach, weil beides erst mit echten
+   Inhalten Sinn ergibt.
+3. **Ein Server mit fester Adresse**, statt eines Tunnels mit Ablaufdatum.
+4. **E-Mail**, damit Registrierung und Passwort-vergessen echt werden.
+5. **Marker zusammenfassen und „hier suchen"**, die zwei Griffe, die auf einer
+   Karte mit vielen Punkten fehlen.
 
 ## Was mich beschäftigt
 
