@@ -22,7 +22,10 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 | Aufteilung in fünf Repos | **grün** | [[REPOS]] |
 | Webseite veröffentlicht | **grün** | <https://todidervogel.github.io/Website-/> |
 | APK-Bau | **grün seit Runde 7** | [[03-verlauf/07-ohne-rechner]] |
-| Serveradresse im Gerät einstellbar | **grün**, Einstellungen → Verbindung | Runde 9 |
+| Serveradresse im Gerät einstellbar | **grün**, Einstellungen, Verbindung | Runde 9 |
+| Adresse muss niemand abtippen | **grün**, der Server veröffentlicht sie, APK und App holen sie | Runde 10 |
+| Man sieht dem Server beim Laufen zu | **grün**, Statuszeile alle 30 Sekunden im Protokoll | Runde 10 |
+| App sagt, wenn kein Server da ist | **grün**, Band mit einem Knopf, der die Adresse holt | Runde 10 |
 | Design Handy | **grün**, in vier Breiten geprüft | Runde 8 |
 | Design Desktop | **grün**, Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
 | Echte Betriebe | **grün**, 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
@@ -36,6 +39,19 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 ## Woran ich gerade arbeite
 
 Nichts, Runde 9 ist abgeschlossen.
+
+## Arbeitsregeln
+
+Seit Runde 10 steht in jedem Repo eine `CLAUDE.md`. Sie gilt für jede Sitzung,
+auch für spätere:
+
+1. **Abhängigkeiten prüfen.** Wer hängt an dem, was ich geändert habe? Mit
+   einer Tabelle, welche Änderung welches Repo mitzieht.
+2. **Auf Fehler prüfen.** Nicht „sieht richtig aus", sondern laufen lassen.
+   Mit den Befehlen, die dazugehören.
+3. **Kommentare mitziehen.** Der Kasten oben in jeder Datei sagt, wer sie
+   benutzt. Ändert sich das, ändert er sich mit.
+4. **Die .md-Dateien mitziehen**, allen voran diese hier.
 
 ## Was nur von Hand geht
 
