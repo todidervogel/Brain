@@ -31,6 +31,7 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 | Route und Teilen | **grün**, Drei-Punkte-Menü, Google Maps | Runde 11 |
 | Betriebe in Deutschland | **grün**, 91 Gegenden, nur auf dem Server | Runde 11 |
 | Kartenstil bearbeitbar | **grün**, Farbe ja, Zeichnung nein | Runde 11, [[../Server/docs/KARTE]] |
+| Lauf gegen den echten Server | **grün**, 9 von 9, prüft die Anmeldung wirklich am Server | Runde 11 |
 | Design Handy | **grün**, in vier Breiten geprüft | Runde 8 |
 | Design Desktop | **grün**, Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
 | Echte Betriebe | **grün**, 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |

@@ -156,5 +156,17 @@ Stunden endet, wäre beides ein Vorhaben ohne Ort.
   welcher Schlüssel früher falsch war. Er überliest Kommentare jetzt.
 - Die Kachelprüfung wurde rot, nachdem der Zwischenspeicher je Stil einen
   eigenen Ordner bekam. Genau dafür ist sie da.
+- Der Lauf gegen den echten Server brach ab. `tools/gegen-server.mjs` suchte
+  die Speisekarte von `trattoria-bella`, einem erfundenen Betrieb aus der Zeit
+  vor dem MVP-Bestand. Seit Runde 9 gibt es ihn nicht mehr, und am Gastro-Konto
+  hängt ein echter Betrieb aus OpenStreetMap, dessen Name sich mit jedem Import
+  ändern kann. Das Skript liest die Adresse jetzt dort ab, wo die Seite sie
+  selbst hinschreibt, und legt die Kategorie an, die ein frisch importierter
+  Betrieb noch nicht hat.
+
+  Das ist die eigentliche Lehre dieser Runde: Der Alleinbetrieb war die ganze
+  Zeit grün. Nur der Lauf gegen den Server merkt, wenn eine Prüfung von Daten
+  ausgeht, die es nicht mehr gibt. Er steht jetzt in der Prüfliste in
+  `CLAUDE.md`, in allen fünf Repositories.
 
 → zurück zu [[STAND]] · vorherige Runde [[03-verlauf/10-sichtbar-und-selbsttaetig]]
