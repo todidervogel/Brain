@@ -57,7 +57,7 @@ cd Website- && VITE_API=http://localhost:4000 npm run dev
 ```
 
 Dann zwei Browserfenster öffnen: In einem als Gastro
-(`chef@trattoria-bella.de` / `Gastro123`) ein Gericht anlegen, im anderen die
+(`test@gastro.de` / `12345aA?`) ein Gericht anlegen, im anderen die
 Speisekarte neu laden. Es ist da. Ohne Server geht das nicht — dort trägt
 jeder Browser seine eigenen Daten.
 

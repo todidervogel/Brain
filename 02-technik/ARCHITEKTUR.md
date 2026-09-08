@@ -1,6 +1,6 @@
 # Architektur der Logikschicht
 
-Stand: 07.09.2026 · Repositories `Server` und `Website-`, Branch `main`
+Stand: 08.09.2026 · Repositories `Server` und `Website-`, Branch `main`
 
 > **Seit Runde 6 ist der Code aufgeteilt.** Wie die vier Repositories
 > zusammenhängen, steht in [`AUFTEILUNG.md`](AUFTEILUNG.md). Diese Seite
@@ -23,10 +23,14 @@ anfasst. Der Schnitt liegt inzwischen noch tiefer:
         ▼
   Website-/src/lib/store/api.js      ← wählt den Weg
         │
-        ├── ohne VITE_API ──► domain/calls.js ──► localStorage
+        ├── ohne Adresse ──► domain/calls.js ──► localStorage
         │
-        └── mit  VITE_API ──► HTTP ──► Server ──► domain/calls.js ──► data/db.json
+        └── mit  Adresse ──► HTTP ──► Server ──► domain/calls.js ──► SQLite
 ```
+
+Die Adresse kommt seit Runde 9 aus zwei Quellen, in dieser Reihenfolge:
+was im Gerät eingestellt ist (*Einstellungen → Verbindung*), sonst `VITE_API`
+vom Bauen. Grund: Die APK wird einmal gebaut, der Server zieht öfter um.
 
 `domain/` ist beide Male dieselbe Fachlogik — synchron, ohne Browser, ohne
 Netz, auf einem eingehängten Store. Kein Screen greift direkt darauf zu.
@@ -40,8 +44,17 @@ Fehlerzustände kennen.
 
 | Datei | Aufgabe |
 |---|---|
-| `Server/src/data/seed.js` | Ausgangsdaten: 10 Betriebe, Speisekarten, Videos, Bewertungen, Nutzer, Meldungen, Einladungen. Struktur folgt dem Datenmodell aus Konzept Abschnitt 6. |
-| `Server/src/domain/store.js` | Der eingehängte Datenzugriff: `get`, `update`, `insert`, `patch`, `remove`, `nextId`. Der Server hängt eine Datei ein, die Website den Browserspeicher. |
+| `Server/src/data/seed.js` | Der Ausgangsbestand: 360 echte Betriebe und drei Zugänge. **Keine Beispielinhalte mehr** — kein Video, keine Bewertung, keine Speisekarte. |
+| `Server/src/data/orte.js` | Die importierten Betriebe. Erzeugt von `tools/osm-import.mjs`, nicht von Hand ändern. |
+| `Server/src/data/anreicherung.js` | Beschreibungen über die importierten Daten, mit Quelle und Datum. Überlebt jeden neuen Import. |
+| `Server/src/domain/store.js` | Der eingehängte Datenzugriff: `get`, `update`, `insert`, `patch`, `remove`, `nextId` — und `pruefePasswort`/`setzePasswort`. Der Server hängt SQLite ein, die Website den Browserspeicher. |
+| `Server/src/store/schema.js` | Das Datenbankschema: 15 Tabellen mit Typen, Bedingungen und Indizes. |
+| `Server/src/store/sqlite-store.js` | Die Datenbank. Liest beim Start alles ein, schreibt jede Änderung sofort weiter. |
+| `Server/src/store/zugaenge.js` | Passwörter: scrypt, eigenes Salz, eigene Tabelle. |
+| `Server/src/store/sitzungen.js` | Anmeldungen in der Datenbank — der Neustart wirft niemanden hinaus. |
+| `Server/src/http/karte.js` | Kacheln, Zwischenspeicher, Marker im Ausschnitt. |
+| `Server/src/http/kachelbild.js` | Zeichnet eine Ersatzkachel, wenn keine zu bekommen ist. Ein PNG von Hand. |
+| `Server/src/domain/titelbild.js` | Zeichnet das Kopfbild eines Betriebs. In der Fachlogik, weil die Website es im Alleinbetrieb auch braucht. |
 | `Server/src/domain/calls.js` | **Die Aufrufliste.** Was es gibt und wer es darf. Beide Wirte benutzen sie. |
 | `Server/src/domain/geo.js` | Luftlinie (Haversine), deutsche Entfernungsschreibweise, Umrechnung auf die Kartenfläche. |
 | `Server/src/domain/hours.js` | Öffnungszeiten in Minuten seit Mitternacht; rechnet „jetzt geöffnet" wirklich aus, auch über Mitternacht hinaus. |
@@ -52,12 +65,30 @@ Fehlerzustände kennen.
 | `Website-/src/lib/auth.jsx` | Routenwächter und die Schranke „dafür brauchst du ein Konto". |
 | `Website-/src/lib/design-state.jsx` | Oberflächenzustand: Ziel (Website/App), Gerät, Darstellung, Umkreis, Position, reine Kartenansicht. |
 
-## Warum die künstliche Verzögerung?
+## Wo jede Datei sagt, woran sie hängt
 
-Im Alleinbetrieb wartet `api.js` zwischen 130 und 400 ms, bevor es antwortet
-(`VITE_LATENCY`, in Tests auf `0`). Ohne diese Wartezeit gäbe es keine
-Ladezustände zu sehen — und genau die sollen im Entwurf stimmen. Ein
-Skelett, das nie erscheint, ist kein Entwurf, sondern eine Behauptung.
+Seit Runde 9 hat **jede** Datei in `Server/src/domain/` und `Server/src/http/`
+oben einen Kasten:
+
+```
+ ┌─ Wer benutzt diese Datei ────────────────────────────────┐
+ │  src/domain/calls.js    social.* — alles nur angemeldet  │
+ │  src/domain/derive.js   viewerLiked / viewerSaved        │
+ │  src/domain/users.js    räumt beim Löschen eines Kontos auf │
+ └──────────────────────────────────────────────────────────┘
+```
+
+Nicht Zierde: Wer eine Datei ändert, sieht ohne Suche, was daran hängt. Der
+zweite Absatz darunter sagt jeweils, **warum** etwas so ist — nicht, was der
+Code tut. Das steht im Code.
+
+## Die künstliche Verzögerung ist weg
+
+Im Alleinbetrieb wartete `api.js` früher zwischen 130 und 400 ms, damit man
+Ladezustände sieht (`VITE_LATENCY`). Ein Entwicklerstück in dem, was
+ausgeliefert wird — seit Runde 8 heraus. Die Ladezustände werden jetzt dort
+geprüft, wo es sie wirklich gibt: gegen einen Server, mit einer absichtlich
+verzögerten Route (`Website-/tools/gegen-server.mjs`).
 
 ## `useQuery` — der wichtigste Baustein
 
@@ -113,15 +144,18 @@ Gastro-Seite, in der Suche und auf der Karte. Ohne Nachrechnen von Hand.
 - **Keine echten Videos.** Statt einer Kamera läuft eine Uhr, statt eines
   Videos steht eine dunkle Fläche. Das braucht Capacitor-Plugins und gehört
   in die native App.
-- **Keine echte Karte.** Die Marker werden aus echten Koordinaten gerechnet
-  und richtig platziert, aber unter ihnen liegen keine Kartenkacheln.
-  MapLibre kommt, wenn die Daten vom Server kommen.
-- **Kein echtes GPS.** Die Position steht auf Prenzlauer Berg und lässt sich
-  über die Ortssuche verschieben.
-- **Keine E-Mails, keine SMS.** Der Bestätigungscode lautet immer `123456`.
-- **Keine Verschlüsselung.** Passwörter stehen im Klartext im Browser. Das
-  ist für einen Prototyp in Ordnung und für alles andere nicht — deshalb
-  gehören hier ausschließlich erfundene Konten hinein.
+- **Die Karte lässt sich nicht bedienen.** Kacheln kommen seit Runde 9 vom
+  eigenen Server, und die Marker sitzen richtig — aber Verschieben und Zoomen
+  mit Maus und Finger fehlt noch.
+- **Kein echtes GPS.** Die Position steht auf Oberkirch und lässt sich über
+  die Ortssuche verschieben.
+- **Keine E-Mails, keine SMS.** Der Bestätigungscode lautet immer `123456` —
+  oder man drückt „Überspringen". Eine Pflicht zur Bestätigung ohne Absender
+  wäre eine Tür ohne Schlüssel.
+- **Passwörter:** Mit Server gehasht (scrypt, eigenes Salz, eigene Tabelle).
+  Im Alleinbetrieb im Browser stehen sie im Klartext im `localStorage` — dort
+  schützt ein Hash niemanden, der ohnehin dieselbe Datei lesen kann. Trotzdem
+  gilt: hier gehören ausschließlich erfundene Konten hinein.
 
 ## Geprüft wird mit drei Skripten
 
@@ -130,8 +164,15 @@ Unter `Website-/tools/`:
 | Skript | Was es prüft | Dauer |
 |---|---|---|
 | `i18n-check.mjs` | jeden `t('…')`-Aufruf gegen `de.json` | Sekunden, kein Browser |
-| `routen-sweep.mjs` | alle 55 Routen in fünf Rollen auf Fehler und Platzhalter | wenige Minuten |
-| `verhalten.mjs` | 27 Abläufe: Anmeldung, Rollen, Upload, Speisekarte, Admin | wenige Minuten |
+| `routen-sweep.mjs` | alle Routen in fünf Rollen auf Fehler und Platzhalter | wenige Minuten |
+| `verhalten.mjs` | 30 Abläufe: Anmeldung, Rollen, Upload, Speisekarte, Admin | wenige Minuten |
+| `bilder.mjs` | Bildschirmfotos in vier Breiten, plus Überlaufprüfung | wenige Minuten |
+| `karte-pruefen.mjs` | die Kartenrechnung gegen bekannte Koordinaten | Sekunden |
+| `verbindung.mjs` | wie sich die Anwendung ohne Server verhält | wenige Minuten |
 
-Die Ladezustände sind nur zu sehen, wenn die Fassade auch wartet — für den
-Verhaltenslauf lohnt `npm run build:test` (setzt `VITE_LATENCY=400`).
+`verhalten.mjs` und `bilder.mjs` spielen ihre Daten selbst ein
+(`tools/pruefbestand.mjs`) — der Ausgangsbestand ist leer, seit die
+Beispieldaten heraus sind.
+
+Im Repo `Server` dazu: `npm test` mit 78 Prüfungen in drei Dateien —
+Rauchtest, Datenbank über einen echten Neustart, und die Karte.

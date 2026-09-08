@@ -1,9 +1,13 @@
 # Testkonten
 
-> **Neu in Runde 8, ausdrücklich so bestellt.** Der Verwaltungszugang `topic`
-> mit dem Passwort `admin` ist ein Platzhalter, kein Passwort. Er steht in
-> jeder Wortliste, die es gibt. **Bevor irgendetwas davon echte Nutzerdaten
-> sieht, muss dieser Zugang weg** — siehe [[../04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]].
+> **Es gibt nur noch drei.** Seit Runde 9 sind die erfundenen Konten aus dem
+> Ausgangsbestand heraus — mit den Beispieldaten, zu denen sie gehörten.
+>
+> **Der Verwaltungszugang `topic` mit dem Passwort `admin` ist ein
+> Platzhalter, kein Passwort.** Er steht in jeder Wortliste, die es gibt. Der
+> Server erinnert bei jedem Start daran, solange er gilt. **Bevor irgendetwas
+> davon echte Nutzerdaten sieht, muss er weg** — siehe
+> [[../04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]].
 
 | Rolle | Anmeldung | Passwort | Landet auf |
 |---|---|---|---|
@@ -12,42 +16,62 @@
 | Nutzer | `test@user.de` | `12345aA?` | `/feed` |
 
 Angemeldet wird mit Benutzernamen **oder** E-Mail — `findByLogin` nimmt beides.
-Der Gastro-Zugang hängt an einem eigenen Betrieb (`p3`, Dong Xuan Imbiss) und
-wird bei fremden Betrieben vom Server abgewiesen; geprüft.
+Die Benutzernamen sind `topic`, `test_gastro` und `test_user`.
 
+> Sie hießen zuerst `test-gastro` und `test-user`. Die Regel für
+> Benutzernamen lässt keinen Bindestrich zu (`^[a-z0-9._]{3,20}$`); anmelden
+> ging, aber beim ersten Speichern des Profils hätte das Formular den eigenen
+> Namen zurückgewiesen. Der Rauchtest prüft den Bestand jetzt gegen die
+> eigenen Regeln.
 
-**Alle Konten sind erfunden.** Sie existieren nur im Browser des Prototyps.
-Niemals echte Zugangsdaten hier eintragen.
+Der Gastro-Zugang hängt an einem der importierten Betriebe, damit sich der
+Gastro-Bereich überhaupt ausprobieren lässt. **Für die anderen importierten
+Betriebe wird kein Konto angelegt** — wer einen davon führt, meldet sich über
+„Betrieb übernehmen", und dann steht am Konto auch, dass es geprüft wurde.
 
-| Rolle | E-Mail | Passwort | Landet nach der Anmeldung auf |
-|---|---|---|---|
-| Nutzer | `max@beispiel.de` | `Passwort123` | `/feed` |
-| Nutzer | `lisa@beispiel.de` | `Passwort123` | `/feed` |
-| Nutzer (privates Profil) | `jonas@beispiel.de` | `Passwort123` | `/feed` |
-| Gastro (eingerichtet) | `chef@trattoria-bella.de` | `Gastro123` | `/gastro` |
-| Gastro (erstes Login) | `hallo@morgenrot-cafe.de` | `Start1234` | `/gastro/willkommen` — muss zuerst ein Passwort setzen |
-| Admin | `ana@intern` | `Admin1234` | `/admin` |
+**Bestätigungscode bei der Registrierung:** immer `123456` — oder
+**„Überspringen"**. Im MVP verschickt niemand SMS und E-Mails; eine Pflicht
+zur Bestätigung wäre eine Tür ohne Schlüssel. Dass übersprungen wurde, bleibt
+am Konto stehen (`verificationSkipped`).
 
-Statt Benutzername geht auch die E-Mail und umgekehrt.
+## Was passiert mit den Daten?
 
-**Bestätigungscode bei der Registrierung:** immer `123456`.
+**Mit Server** (`VITE_API` gesetzt oder Adresse in *Einstellungen →
+Verbindung*): Alles liegt in der SQLite-Datenbank des Servers und übersteht
+jeden Neustart. Passwörter sind mit scrypt gehasht; im Nutzerobjekt gibt es
+kein Passwortfeld.
+
+**Ohne Server** (Alleinbetrieb im Browser): Alles liegt im `localStorage` des
+Geräts und verlässt es nie. Passwörter stehen dort im Klartext — ein Hash
+schützt niemanden vor jemandem, der ohnehin dieselbe Datei lesen kann.
+
+| Schlüssel im `localStorage` | Inhalt |
+|---|---|
+| `app-db` | Die gesamte Datenhaltung im Alleinbetrieb |
+| `app-session` | Wer gerade angemeldet ist |
+| `app-ui` | Ziel, Darstellung, Umkreis, Position, reine Kartenansicht, Banner |
+| `app-upload-draft` | Der laufende Upload-Entwurf |
+| `api-adresse` | Die Serveradresse, falls im Gerät eingestellt |
+
+## Der Feed ist leer — und das stimmt so
+
+Im Ausgangsbestand stehen die 360 Betriebe und diese drei Konten. Keine
+Videos, keine Bewertungen, keine Speisekarten. So sieht jede Anwendung am
+ersten Tag aus.
+
+Wer volle Screens sehen will: `Website-/tools/pruefbestand.mjs` legt einen
+Betrieb „Prüf-Trattoria" mit Speisekarte, Videos und Bewertungen an. Er wird
+von den Verhaltenstests und den Bildschirmfotos eingespielt — und ist
+nirgends im Programm.
 
 ## Schnellwechsel
 
 Das Design-Panel (Schieberegler unten rechts) hat eine Zeile **Rolle** mit
-den Schaltern Gast · Nutzer · Gastro · Admin. Damit springt man ohne
-Formular in jede Rolle. Darunter setzt **Daten zurücksetzen** alles auf den
-Auslieferungsstand zurück — praktisch, wenn man beim Ausprobieren die
-Speisekarte zerlegt hat.
+den Schaltern Gast · Nutzer · Gastro · Admin. Damit springt man ohne Formular
+in jede Rolle. Darunter setzt **Daten zurücksetzen** alles auf den
+Auslieferungsstand zurück.
 
-## Was wo gespeichert wird
-
-| Schlüssel im `localStorage` | Inhalt |
-|---|---|
-| `app-db` | Die gesamte Datenhaltung (Betriebe, Videos, Bewertungen, …) |
-| `app-session` | Wer gerade angemeldet ist |
-| `app-ui` | Ziel, Darstellung, Umkreis, Position, reine Kartenansicht, Banner |
-| `app-upload-draft` | Der laufende Upload-Entwurf |
-
-Alles löschen: Entwicklerwerkzeuge → Anwendung → Lokaler Speicher leeren,
-oder einfach „Daten zurücksetzen" im Design-Panel (setzt nur `app-db`).
+Mit Server geht dasselbe über `POST /api/reset` — aber nur angemeldet als
+Verwaltung. Solange der Server nur auf dem eigenen Rechner lief, war das ein
+bequemer Knopf; hinter einem ngrok-Link wäre es ein offener Knopf zum Löschen
+aller Daten, den jeder findet, der die Adresse kennt.

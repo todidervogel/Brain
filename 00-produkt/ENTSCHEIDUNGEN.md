@@ -88,10 +88,15 @@ Durchschnittsbewertungen, Videoanzahl, Entfernung, Öffnungsstatus entstehen
 bei jeder Abfrage neu. Auf dem Server wird daraus eine Materialized View
 (Konzept 6). Vorteil jetzt: keine Werte, die auseinanderlaufen können.
 
-## E11 · Künstliche Verzögerung in der Fassade (Runde 5)
+## E11 · Künstliche Verzögerung in der Fassade (Runde 5) — ~~gilt nicht mehr~~
 
 130–400 ms, abschaltbar über `VITE_LATENCY=0`. Ohne sie gäbe es keine
 Ladezustände zu sehen — und die sollen im Entwurf stimmen.
+
+**Zurückgenommen in Runde 8.** Ein Entwicklerstück in dem, was ausgeliefert
+wird, ist genau das, was aus dem MVP heraus sollte. Ladezustände werden jetzt
+dort geprüft, wo es sie wirklich gibt: gegen einen Server, mit einer
+absichtlich verzögerten Route (`Website-/tools/gegen-server.mjs`).
 
 ## E12 · Design-Panel bleibt vorerst (Runde 5)
 
@@ -166,3 +171,109 @@ Debug-Bau unverschlüsselte Verbindungen ausdrücklich erlaubt
 Folge für Schritt 3: Sobald der Server öffentlich unter https steht, fällt die
 Einschränkung weg. Bis dahin sind die drei brauchbaren Aufbauten in
 `OHNE-RECHNER.md` beschrieben.
+
+## E21 · SQLite statt JSON-Datei (Runde 9)
+
+Gefordert war: Userprofile in eine Datenbank, „wie es professionell Firmen
+auch machen", und Daten, die einen Neustart überstehen.
+
+`node:sqlite` steckt seit Node 22.5 in Node selbst. Damit gibt es richtige
+Tabellen mit Typen, Bedingungen und Indizes, **ohne** dass `npm install`
+etwas nachlädt — was für dieses Projekt seit Runde 6 die Bedingung ist.
+
+Verworfen: PostgreSQL (braucht einen laufenden Dienst, den es auf einem
+GitHub-Runner nicht gibt) und Supabase (braucht ein Konto und Netz — beides
+Dinge, die dem Ziel „vom Handy aus bedienbar" im Weg stehen).
+
+Gelesen wird aus dem Arbeitsspeicher, geschrieben sofort in die Datenbank.
+Das reicht genau so lange, wie **ein** Serverprozess auf die Datei zeigt.
+
+## E22 · Passwörter und Sitzungen gehören nicht der Fachlogik (Runde 9)
+
+Passwörter liegen in einer eigenen Tabelle, gehasht mit scrypt und eigenem
+Salz je Konto. Die Fachlogik fragt den Store „stimmt das?" und bekommt ja
+oder nein — sie sieht nie ein Passwort, auch kein gehashtes.
+
+Der Grund ist nicht nur Kryptografie: Vorher stand das Passwort im Klartext
+neben dem Konto, und an drei Stellen im Code musste daran gedacht werden, es
+wieder herauszunehmen (`const { password, ...rest }`). Eine davon zu
+vergessen hätte gereicht. **Ein Feld, das es im Objekt nicht gibt, kann nicht
+in einer Antwort landen.**
+
+Dass der Store das Verfahren bestimmt, hat einen zweiten Grund: Dieselbe
+Fachlogik läuft im Browser, wo der ganze Bestand ohnehin offen im Gerät
+liegt. Dort schützt ein Hash niemanden.
+
+## E23 · Keine übernommenen Bewertungen (Runde 9)
+
+Aus den Kartendaten wird alles übernommen — Name, Lage, Adresse, Zeiten,
+Küche, Kontakt, Ausstattung. **Bewertungen nicht.**
+
+Ausdrücklich so bestellt, und es ist die einzige haltbare Antwort: Eine
+fremde Sternezahl sagt nichts darüber, *was* bewertet wurde, lässt sich nicht
+nachvollziehen und wäre eine Behauptung über einen Betrieb, die wir nicht
+belegen können. Bewertungen entstehen in dieser Anwendung — mit Video, mit
+drei getrennten Achsen, oder gar nicht.
+
+`Server/tools/orte-pruefen.mjs` prüft, dass keine hereinkommt.
+
+## E24 · Kartenkacheln über den eigenen Server (Runde 9)
+
+Vier Gründe, alle praktisch: **ein Ausgang** (die App spricht mit einer
+einzigen Adresse — wo der Netzzugang eng ist, muss nur eine Verbindung
+erlaubt sein), **ein Zwischenspeicher** (jede Kachel wird einmal geholt),
+**Höflichkeit** gegenüber den freien Kachelservern, die von Spenden leben,
+und **ein Stilwechsel bleibt eine Zeile**.
+
+Der Stil ist CARTO Voyager. Gewünscht war „so wie Google Maps"; Googles
+eigene Kacheln dürfen nur über deren SDK benutzt werden und brauchen ein
+Bezahlkonto. Voyager kommt demselben Bild am nächsten und benutzt dieselben
+Daten wie alles hier: OpenStreetMap.
+
+## E25 · Titelbilder werden gezeichnet, nicht gesucht (Runde 9)
+
+Zu jeder Betriebsseite gehört ein Bild. Fotos gibt es dafür nicht: Die bei
+Google Maps gehören denen, die sie gemacht haben; OpenStreetMap führt bei
+unter fünf Prozent eines; ein Stockfoto wäre eine Behauptung über einen
+Betrieb, den niemand fotografiert hat.
+
+Also ein ruhiger Verlauf mit dem Anfangsbuchstaben, aus dem Kürzel gerechnet
+— für denselben Betrieb immer derselbe. Die Seite sieht vollständig aus, ohne
+etwas vorzugeben. Sobald ein Betrieb sein Konto übernimmt, lädt er ein echtes
+Foto hoch.
+
+## E26 · Beispieldaten raus, Prüfdaten ins Prüfwerkzeug (Runde 9)
+
+Beispieldaten sind bequem und gefährlich: Sie zeigen, wie es aussieht, wenn
+die Anwendung läuft — und verdecken, wie es aussieht, wenn sie neu ist.
+Schlimmer noch: Niemand hätte von außen erkennen können, was echt ist und was
+Kulisse.
+
+Der Ausgangsbestand ist deshalb leer bis auf die echten Betriebe und drei
+Zugänge. Was zum Prüfen gebraucht wird, steht in
+`Website-/tools/pruefbestand.mjs` — sichtbar als das, was es ist, und nirgends
+im Programm.
+
+## E27 · Die Verifizierung darf übersprungen werden (Runde 9)
+
+Im MVP verschickt niemand SMS und E-Mails. Eine Pflicht zur Bestätigung wäre
+damit eine Tür ohne Schlüssel: Niemand bekäme je einen Code, und niemand käme
+je zu einem Konto.
+
+Der Knopf steht **unter** dem Bestätigen-Knopf, nicht daneben: Bestätigen
+bleibt der Normalfall, sobald es einen Absender gibt. Dass übersprungen
+wurde, bleibt am Konto stehen (`verificationSkipped`) — damit später gezielt
+nachgefragt werden kann, statt es zu vergessen.
+
+## E28 · Die Serveradresse steht im Gerät, nicht in der APK (Runde 9)
+
+Die APK wird einmal gebaut, der Server zieht öfter um — über ngrok bei jedem
+Start, wenn keine feste Adresse hinterlegt ist. Für jede neue Adresse eine
+neue APK zu bauen dauert Minuten, die man mit einem Handy allein nicht hat.
+
+Die Adresse wird geprüft, bevor sie übernommen wird, und danach lädt die Seite
+neu: `SERVER` entscheidet beim Laden, ob die Fachlogik im Browser läuft oder
+über das Netz. Das mitten im Betrieb umzustellen hieße, jeden laufenden
+Zustand mitzunehmen.
+
+`--api` beim Bauen bleibt für den Fall, dass die Adresse feststeht.

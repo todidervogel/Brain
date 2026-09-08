@@ -3,69 +3,101 @@
 > Diese Datei wird bei **jeder** Aktion angefasst. Wer wissen will, wo das
 > Projekt gerade steht, liest hier und sonst nirgends.
 >
-> Letzte Änderung: Runde 8 abgeschlossen.
+> Letzte Änderung: Runde 9 abgeschlossen.
 
 ## In einem Satz
 
-Ein MVP, der technisch trägt, am Rechner wie am Handy ein eigenes Gesicht hat
-und sich vollständig über GitHub bedienen lässt — ohne dass irgendwo ein
-Rechner steht.
+Ein MVP mit richtiger Datenbank, echten Betrieben und einer Karte vom eigenen
+Server — der einen Neustart übersteht und sich vollständig über GitHub
+bedienen lässt, ohne dass irgendwo ein Rechner steht.
 
 ## Ampel
 
 | Bereich | Stand | Wo es steht |
 |---|---|---|
-| Fachlogik, Rechte, Datenhaltung | **grün** | [[02-technik/ARCHITEKTUR]] |
+| Fachlogik und Rechte | **grün** | [[02-technik/ARCHITEKTUR]] |
+| Datenhaltung | **grün** — SQLite, 15 Tabellen, übersteht den Neustart | Runde 9 |
+| Passwörter | **grün** — scrypt, eigenes Salz, eigene Tabelle | Runde 9 |
+| Anmeldungen | **grün** — in der Datenbank, kein Rauswurf beim Neustart | Runde 9 |
 | Aufteilung in fünf Repos | **grün** | [[REPOS]] |
 | Webseite veröffentlicht | **grün** | <https://todidervogel.github.io/Website-/> |
 | APK-Bau | **grün seit Runde 7** | [[03-verlauf/07-ohne-rechner]] |
-| Design Handy | **grün** — Überläufe behoben, in vier Breiten geprüft | Runde 8, Priorität 2 |
-| Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8, Priorität 1 |
-| Echte Kartendaten | **grün** — 360 Betriebe aus drei Gegenden | Runde 8 |
-| Server von außen erreichbar | **grün** — Workflow steht, Secret fehlt noch | Runde 8, ngrok |
-| Präsentationswebseite | **grün** — für Besucher ohne Konto | Runde 8 |
-| Einstieg in die Anwendung | **grün** — angemeldet direkt in den Feed | Runde 8 |
-| Dev-Sachen draußen | **grün** — bis auf `topic`/`admin` | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
+| Serveradresse im Gerät einstellbar | **grün** — Einstellungen → Verbindung | Runde 9 |
+| Design Handy | **grün** — in vier Breiten geprüft | Runde 8 |
+| Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
+| Echte Betriebe | **grün** — 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
+| Karte | **grün** — weltweit, über den eigenen Server, OSM-Standardstil | Runde 9 |
+| Titelbilder | **grün** — echte wo vorhanden, sonst gezeichnet | Runde 9 |
+| Beispieldaten | **grün** — raus; Prüfdaten liegen im Prüfwerkzeug | Runde 9 |
+| Verifizierung überspringbar | **grün** | Runde 9 |
+| Server von außen erreichbar | **gelb** — Workflow steht, **Secret fehlt noch** | [[OHNE-RECHNER]] |
+| Dev-Sachen draußen | **gelb** — bis auf `topic`/`admin` | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
 
 ## Woran ich gerade arbeite
 
-Nichts — Runde 8 ist abgeschlossen. Der nächste Schritt hängt an zwei Dingen,
-die nur von Hand gehen: das ngrok-Secret hinterlegen und den Standardzweig in
-`design` und `Brain` auf `main` stellen.
+Nichts — Runde 9 ist abgeschlossen.
+
+## Was nur von Hand geht
+
+Drei Dinge, die ich nicht selbst erledigen kann:
+
+1. **Den ngrok-Token neu erzeugen** (der alte stand im Chat) und als Secret
+   `NGROK_AUTHTOKEN` im Repo `Server` hinterlegen. Danach läuft
+   *Actions → „Server über ngrok"*.
+2. **Den Standardzweig** in `design` und `Brain` auf `main` stellen.
+3. **Das Passwort von `topic` ändern**, bevor der Server öffentlich läuft.
+   Der Server erinnert bei jedem Start daran.
 
 ## Was ich als Nächstes vorhabe
 
-Runde 8 ist durch. Was als Nächstes ansteht:
-
-1. **Kartenbedienung** — Verschieben und Zoomen mit Maus und Finger
-2. **Leerzustände**, die wissen, warum sie leer sind
-3. **Eigener Kachelserver** vor einer Veröffentlichung (OSM erlaubt keine
-   Massenabrufe)
-4. **Echte Anmeldung** statt Klartext-Passwörtern — damit fällt auch
-   `topic`/`admin` weg
-5. **Videos und Bilder**, die es wirklich gibt
+1. **Kartenbedienung** — Verschieben und Zoomen mit Maus und Finger. Die
+   Kacheln kommen jetzt; bedienen lässt sich die Karte noch nicht.
+2. **Leerzustände**, die wissen, warum sie leer sind. Seit die Beispieldaten
+   weg sind, sieht man sie zum ersten Mal wirklich.
+3. **Videos und Bilder, die es wirklich gibt** — bisher sind Videos Kacheln
+   ohne Datei.
+4. **Der Alleinbetrieb als Rückfallebene**, nicht als gleichwertige Wahl.
+5. **Echte Anmeldung** mit Bestätigung per Mail — damit fällt der
+   Überspringen-Knopf weg und `topic`/`admin` gleich mit.
 
 ## Was mich beschäftigt
 
-- **Die Webseite hat zwei Betriebsarten, und das wird langsam ein Problem.**
-  Allein im Browser ist bequem zum Ansehen, aber es verdeckt, dass ohne Server
-  nichts geteilt wird. Sobald ngrok steht, sollte der Alleinbetrieb nur noch
-  eine Rückfallebene sein — mit einem ehrlichen Hinweis, nicht als
-  gleichwertige Wahl.
-- **„Professionell und clean" heißt weniger, nicht mehr.** Die aktuelle
-  Oberfläche zeigt zu viel gleichzeitig. Das ist der eigentliche Grund für die
-  Überschneidungen, nicht ein fehlendes `overflow: hidden`.
-- **Ein Design, das ich nie gesehen habe, kann ich nicht beurteilen.** Ab
-  Runde 8 mache ich Bildschirmfotos und sehe sie mir an, statt aus dem CSS zu
-  schließen, dass es passt. Das hat sich sofort ausgezahlt: die fehlenden
-  Zahlen am Profil, die Sackgasse im Feed und der überlaufende Knopf standen
-  in keinem Test — im Bild sah man alle drei auf einen Blick.
-- **Tests prüfen, ob etwas da ist. Nicht, ob man wieder wegkommt.** Der Feed
-  hatte am Rechner keine Navigation. Jeder Verhaltenstest war grün.
+- **Ein Ausgangsbestand ist Code.** Die bestellten Konten hießen `test-user`
+  und `test-gastro` — mit Bindestrich, den die eigene Regel für
+  Benutzernamen nicht zulässt. Anmelden ging; beim ersten Speichern des
+  Profils hätte das Formular den eigenen Namen zurückgewiesen. Prüfungen
+  laufen jetzt gegen die echten Konten, und der Rauchtest prüft den Bestand
+  gegen die eigenen Regeln.
+- **Eine Regel, die nur der Browser kennt, ist keine Regel.** Dieselbe Sache
+  von der anderen Seite: Wer den Aufruf direkt schickt, kam an der
+  Benutzernamensregel vorbei. Sie steht jetzt in der Fachlogik.
+- **Beispieldaten sind bequem und gefährlich.** Sie zeigen, wie es aussieht,
+  wenn die Anwendung läuft — und verdecken, wie es aussieht, wenn sie neu ist.
+  Getrennt: leer im Programm, voll im Prüfwerkzeug.
+- **Bildschirmfotos finden, was Tests nicht finden.** Diese Runde: der
+  Platzhalter „Stand {date}", der wörtlich auf jeder angereicherten
+  Betriebsseite stand. Kein Test prüft Platzhalter.
+- **`Number(null)` ist `0`.** Zum zweiten Mal dieselbe Falle, diesmal bei der
+  Kartenabfrage. Zweimal heißt: keine Unachtsamkeit, sondern etwas, wogegen
+  man einmal eine Hilfsfunktion schreibt.
+- **„Website vernachlässigen" ging nicht wörtlich.** Die App *ist* die
+  gebaute Website. Was in der App zu sehen ist, habe ich angefasst; die
+  Präsentationsseite und der Desktop-Feinschliff ruhen.
+- **Ein Symbol an der falschen Stelle macht alles kaputt.** Die
+  Kartenmarker und die Betriebszeilen trugen beide das Symbol für „Bild
+  fehlt". Beides sah nach Fehler aus, obwohl nichts kaputt war. Und die
+  Navigationsleiste stand in Großbuchstaben, weil eine Klasse für
+  Tabellenköpfe benutzt wurde. Drei Kleinigkeiten, ein Eindruck: unfertig.
+- **Bilder von Google gehen nicht, und das ist kein Aufwandsproblem.** Die
+  Fotos gehören den Menschen, die sie gemacht haben — nicht Google und
+  nicht uns. Was geht: Wikimedia Commons, gezeichnete Titelbilder, und
+  irgendwann die Betriebe selbst.
 
 ## Verknüpfungen
 
-- Auftrag und Denkstand dieser Runde → [[03-verlauf/08-desktop-und-echte-daten]]
+- Auftrag und Denkstand dieser Runde → [[03-verlauf/09-datenbank-und-karte]]
+- Runde davor → [[03-verlauf/08-desktop-und-echte-daten]]
 - Warum etwas so ist → [[00-produkt/ENTSCHEIDUNGEN]]
 - Was noch fehlt → [[00-produkt/OFFENE-PUNKTE]]
 - Selbst ausprobieren → [[SELBST-TESTEN]] · ohne Rechner [[OHNE-RECHNER]]
+- Zugänge → [[02-technik/TESTKONTEN]]

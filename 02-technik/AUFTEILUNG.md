@@ -99,14 +99,14 @@ api.places.list()       api.places.list()
 domain/calls.js         HTTP → Server → domain/calls.js
    │                                       │
    ▼                                       ▼
-localStorage                            data/db.json
+localStorage                            SQLite (data/tellerrand.db)
 ```
 
 Die Screens merken den Unterschied nicht: `api.places.list({…})` gibt beide
 Male ein Versprechen zurück.
 
-Im Alleinbetrieb wartet die Fassade absichtlich 130–400 ms
-(`VITE_LATENCY`) — ohne das gäbe es keine Ladezustände zu sehen.
+Welcher Weg gilt, entscheidet die Serveradresse: was im Gerät eingestellt ist
+(*Einstellungen → Verbindung*), sonst `VITE_API` vom Bauen, sonst keiner.
 
 ## Was sich beim Aufteilen sonst geändert hat
 
