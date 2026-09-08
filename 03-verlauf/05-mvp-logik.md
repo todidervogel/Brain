@@ -1,4 +1,4 @@
-# Runde 5 — Von Entwurf zu MVP: alles mit Logik
+# Runde 5. Von Entwurf zu MVP: alles mit Logik
 
 Datum: 07.09.2026 · Repository `design`, Branch `claude/app-website-mvp-3w6arm`
 
@@ -8,7 +8,7 @@ Zwei Dinge in einer Nachricht:
 
 **A. Ein Prompt aus dem Design-Chat, der nie ausgeführt wurde:**
 
-1. Die Website ist nur weiß — und in der APK gibt es keinen Dunkelmodus, den
+1. Die Website ist nur weiß, und in der APK gibt es keinen Dunkelmodus, den
    man einschalten könnte.
 2. Im Profil fehlt eine Ladeanimation.
 3. Wer abgemeldet ist, landet in jedem Fall auf der Anmeldeseite (zumindest
@@ -16,7 +16,7 @@ Zwei Dinge in einer Nachricht:
 4. „Passwort vergessen" im Login sitzt ein bisschen zu hoch.
 5. In der App soll man die Karte auch allein betrachten können, ohne diese
    Leiste.
-6. Man soll auf den ersten Blick erkennen, was serviert wird — ob die Gastro
+6. Man soll auf den ersten Blick erkennen, was serviert wird, ob die Gastro
    nur Getränke, vegan kann, Fleisch, Fisch oder Meeresfrüchte hat.
 7. Seiten mit Speisekarte hinzufügen, im Stil einer guten reinen Speisekarte.
 
@@ -32,22 +32,22 @@ Und: Fortschritt und Kontext ins `Brain`-Repository schreiben.
 
 Der Prototyp war statisch. Jetzt gibt es:
 
-- `src/data/seed.js` — Ausgangsdaten nach dem Datenmodell aus dem Konzept.
+- `src/data/seed.js`, Ausgangsdaten nach dem Datenmodell aus dem Konzept.
   Zehn Betriebe, fünf Speisekarten, zehn Videos, acht Bewertungen, acht
   Konten in drei Rollen, Meldungen, Einladungen, Vorschläge, Protokoll.
-- `src/lib/store/db.js` — ein Zustandsbaum im `localStorage`, versioniert,
+- `src/lib/store/db.js`, ein Zustandsbaum im `localStorage`, versioniert,
   mit Beobachtern.
-- `src/lib/store/api.js` — **die Fassade**, elf Bereiche. Der Austauschpunkt
+- `src/lib/store/api.js`, **die Fassade**, elf Bereiche. Der Austauschpunkt
   für Supabase. Gibt Versprechen zurück, mit kleiner Verzögerung, damit
   Ladezustände sichtbar sind.
-- `src/lib/store/geo.js` — Luftlinie, Entfernungsschreibweise, Kartenprojektion.
-- `src/lib/store/hours.js` — Öffnungszeiten in Minuten, „jetzt geöffnet"
+- `src/lib/store/geo.js`, Luftlinie, Entfernungsschreibweise, Kartenprojektion.
+- `src/lib/store/hours.js`, Öffnungszeiten in Minuten, „jetzt geöffnet"
   wirklich gerechnet, auch über Mitternacht hinaus.
-- `src/lib/store/index.jsx` — `useQuery` mit stillem Nachladen, `useMutation`.
-- `src/lib/session.jsx` — Anmeldung, Rollen, Registrierung mit Code,
+- `src/lib/store/index.jsx`, `useQuery` mit stillem Nachladen, `useMutation`.
+- `src/lib/session.jsx`, Anmeldung, Rollen, Registrierung mit Code,
   Passwortwechselzwang beim Gastro-Erstlogin.
-- `src/lib/form.js` — `useForm` mit Regelwerk und deutschen Fehlermeldungen.
-- `src/lib/upload.jsx` — der Upload-Entwurf über fünf Schritte, mit Wächter.
+- `src/lib/form.js`, `useForm` mit Regelwerk und deutschen Fehlermeldungen.
+- `src/lib/upload.jsx`, der Upload-Entwurf über fünf Schritte, mit Wächter.
 
 Der Ordner `src/mock/` ist verschwunden. Kein Screen greift mehr direkt auf
 Daten zu.
@@ -55,8 +55,7 @@ Daten zu.
 ### Die sieben Punkte aus dem Prompt
 
 **1. Dunkelmodus.** Gilt jetzt für Website *und* App, Standard ist
-„Automatisch" (folgt dem Gerät). Der Umschalter steht in der Kopfleiste —
-auch auf der Anmeldeseite, denn genau dort hing es: Die Einstellung lag
+„Automatisch" (folgt dem Gerät). Der Umschalter steht in der Kopfleiste, auch auf der Anmeldeseite, denn genau dort hing es: Die Einstellung lag
 hinter der Anmeldung, und die App zeigt ohne Anmeldung nur die Anmeldeseite.
 Zusätzlich in den Einstellungen und im Design-Panel. Die Farbe der
 Android-Statusleiste zieht mit.
@@ -104,11 +103,11 @@ zeigen. Details in `01-design/SPEISEKARTE.md`.
 - **Karte:** alle Filter filtern wirklich (Umkreis, geöffnet, Kategorie,
   Bewertung, Preis, nur mit Videos, Angebot), Marker aus echten Koordinaten,
   Vorschaukarte beim Antippen.
-- **Feed:** Umkreislogik nach Konzept 8.4 — Bonus für ausgefüllte Bewertung
+- **Feed:** Umkreislogik nach Konzept 8.4, Bonus für ausgefüllte Bewertung
   und Ortsprüfung, Zufallskomponente, Gesehenes ans Ende, Hinweis bei zu
   wenig Inhalt. Blättern per Wischen, Mausrad, Pfeiltasten.
 - **Suche:** vier Reiter mit Trefferzahlen, echtem Verlauf, Filtern. Orte
-  verschieben den Kartenmittelpunkt — die Reiseplanung aus Konzept 8.8.
+  verschieben den Kartenmittelpunkt, die Reiseplanung aus Konzept 8.8.
 - **Upload:** fünf Schritte, gemeinsamer Entwurf, Ortsprüfung unter 150 m,
   Bewertungsdialog mit Gerichten aus der echten Speisekarte, am Ende ein
   Video in der Freigabewarteschlange.
@@ -134,9 +133,9 @@ Neu gebaut: Ziel, Rolle (Gast/Nutzer/Gastro/Admin), Darstellung
 - `vite build` läuft durch.
 - Alle 55 Routen automatisiert aufgerufen, in fünf Kombinationen
   (Website·Gast·hell, Website·Nutzer·dunkel, App·Nutzer·dunkel,
-  App·Gastro·hell, Website·Admin·hell) — auf JS-Fehler, Konsolenfehler,
+  App·Gastro·hell, Website·Admin·hell), auf JS-Fehler, Konsolenfehler,
   fehlende Übersetzungen und sichtbare Platzhalter.
-- 27 gezielte Verhaltenstests für die neuen Abläufe — alle grün.
+- 27 gezielte Verhaltenstests für die neuen Abläufe, alle grün.
 - Prüfskripte liegen unter `design/tools/pruefung/` (siehe README dort).
 
 ## Was die Prüfung gefunden hat
@@ -147,20 +146,19 @@ Sieben Dinge, die ohne die Tests nicht aufgefallen wären. Alle behoben.
    Googles Servern. Das ist gleich dreifach ungünstig: Es blockiert das erste
    Bild, in der verpackten App ist die Datei offline gar nicht erreichbar, und
    rechtlich ist die Einbindung ohne Einwilligung nach dem Urteil des
-   LG München I (20.01.2022, 3 O 17493/20) angreifbar — die IP-Adresse der
+   LG München I (20.01.2022, 3 O 17493/20) angreifbar, die IP-Adresse der
    Besucherin wandert zu Google. Jetzt wird nichts mehr nachgeladen: Inter,
    wenn es vorhanden ist, sonst die Systemschrift. Vor dem Start sollte Inter
    selbst ausgeliefert werden.
 2. **Der Feed schob das Video weg, das man gerade ansah.** Ein Video wurde
-   beim Anzeigen als „gesehen" vermerkt; bei der nächsten Aktualisierung —
-   etwa nach einem Klick auf „Gefällt mir" — rutschte es damit ans Ende der
+   beim Anzeigen als „gesehen" vermerkt; bei der nächsten Aktualisierung, etwa nach einem Klick auf „Gefällt mir", rutschte es damit ans Ende der
    Liste und ein anderes erschien. Jetzt wird erst beim Weiterblättern
    vermerkt.
 3. **Die Erfolgsmeldung nach dem Hochladen war nie zu sehen.** Der Entwurf
    wurde sofort nach dem Absenden geleert, woraufhin der Schrittwächter auf
    Schritt 1 zurücksprang. Der Entwurf wird jetzt erst beim Verlassen geleert.
 4. **Der Gericht-Dialog ließ sich nicht speichern.** Er übernahm seine
-   Startwerte, während die Speisekarte noch lud — die Kategorie blieb leer und
+   Startwerte, während die Speisekarte noch lud, die Kategorie blieb leer und
    die Pflichtprüfung schlug zu. Die Dialoge werden jetzt erst beim Öffnen
    eingehängt.
 5. **Die schwebenden Kartenknöpfe waren auf dem Handy nicht zu treffen.** Sie
@@ -168,7 +166,7 @@ Sieben Dinge, die ohne die Tests nicht aufgefallen wären. Alle behoben.
    Schalter für die reine Kartenansicht.
 6. **Fehlender Text.** Auf der Gastro-Seite stand „öffnet hours.today 11:30".
    Deshalb gibt es jetzt eine Prüfung, die alle `t()`-Aufrufe gegen `de.json`
-   hält — ohne Browser, in einer Sekunde.
+   hält, ohne Browser, in einer Sekunde.
 7. **Die Trefferliste stand zweimal im Dokument.** Auf dem Handy wurde die
    Seitenspalte zwar ausgeblendet, aber trotzdem erzeugt.
 

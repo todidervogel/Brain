@@ -1,4 +1,4 @@
-# Stand — die lebende Seite
+# Stand
 
 > Diese Datei wird bei **jeder** Aktion angefasst. Wer wissen will, wo das
 > Projekt gerade steht, liest hier und sonst nirgends.
@@ -8,7 +8,7 @@
 ## In einem Satz
 
 Ein MVP mit richtiger Datenbank, echten Betrieben und einer Karte vom eigenen
-Server — der einen Neustart übersteht und sich vollständig über GitHub
+Server, der einen Neustart übersteht und sich vollständig über GitHub
 bedienen lässt, ohne dass irgendwo ein Rechner steht.
 
 ## Ampel
@@ -16,26 +16,26 @@ bedienen lässt, ohne dass irgendwo ein Rechner steht.
 | Bereich | Stand | Wo es steht |
 |---|---|---|
 | Fachlogik und Rechte | **grün** | [[02-technik/ARCHITEKTUR]] |
-| Datenhaltung | **grün** — SQLite, 15 Tabellen, übersteht den Neustart | Runde 9 |
-| Passwörter | **grün** — scrypt, eigenes Salz, eigene Tabelle | Runde 9 |
-| Anmeldungen | **grün** — in der Datenbank, kein Rauswurf beim Neustart | Runde 9 |
+| Datenhaltung | **grün**, SQLite, 15 Tabellen, übersteht den Neustart | Runde 9 |
+| Passwörter | **grün**, scrypt, eigenes Salz, eigene Tabelle | Runde 9 |
+| Anmeldungen | **grün**, in der Datenbank, kein Rauswurf beim Neustart | Runde 9 |
 | Aufteilung in fünf Repos | **grün** | [[REPOS]] |
 | Webseite veröffentlicht | **grün** | <https://todidervogel.github.io/Website-/> |
 | APK-Bau | **grün seit Runde 7** | [[03-verlauf/07-ohne-rechner]] |
-| Serveradresse im Gerät einstellbar | **grün** — Einstellungen → Verbindung | Runde 9 |
-| Design Handy | **grün** — in vier Breiten geprüft | Runde 8 |
-| Design Desktop | **grün** — Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
-| Echte Betriebe | **grün** — 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
-| Karte | **grün** — weltweit, über den eigenen Server, OSM-Standardstil | Runde 9 |
-| Titelbilder | **grün** — echte wo vorhanden, sonst gezeichnet | Runde 9 |
-| Beispieldaten | **grün** — raus; Prüfdaten liegen im Prüfwerkzeug | Runde 9 |
+| Serveradresse im Gerät einstellbar | **grün**, Einstellungen → Verbindung | Runde 9 |
+| Design Handy | **grün**, in vier Breiten geprüft | Runde 8 |
+| Design Desktop | **grün**, Seitenleiste, zwei Spalten, Feed im Rahmen | Runde 8 |
+| Echte Betriebe | **grün**, 360 aus drei Gegenden, ohne fremde Bewertungen | Runde 8/9 |
+| Karte | **grün**, weltweit, über den eigenen Server, OSM-Standardstil | Runde 9 |
+| Titelbilder | **grün**, echte wo vorhanden, sonst gezeichnet | Runde 9 |
+| Beispieldaten | **grün**, raus; Prüfdaten liegen im Prüfwerkzeug | Runde 9 |
 | Verifizierung überspringbar | **grün** | Runde 9 |
-| Server von außen erreichbar | **gelb** — Workflow steht, **Secret fehlt noch** | [[OHNE-RECHNER]] |
-| Dev-Sachen draußen | **gelb** — bis auf `topic`/`admin` | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
+| Server von außen erreichbar | **gelb**, Workflow steht, **Secret fehlt noch** | [[OHNE-RECHNER]] |
+| Dev-Sachen draußen | **gelb**, bis auf `topic`/`admin` | [[04-naechste-schritte/SCHRITT-2-DEV-ENTFERNEN]] |
 
 ## Woran ich gerade arbeite
 
-Nichts — Runde 9 ist abgeschlossen.
+Nichts, Runde 9 ist abgeschlossen.
 
 ## Was nur von Hand geht
 
@@ -50,20 +50,20 @@ Drei Dinge, die ich nicht selbst erledigen kann:
 
 ## Was ich als Nächstes vorhabe
 
-1. **Kartenbedienung** — Verschieben und Zoomen mit Maus und Finger. Die
+1. **Kartenbedienung**, Verschieben und Zoomen mit Maus und Finger. Die
    Kacheln kommen jetzt; bedienen lässt sich die Karte noch nicht.
 2. **Leerzustände**, die wissen, warum sie leer sind. Seit die Beispieldaten
    weg sind, sieht man sie zum ersten Mal wirklich.
-3. **Videos und Bilder, die es wirklich gibt** — bisher sind Videos Kacheln
+3. **Videos und Bilder, die es wirklich gibt**, bisher sind Videos Kacheln
    ohne Datei.
 4. **Der Alleinbetrieb als Rückfallebene**, nicht als gleichwertige Wahl.
-5. **Echte Anmeldung** mit Bestätigung per Mail — damit fällt der
+5. **Echte Anmeldung** mit Bestätigung per Mail, damit fällt der
    Überspringen-Knopf weg und `topic`/`admin` gleich mit.
 
 ## Was mich beschäftigt
 
 - **Ein Ausgangsbestand ist Code.** Die bestellten Konten hießen `test-user`
-  und `test-gastro` — mit Bindestrich, den die eigene Regel für
+  und `test-gastro`, mit Bindestrich, den die eigene Regel für
   Benutzernamen nicht zulässt. Anmelden ging; beim ersten Speichern des
   Profils hätte das Formular den eigenen Namen zurückgewiesen. Prüfungen
   laufen jetzt gegen die echten Konten, und der Rauchtest prüft den Bestand
@@ -72,7 +72,7 @@ Drei Dinge, die ich nicht selbst erledigen kann:
   von der anderen Seite: Wer den Aufruf direkt schickt, kam an der
   Benutzernamensregel vorbei. Sie steht jetzt in der Fachlogik.
 - **Beispieldaten sind bequem und gefährlich.** Sie zeigen, wie es aussieht,
-  wenn die Anwendung läuft — und verdecken, wie es aussieht, wenn sie neu ist.
+  wenn die Anwendung läuft, und verdecken, wie es aussieht, wenn sie neu ist.
   Getrennt: leer im Programm, voll im Prüfwerkzeug.
 - **Bildschirmfotos finden, was Tests nicht finden.** Diese Runde: der
   Platzhalter „Stand {date}", der wörtlich auf jeder angereicherten
@@ -89,9 +89,22 @@ Drei Dinge, die ich nicht selbst erledigen kann:
   Navigationsleiste stand in Großbuchstaben, weil eine Klasse für
   Tabellenköpfe benutzt wurde. Drei Kleinigkeiten, ein Eindruck: unfertig.
 - **Bilder von Google gehen nicht, und das ist kein Aufwandsproblem.** Die
-  Fotos gehören den Menschen, die sie gemacht haben — nicht Google und
+  Fotos gehören den Menschen, die sie gemacht haben, nicht Google und
   nicht uns. Was geht: Wikimedia Commons, gezeichnete Titelbilder, und
   irgendwann die Betriebe selbst.
+- **Zwei Bausteine dürfen nicht denselben Klassennamen tragen.**
+  `.menu-item` war im Aufklappmenü ein Eintrag und auf der Speisekarte ein
+  Gericht. Das Gericht hat eine Trennlinie, seine Regel stand weiter unten,
+  also gewann sie. Keine Änderung an der Menü-Regel half, und der Grund war
+  nirgends zu sehen.
+- **Ein `.gitignore`-Muster ohne Schrägstrich vorn trifft jeden Ordner.**
+  `data/` hat auch `src/data/` erwischt. Der Server startete lokal und auf
+  dem Runner nicht. Gefragt werden muss git, nicht das Dateisystem, und das
+  tut jetzt `tools/vollstaendig.mjs`.
+- **Ein Skript, das 220 Dateien anfasst, braucht danach eine Prüfung.**
+  Beim Entfernen der Gedankenstriche hat eine zu weite Regel `(?, ?, ?)` in
+  SQL zu `(? ? ?)` gemacht und Kommentarzeilen zusammengezogen. Beides fiel
+  sofort auf, weil hinterher die Tests liefen.
 
 ## Verknüpfungen
 

@@ -1,4 +1,4 @@
-# Projektkonzept — Food-Discovery-App (Arbeitstitel: "FoodFeed")
+# Projektkonzept, Food-Discovery-App (Arbeitstitel: "FoodFeed")
 
 > **Hinweis an Claude Code:** Dieses Dokument ist die Produktspezifikation. Der endgültige Produkt-/Firmenname steht noch nicht fest. Verwende überall die Konstante `APP_NAME` aus einer zentralen Config-Datei, damit der Name später an einer Stelle geändert werden kann.
 
@@ -6,11 +6,11 @@
 
 ## 1. Vision
 
-Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochformat** entdeckbar macht — kombiniert mit einer **Karte**, **strukturierten Bewertungen pro Gericht** und **vollständigen Gastro-Profilseiten** (Speisekarte, Öffnungszeiten, Kontakt, später Bestellung).
+Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochformat** entdeckbar macht, kombiniert mit einer **Karte**, **strukturierten Bewertungen pro Gericht** und **vollständigen Gastro-Profilseiten** (Speisekarte, Öffnungszeiten, Kontakt, später Bestellung).
 
 **Kernproblem:** Wer essen gehen will, muss heute zwischen Google Maps (Infos, aber keine echten Eindrücke), TikTok/Instagram (Eindrücke, aber unstrukturiert und nicht lokal filterbar) und Lieferdiensten (nur Lieferung) hin- und herspringen.
 
-**Lösung:** Alles an einem Ort — man *sieht*, wie das Essen aussieht, sieht wo es ist, sieht was Freunde davon halten, und kann direkt bestellen.
+**Lösung:** Alles an einem Ort, man *sieht*, wie das Essen aussieht, sieht wo es ist, sieht was Freunde davon halten, und kann direkt bestellen.
 
 **Startmarkt:** Deutschland (Sprache DE). Danach USA (EN). Architektur muss von Anfang an mehrsprachig und mehrwährungsfähig sein (i18n ab Tag 1, auch wenn nur DE befüllt).
 
@@ -29,8 +29,8 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 
 **Unser Alleinstellungsmerkmal:**
 1. Video-Feed **+** vollständige Gastro-Seite **+** Bestellung in *einer* App, unabhängig von Lieferdiensten
-2. **Bewertung pro Gericht** (nicht pro Restaurant) — wesentlich nützlicher als „4,2 Sterne"
-3. **Automatisch generierte Gastro-Seiten** aus offenen Daten — die Karte ist von Tag 1 voll, auch ohne dass Gastros mitmachen
+2. **Bewertung pro Gericht** (nicht pro Restaurant), wesentlich nützlicher als „4,2 Sterne"
+3. **Automatisch generierte Gastro-Seiten** aus offenen Daten, die Karte ist von Tag 1 voll, auch ohne dass Gastros mitmachen
 
 **Realistische Risiken (bitte im Hinterkopf behalten):**
 - Henne-Ei-Problem: Ohne Videos kein Nutzen, ohne Nutzer keine Videos → deshalb die Gastro-Pilot-Phase (MVP 0)
@@ -41,7 +41,7 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 
 ## 3. Phasenplan
 
-### MVP 0 — Gastro-Pilot (Web-App only)
+### MVP 0, Gastro-Pilot (Web-App only)
 **Ziel:** Inhalt aufbauen, bevor Nutzer kommen.
 
 - Karte mit Restaurants aus OpenStreetMap-Daten (Deutschland)
@@ -53,7 +53,7 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 - **QR-Code-Funktion:** Gastros können QR-Codes ausdrucken/aufhängen → Gäste landen auf der Gastro-Seite und können sich als Test-Nutzer registrieren (mit Video-Upload + Bewertung)
 - Admin-Oberfläche: Gastro-Accounts anlegen, Videos moderieren, Meldungen bearbeiten
 
-### MVP 1 — Nutzer-Launch (Web-App + Android)
+### MVP 1, Nutzer-Launch (Web-App + Android)
 - Nutzer-Registrierung (E-Mail + Handynummer)
 - Video-Upload durch Nutzer mit **Pflicht-Bewertungsdialog**
 - Vertikaler Video-Feed mit Umkreis-Logik (Radius einstellbar)
@@ -62,7 +62,7 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 - Meldefunktion + Moderationsprozess
 - Vollständige DSGVO-Funktionen (Export, Löschung, Einwilligungen)
 
-### MVP 2 — Social & Bestellung
+### MVP 2, Social & Bestellung
 - Freunde/Follower (Kontaktabgleich, Username-Suche)
 - Freundes-Feed („was essen meine Freunde")
 - Bestellsystem (Abholung; Lieferung wenn von Gastro freigeschaltet)
@@ -86,13 +86,13 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 
 | Bereich | Technologie | Begründung |
 |---|---|---|
-| Frontend Web | **Next.js 15** (App Router, TypeScript) | Serverseitiges Rendering für SEO der Gastro-Seiten — kritisch, damit Google die Seiten findet |
+| Frontend Web | **Next.js 15** (App Router, TypeScript) | Serverseitiges Rendering für SEO der Gastro-Seiten, kritisch, damit Google die Seiten findet |
 | Frontend Mobile | **React Native + Expo** (ab MVP 1) | Eine Codebasis für Android + iOS, teilt Logik mit Web |
 | Shared Code | Monorepo (pnpm workspaces oder Turborepo) mit `packages/shared` für Typen, API-Client, Validierung | Kein doppelter Code |
-| Backend / DB | **Supabase** (PostgreSQL + PostGIS, Auth, Storage, Row Level Security, Edge Functions) | Login, DB, Dateispeicher und Rechteverwaltung fertig — als Einzelentwickler nicht selbst zu bauen |
+| Backend / DB | **Supabase** (PostgreSQL + PostGIS, Auth, Storage, Row Level Security, Edge Functions) | Login, DB, Dateispeicher und Rechteverwaltung fertig, als Einzelentwickler nicht selbst zu bauen |
 | Geodaten | **PostGIS** in Supabase für Umkreissuche | Umkreissuche direkt in der DB, kein externer Dienst |
 | Karte | **MapLibre GL** + OpenStreetMap-Tiles (Anbieter: Protomaps self-hosted oder MapTiler Free-Tier) | Kostenlos, keine Lizenzprobleme |
-| Restaurant-Daten | **OpenStreetMap** via Overpass API, einmalig importiert | Siehe Abschnitt 5 — rechtlich sauber, im Gegensatz zu Google |
+| Restaurant-Daten | **OpenStreetMap** via Overpass API, einmalig importiert | Siehe Abschnitt 5, rechtlich sauber, im Gegensatz zu Google |
 | Video-Hosting | **Cloudflare Stream** (ab MVP 1), im MVP 0 Supabase Storage | Transkodierung + adaptives Streaming inklusive |
 | Zahlung (MVP 2) | **Stripe Connect** (Express-Accounts) | Kann Plattformgebühr + Trinkgeld automatisch aufteilen |
 | E-Mail | Resend oder Postmark | Für Gastro-Einladungen |
@@ -103,7 +103,7 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 
 ---
 
-## 5. Datenquelle Restaurants — WICHTIG
+## 5. Datenquelle Restaurants, WICHTIG
 
 **Google Places darf NICHT als Datenbasis verwendet werden.** Die Nutzungsbedingungen verbieten das dauerhafte Speichern von Ortsdaten (außer der Place-ID) und die Anzeige auf Nicht-Google-Karten. Ein Verstoß ist ein Sperrgrund und ein rechtliches Risiko.
 
@@ -111,9 +111,9 @@ Eine App, die Restaurants, Bars und Cafés über einen **Kurzvideo-Feed im Hochf
 1. **Basis:** OpenStreetMap-Daten via Overpass API importieren.
    - Filter: `amenity=restaurant|cafe|fast_food|bar|pub|ice_cream`, `shop=bakery|deli`
    - Felder: Name, Koordinaten, Adresse, `opening_hours`, `cuisine`, `phone`, `website`, `wheelchair`
-   - Lizenz: ODbL — **Attributionshinweis „© OpenStreetMap-Mitwirkende" ist auf jeder Karte Pflicht**
+   - Lizenz: ODbL, **Attributionshinweis „© OpenStreetMap-Mitwirkende" ist auf jeder Karte Pflicht**
 2. **Aktualisierung:** wöchentlicher Cron-Job, der Änderungen nachzieht
-3. **Ergänzung:** Gastros können ihre eigenen Daten nach Übernahme des Profils korrigieren — diese Korrekturen werden in einer eigenen Tabelle gespeichert und überschreiben die OSM-Daten in der Anzeige (OSM-Daten bleiben unverändert erhalten)
+3. **Ergänzung:** Gastros können ihre eigenen Daten nach Übernahme des Profils korrigieren, diese Korrekturen werden in einer eigenen Tabelle gespeichert und überschreiben die OSM-Daten in der Anzeige (OSM-Daten bleiben unverändert erhalten)
 
 ---
 
@@ -244,7 +244,7 @@ venue_invites
 
 ---
 
-## 7. Row Level Security (Supabase) — Grundregeln
+## 7. Row Level Security (Supabase), Grundregeln
 
 Diese Regeln sind sicherheitskritisch und müssen als SQL-Policies umgesetzt werden, nicht nur im Frontend:
 
@@ -269,7 +269,7 @@ Diese Regeln sind sicherheitskritisch und müssen als SQL-Policies umgesetzt wer
 - Pflicht: OSM-Attributionshinweis sichtbar
 
 ### 8.2 Gastro-Seite (MVP 0)
-Öffentlich erreichbar unter `/g/[slug]` — serverseitig gerendert für Google-Indexierung.
+Öffentlich erreichbar unter `/g/[slug]`, serverseitig gerendert für Google-Indexierung.
 - Kopfbereich: Name, Kategorie, Ø-Bewertung (Essen/Service/Preis getrennt), Adresse, Öffnungszeiten (mit „jetzt geöffnet/geschlossen"), Telefon, Website
 - Verifizierungs-Badge falls `claim_status='verified'`
 - Video-Raster: alle Videos zu diesem Venue
@@ -303,7 +303,7 @@ Login mit von uns vergebenen Zugangsdaten, Passwortwechsel beim ersten Login erz
 Ablauf:
 1. Video aufnehmen (in-App) **oder** aus Galerie wählen
 2. Max. 60 Sekunden (MVP), Hochformat 9:16, Zuschneiden möglich
-3. **Venue-Auswahl (Pflicht):** Liste der nächstgelegenen Venues per GPS, mit Suchfeld. Nutzer können **kein** neues Venue anlegen — falls nicht vorhanden: Meldung „Restaurant fehlt" an Admin
+3. **Venue-Auswahl (Pflicht):** Liste der nächstgelegenen Venues per GPS, mit Suchfeld. Nutzer können **kein** neues Venue anlegen, falls nicht vorhanden: Meldung „Restaurant fehlt" an Admin
 4. Wenn GPS-Position beim Upload im Umkreis von 150 m des Venues → `is_location_verified=true`
 5. **Bewertungsdialog (Durchlaufen ist Pflicht, Ausfüllen nicht):**
    - Essen: 1–5 Sterne (überspringbar)
@@ -311,7 +311,7 @@ Ablauf:
    - Preis-Leistung: 1–5 Sterne (überspringbar)
    - „War das Essen heiß?" Ja/Nein/Egal
    - „Zu wievielt wart ihr?" (Zahl, optional)
-   - „Was habt ihr bestellt?" — Gerichte aus der Venue-Liste wählen oder frei eingeben, je Gericht optional 1–5 Sterne
+   - „Was habt ihr bestellt?", Gerichte aus der Venue-Liste wählen oder frei eingeben, je Gericht optional 1–5 Sterne
    - Freitext (optional)
    - Sichtbarer Hinweis: *„Videos mit Bewertung werden im Feed deutlich häufiger angezeigt."*
 6. Sichtbarkeit wählen: öffentlich / nur Freunde / privat
@@ -330,10 +330,10 @@ Ablauf:
 
 ### 8.8 Suche (MVP 1)
 Ein Suchfeld mit Reitern:
-- **Gerichte** — z.B. „Ramen" → Venues in der Nähe, die das anbieten, sortiert nach Gericht-Bewertung
-- **Restaurants** — Name
-- **Orte** — Stadt/Adresse → verschiebt Karte und Feed-Zentrum (für Reiseplanung, ohne physisch dort zu sein)
-- **Profile** — Username
+- **Gerichte**, z.B. „Ramen" → Venues in der Nähe, die das anbieten, sortiert nach Gericht-Bewertung
+- **Restaurants**, Name
+- **Orte**, Stadt/Adresse → verschiebt Karte und Feed-Zentrum (für Reiseplanung, ohne physisch dort zu sein)
+- **Profile**, Username
 Umsetzung: PostgreSQL Full-Text-Search (`tsvector`), kein externer Suchdienst nötig.
 
 ### 8.9 Moderation & Meldungen (MVP 0)
@@ -346,14 +346,14 @@ Umsetzung: PostgreSQL Full-Text-Search (`tsvector`), kein externer Suchdienst n�
 
 ## 9. Design & UX
 
-**Grundhaltung:** professionell und ruhig, nicht verspielt. Das Essen ist bunt — die Oberfläche darf es nicht sein.
+**Grundhaltung:** professionell und ruhig, nicht verspielt. Das Essen ist bunt, die Oberfläche darf es nicht sein.
 
 - **Feed:** dunkles Interface (Videos wirken auf Schwarz besser), Bedienelemente als Overlay, minimal
-- **Karte und Gastro-Seiten:** helles Interface, klar strukturiert, gut lesbar — näher an Google Maps als an TikTok
+- **Karte und Gastro-Seiten:** helles Interface, klar strukturiert, gut lesbar, näher an Google Maps als an TikTok
 - **Ein Akzentfarbton**, sparsam eingesetzt (Aktionen, aktive Zustände). Keine Farbverläufe, keine dekorativen Effekte
 - **Typografie:** eine gut lesbare, neutrale Schrift (z.B. Inter). Klare Größenhierarchie
-- **Navigation (Mobile):** untere Leiste mit vier Punkten — Feed, Karte, Upload (mittig, hervorgehoben), Profil. Suche als Symbol im Kopfbereich
-- **Sterne-Darstellung:** immer die drei Werte getrennt zeigen (Essen / Service / Preis), nie zu einer Zahl zusammenfassen — das ist ein bewusstes Unterscheidungsmerkmal
+- **Navigation (Mobile):** untere Leiste mit vier Punkten, Feed, Karte, Upload (mittig, hervorgehoben), Profil. Suche als Symbol im Kopfbereich
+- **Sterne-Darstellung:** immer die drei Werte getrennt zeigen (Essen / Service / Preis), nie zu einer Zahl zusammenfassen, das ist ein bewusstes Unterscheidungsmerkmal
 - **Barrierefreiheit:** ausreichende Kontraste (WCAG AA), Untertitel-Option für Videos später einplanen
 - **Ladeverhalten:** Videos vorladen (nächstes Video im Feed vorpuffern), Skelettansichten statt Ladekreisel
 
@@ -361,15 +361,15 @@ Umsetzung: PostgreSQL Full-Text-Search (`tsvector`), kein externer Suchdienst n�
 
 ## 10. Rechtliches & DSGVO (ab MVP 0 einzuplanen)
 
-Nicht optional — bei einer Plattform mit Nutzervideos, Standortdaten und Bewertungen ist das Haftungsrisiko real.
+Nicht optional, bei einer Plattform mit Nutzervideos, Standortdaten und Bewertungen ist das Haftungsrisiko real.
 
 - **Einwilligungen** beim Registrieren: AGB, Datenschutzerklärung, separat für Standortverarbeitung
-- **Cookie-/Tracking-Banner** (TTDSG) — im MVP nur technisch notwendige Cookies, dann ist das Banner minimal
+- **Cookie-/Tracking-Banner** (TTDSG), im MVP nur technisch notwendige Cookies, dann ist das Banner minimal
 - **Auskunft & Export** (Art. 15/20): Nutzer kann alle eigenen Daten als JSON exportieren
-- **Löschung** (Art. 17): Konto löschen → Profil und Videos werden entfernt; Bewertungen werden anonymisiert (nicht gelöscht, sonst verfälschen sich Durchschnittswerte — das ist zulässig, muss aber in der Datenschutzerklärung stehen)
-- **Impressumspflicht** (§ 5 DDG) — auch in der App erreichbar
+- **Löschung** (Art. 17): Konto löschen → Profil und Videos werden entfernt; Bewertungen werden anonymisiert (nicht gelöscht, sonst verfälschen sich Durchschnittswerte, das ist zulässig, muss aber in der Datenschutzerklärung stehen)
+- **Impressumspflicht** (§ 5 DDG), auch in der App erreichbar
 - **Bewertungen:** Verdachtsmomente auf Fake-Bewertungen ernst nehmen. Gastros brauchen ein Widerspruchsverfahren gegen einzelne Bewertungen (Gegendarstellung + Prüfung durch uns). BGH-Rechtsprechung verlangt von Bewertungsportalen eine Prüfpflicht bei substantiiertem Widerspruch
-- **Urheberrecht Videos:** Nutzer räumen in den AGB ein einfaches Nutzungsrecht ein; keine Musik im MVP (deshalb erst später — GEMA/Lizenzfragen)
+- **Urheberrecht Videos:** Nutzer räumen in den AGB ein einfaches Nutzungsrecht ein; keine Musik im MVP (deshalb erst später, GEMA/Lizenzfragen)
 - **Recht am eigenen Bild:** Hinweis beim Upload, dass erkennbare Personen zustimmen müssen
 - **Minderjährige:** Altersgrenze 16 (DSGVO Art. 8 in DE), Abfrage bei Registrierung
 - **DSA (Digital Services Act):** Als Hosting-Dienst brauchst du ab Start ein Melde- und Abhilfeverfahren (haben wir), einen Kontaktpunkt und Begründungspflicht bei Sperrungen
@@ -392,10 +392,10 @@ Nicht optional — bei einer Plattform mit Nutzervideos, Standortdaten und Bewer
 | Sentry Free | 0 € |
 | **Summe** | **~1–5 €/Monat** |
 
-Der Free-Tier von Supabase reicht für den Gastro-Pilot mit wenigen hundert Videos nicht lange (1 GB Storage). Sobald das eng wird: Supabase Pro (25 $/Monat) **oder** Videos auf Cloudflare Stream auslagern (5 $ pro 1.000 gespeicherte Minuten + 1 $ pro 1.000 gestreamte Minuten). Cloudflare Stream ist bei Video fast immer die günstigere und bessere Wahl — deshalb ab MVP 1 einplanen.
+Der Free-Tier von Supabase reicht für den Gastro-Pilot mit wenigen hundert Videos nicht lange (1 GB Storage). Sobald das eng wird: Supabase Pro (25 $/Monat) **oder** Videos auf Cloudflare Stream auslagern (5 $ pro 1.000 gespeicherte Minuten + 1 $ pro 1.000 gestreamte Minuten). Cloudflare Stream ist bei Video fast immer die günstigere und bessere Wahl, deshalb ab MVP 1 einplanen.
 
 **Harte Video-Limits von Anfang an** (sonst explodieren die Kosten):
-- max. 60 Sek., max. 100 MB pro Upload
+- max. 60 Sek. max. 100 MB pro Upload
 - max. 10 Uploads pro Nutzer pro Tag
 - Transkodierung auf max. 1080p
 
@@ -403,11 +403,11 @@ Der Free-Tier von Supabase reicht für den Gastro-Pilot mit wenigen hundert Vide
 
 ## 12. Monetarisierung (ab MVP 2, Architektur vorbereiten)
 
-1. **Provision auf In-App-Bestellungen** — z.B. 5–8 % vom Bestellwert (über Stripe Connect `application_fee_amount`)
-2. **Trinkgeld** — geht zu 100 % an die Gastro, keine Plattformgebühr darauf (wichtig für Akzeptanz und rechtlich sauberer)
-3. **Bezahlte Feed-Platzierung** — Gastros zahlen für höhere Sichtbarkeit. **Muss als Werbung gekennzeichnet sein** (UWG)
-4. **Gastro-Abo** — erweiterte Statistiken, mehrere Standorte, Prioritäts-Support
-5. **Klassische Werbung** — erst bei relevanter Nutzerzahl sinnvoll
+1. **Provision auf In-App-Bestellungen**, z.B. 5–8 % vom Bestellwert (über Stripe Connect `application_fee_amount`)
+2. **Trinkgeld**, geht zu 100 % an die Gastro, keine Plattformgebühr darauf (wichtig für Akzeptanz und rechtlich sauberer)
+3. **Bezahlte Feed-Platzierung**, Gastros zahlen für höhere Sichtbarkeit. **Muss als Werbung gekennzeichnet sein** (UWG)
+4. **Gastro-Abo**, erweiterte Statistiken, mehrere Standorte, Prioritäts-Support
+5. **Klassische Werbung**, erst bei relevanter Nutzerzahl sinnvoll
 
 ---
 
@@ -417,7 +417,7 @@ Arbeite diese Schritte der Reihe nach ab. Nach jedem Schritt lauffähiger Zustan
 
 1. **Setup:** Monorepo, Next.js, TypeScript, Tailwind, Supabase-Projekt, Umgebungsvariablen, `APP_NAME`-Config
 2. **Datenbank:** Alle Tabellen aus Abschnitt 6 als Migrationen, PostGIS aktivieren, Indizes (räumlicher Index auf `venues.location`!)
-3. **RLS-Policies** aus Abschnitt 7 — vor allem anderen, sonst baut man später unsicher weiter
+3. **RLS-Policies** aus Abschnitt 7, vor allem anderen, sonst baut man später unsicher weiter
 4. **OSM-Import:** Skript, das Overpass abfragt und `venues` befüllt. Erst mit einer Stadt testen, dann Deutschland
 5. **Karte:** MapLibre-Ansicht mit Markern aus der DB, Umkreisabfrage per PostGIS
 6. **Gastro-Seiten:** SSR-Seite `/g/[slug]`, SEO-Metadaten, Öffnungszeiten-Logik
@@ -433,10 +433,10 @@ Arbeite diese Schritte der Reihe nach ab. Nach jedem Schritt lauffähiger Zustan
 
 ## 14. Offene Punkte (bewusst noch nicht entschieden)
 
-- **Produkt- und Firmenname** — noch offen, deshalb überall `APP_NAME`
-- **Open Source ja/nein** — Empfehlung: Repository zunächst privat halten. Eine Öffnung ist jederzeit möglich, eine Schließung nicht. Falls später: nur Frontend unter MIT, Backend-Logik und Datenimport privat
-- **Gastro-Verifizierungsverfahren** — nach MVP 1 ausarbeiten (Vorschlag: Gewerbeanmeldung hochladen + Telefonanruf, Postbrief nur bei Zweifeln)
-- **Kaltstart-Strategie im Detail** — automatisierte Gastro-Ansprache per E-Mail. Achtung: **Kaltakquise per E-Mail an Unternehmen ist in Deutschland nach § 7 UWG grundsätzlich unzulässig** ohne Einwilligung. Das muss vor dem Versand rechtlich geklärt werden; Alternative: Postkarte, Telefon (bei Unternehmen unter Umständen mit mutmaßlicher Einwilligung zulässig), oder Ansprache über die Gäste per QR-Code
-- **Video-Maximallänge** — MVP 60 Sek., später eventuell 2 Min.
-- **Bestellsystem-Details** — Abholzeiten, Stornierung, Warenkorb-Logik: mit MVP 2 spezifizieren
-- **Anbindung Lieferando & Co.** — deren APIs sind nicht offen zugänglich; realistisch erst mit Verhandlungsposition
+- **Produkt- und Firmenname**, noch offen, deshalb überall `APP_NAME`
+- **Open Source ja/nein**, Empfehlung: Repository zunächst privat halten. Eine Öffnung ist jederzeit möglich, eine Schließung nicht. Falls später: nur Frontend unter MIT, Backend-Logik und Datenimport privat
+- **Gastro-Verifizierungsverfahren**, nach MVP 1 ausarbeiten (Vorschlag: Gewerbeanmeldung hochladen + Telefonanruf, Postbrief nur bei Zweifeln)
+- **Kaltstart-Strategie im Detail**, automatisierte Gastro-Ansprache per E-Mail. Achtung: **Kaltakquise per E-Mail an Unternehmen ist in Deutschland nach § 7 UWG grundsätzlich unzulässig** ohne Einwilligung. Das muss vor dem Versand rechtlich geklärt werden; Alternative: Postkarte, Telefon (bei Unternehmen unter Umständen mit mutmaßlicher Einwilligung zulässig), oder Ansprache über die Gäste per QR-Code
+- **Video-Maximallänge**, MVP 60 Sek. später eventuell 2 Min.
+- **Bestellsystem-Details**, Abholzeiten, Stornierung, Warenkorb-Logik: mit MVP 2 spezifizieren
+- **Anbindung Lieferando & Co.**, deren APIs sind nicht offen zugänglich; realistisch erst mit Verhandlungsposition

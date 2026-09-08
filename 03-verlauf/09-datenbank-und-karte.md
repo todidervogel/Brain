@@ -1,4 +1,4 @@
-# Runde 9 — Datenbank, Karte, MVP startklar
+# Runde 9: Datenbank, Karte, MVP startklar
 
 > Die Runde, in der aus einem Prototyp etwas wurde, das man anfassen kann,
 > ohne dass beim Neustart alles weg ist.
@@ -10,7 +10,7 @@ gehen an die App und den Server". Dahinter standen acht Dinge:
 
 1. Den gesamten Code durchgehen und **Verlinkungen, Abhängigkeiten und
    Erklärungen als Kommentare** verteilen.
-2. **Alle .md-Dateien** auf den Stand bringen — und in Zukunft auch.
+2. **Alle .md-Dateien** auf den Stand bringen, und in Zukunft auch.
 3. **Userprofile in Datenbanken**, wie es Firmen professionell machen.
 4. **Beispieldaten weg**, und einen **Überspringen-Knopf** bei der
    Verifizierung von Handynummer und E-Mail.
@@ -23,14 +23,13 @@ gehen an die App und den Server". Dahinter standen acht Dinge:
 
 ### Was „Website vernachlässigen" nicht heißen kann
 
-Die App ist eine Hülle um die gebaute Website — sie *enthält* keine eigenen
+Die App ist eine Hülle um die gebaute Website, sie *enthält* keine eigenen
 Screens (siehe [[02-technik/AUFTEILUNG]]). „An der App arbeiten" und „die
 Website nicht anfassen" schließen sich deshalb aus.
 
 Gemeint ist etwas anderes, und danach habe ich gehandelt: **Die
 Präsentationsseite und der Feinschliff am Desktop-Layout ruhen.** Was in der
-App zu sehen ist — Betriebsseiten, Karte, Verifizierung, Einstellungen —
-gehört zur App und wurde angefasst.
+App zu sehen ist, Betriebsseiten, Karte, Verifizierung, Einstellungen, gehört zur App und wurde angefasst.
 
 ## Was gebaut wurde
 
@@ -60,7 +59,7 @@ flowchart TD
 ### Die Datenbank
 
 `node:sqlite` steckt seit Node 22.5 in Node selbst. Damit gibt es eine
-richtige Datenbank, ohne dass `npm install` irgendetwas nachlädt — was für
+richtige Datenbank, ohne dass `npm install` irgendetwas nachlädt, was für
 dieses Projekt seit Runde 6 die Bedingung ist.
 
 - **15 Tabellen** mit Typen, Bedingungen und Indizes. Das Schema steht als
@@ -74,7 +73,7 @@ dieses Projekt seit Runde 6 die Bedingung ist.
   im Code musste daran gedacht werden, es wieder herauszunehmen. Eine davon zu
   vergessen hätte gereicht.
 - **Anmeldungen** stehen ebenfalls in der Datenbank. Vorher lagen sie in einer
-  Map im Arbeitsspeicher — jeder Neustart hat alle Angemeldeten hinausgeworfen,
+  Map im Arbeitsspeicher, jeder Neustart hat alle Angemeldeten hinausgeworfen,
   mitten in dem, was sie gerade taten. Über ngrok startet der Server öfter, als
   einem lieb ist.
 
@@ -105,7 +104,7 @@ von Spenden leben, und **ein Stilwechsel bleibt eine Zeile**.
 
 Zum Stil: Gewünscht war „so wie Google Maps". Googles Kacheln dürfen nur über
 deren SDK benutzt werden und brauchen ein Bezahlkonto. **CARTO Voyager** kommt
-demselben Bild am nächsten — heller entsättigter Grund, farbige Straßen nach
+demselben Bild am nächsten, heller entsättigter Grund, farbige Straßen nach
 Rang, grüne Parks, zurückhaltende Beschriftung. Die Daten sind wie überall
 OpenStreetMap.
 
@@ -120,14 +119,14 @@ Speisekarten sind **weg**. Übrig bleiben die 360 importierten Betriebe und die
 drei bestellten Zugänge.
 
 Der Feed ist damit am ersten Tag leer. Das ist kein Fehler, sondern der
-Zustand jeder Anwendung am ersten Tag — und es war die eigentliche Gefahr an
+Zustand jeder Anwendung am ersten Tag, und es war die eigentliche Gefahr an
 den Beispieldaten: Niemand hätte von außen erkennen können, was echt ist und
 was Kulisse, und die ersten echten Beiträge hätten zwischen erfundenen
 gestanden.
 
 Was zum Prüfen gebraucht wird, steht jetzt im Prüfwerkzeug
 (`Website-/tools/pruefbestand.mjs`) und nirgends im Programm. Ein Betrieb
-„Prüf-Trattoria" mit Speisekarte, Videos und Bewertungen — sichtbar als das,
+„Prüf-Trattoria" mit Speisekarte, Videos und Bewertungen, sichtbar als das,
 was er ist.
 
 ### Bilder
@@ -136,7 +135,7 @@ Zu den Betriebsseiten gehören Bilder. Fotos gibt es dafür nicht:
 
 - Die Fotos bei Google Maps gehören denen, die sie gemacht haben.
 - OpenStreetMap führt bei einigen wenigen ein `image`- oder
-  `wikimedia_commons`-Merkmal. Wo es das gibt, wird es benutzt — das sind
+  `wikimedia_commons`-Merkmal. Wo es das gibt, wird es benutzt, das sind
   deutlich unter fünf Prozent.
 - Ein Stockfoto von irgendeinem Restaurant wäre eine Behauptung über einen
   Betrieb, den niemand fotografiert hat.
@@ -152,7 +151,7 @@ verschwindet.
 Ausdrücklich bestellt und ohnehin die einzige haltbare Antwort: Eine fremde
 Sternezahl sagt nichts darüber, *was* bewertet wurde, lässt sich nicht
 nachvollziehen und wäre eine Behauptung über einen Betrieb, die wir nicht
-belegen können. `tools/orte-pruefen.mjs` prüft, dass keine hereinkommt — auch
+belegen können. `tools/orte-pruefen.mjs` prüft, dass keine hereinkommt, auch
 nicht, wenn jemand später ein Feld „mitnimmt".
 
 ## Was dabei kaputt war
@@ -160,7 +159,7 @@ nicht, wenn jemand später ein Feld „mitnimmt".
 ### Die eigenen Konten brachen die eigene Regel
 
 Die bestellten Zugänge hießen `test-user` und `test-gastro`. Die Regel für
-Benutzernamen lässt keinen Bindestrich zu. Anmelden ging — aber sobald jemand
+Benutzernamen lässt keinen Bindestrich zu. Anmelden ging, aber sobald jemand
 sein Profil geöffnet und gespeichert hätte, hätte das Formular den eigenen
 Namen zurückgewiesen, und zwar ohne dass irgendetwas dabei erklärt, warum.
 
@@ -188,7 +187,7 @@ Sprache, gegen die man einmal eine Hilfsfunktion schreibt.
 
 `verified` stand in den importierten Daten **und** wurde in `derive.js` aus
 `claimStatus` berechnet. Solange beide dasselbe sagten, fiel es nicht auf. Der
-neue Store hat es gemeldet, weil es keine Spalte dafür gibt — und das war
+neue Store hat es gemeldet, weil es keine Spalte dafür gibt, und das war
 richtig so.
 
 ### Der Platzhalter stand wörtlich auf der Seite
@@ -212,23 +211,22 @@ Umgebungsvariable statt über eine Codeänderung:
 KARTE_STIL=voyager node src/index.js
 ```
 
-Die Namensnennung wandert mit — sie hängt am Stil, nicht am Code.
+Die Namensnennung wandert mit, sie hängt am Stil, nicht am Code.
 
 ### Das Menü sah nicht aus wie ein Menü
 
 Die untere Leiste stand als **„FEED · KARTE · SUCHE · PROFIL"** da:
-Großbuchstaben mit Sperrung. Der Grund war eine falsch gewählte Klasse —
-`.t-tiny`, gedacht für Tabellenköpfe.
+Großbuchstaben mit Sperrung. Der Grund war eine falsch gewählte Klasse, `.t-tiny`, gedacht für Tabellenköpfe.
 
 Kein Telefon beschriftet seine Navigationsleiste so. Neue Klasse
 `.nav-label`, gewöhnliche Schreibweise, keine Sperrung.
 
 Beim Nachsehen fielen zwei weitere Dinge auf, die aus demselben Grund falsch
-aussahen — ein Symbol an der falschen Stelle:
+aussahen, ein Symbol an der falschen Stelle:
 
 - **Die Kartenmarker** waren graue Kreise mit einem durchgestrichenen
   Besteck. Das ist das Symbol für „Bild fehlt". Auf einer Karte sah es aus,
-  als wäre etwas kaputt — und ein Kreis *um* den Punkt zeigt auf alles im
+  als wäre etwas kaputt, und ein Kreis *um* den Punkt zeigt auf alles im
   Umkreis, nicht auf den Punkt. Jetzt Tropfen mit der Spitze auf der
   Koordinate, wie auf jeder Karte.
 - **Die Betriebszeilen** zeigten denselben Platzhalter, zwanzigmal
@@ -238,7 +236,7 @@ aussahen — ein Symbol an der falschen Stelle:
 
 OpenStreetMap kennt kein Feld „geschlossen". Wer einen Betrieb nicht löschen
 will, schreibt es in den Namen: „Lempert (dauerhaft geschlossen)". Auf einer
-Betriebsseite stand das dann als Name — und es gab eine Seite für ein Lokal,
+Betriebsseite stand das dann als Name, und es gab eine Seite für ein Lokal,
 zu dem niemand mehr hinfahren sollte.
 
 `src/data/zustand.js` trennt Name und Zustand. Dauerhaft Geschlossene kommen
@@ -246,13 +244,13 @@ gar nicht erst in den Bestand; vorübergehend Geschlossene bleiben mit
 Hinweis, sonst verschwände jedes Lokal in den Betriebsferien.
 
 Angewandt wird das **beim Import und beim Laden**. `orte.js` kann aus einem
-Lauf stammen, der die Regel noch nicht kannte — genau das war der Fall. Ein
+Lauf stammen, der die Regel noch nicht kannte, genau das war der Fall. Ein
 Bestand, der sich beim Laden selbst prüft, ist einer weniger, bei dem man an
 den richtigen Zeitpunkt denken muss.
 
 ### Und einmal Nein: Bilder von Google
 
-Zweimal gewünscht, zweimal nicht möglich — und das liegt nicht am Aufwand:
+Zweimal gewünscht, zweimal nicht möglich, und das liegt nicht am Aufwand:
 
 - Die Fotos bei Google Maps gehören **den Menschen, die sie gemacht haben**.
   Google gibt sie nicht weiter; sie herunterzuladen und selbst auszuliefern
@@ -266,13 +264,84 @@ Zweimal gewünscht, zweimal nicht möglich — und das liegt nicht am Aufwand:
 
 Was stattdessen geht und eingebaut ist:
 
-1. **Wikimedia Commons und `image` aus OpenStreetMap** — echte Fotos, frei
+1. **Wikimedia Commons und `image` aus OpenStreetMap**, echte Fotos, frei
    lizenziert, mit Nennung. Der Import nimmt sie mit, wo es sie gibt (unter
    fünf Prozent der Betriebe).
-2. **Gezeichnete Titelbilder** für alle anderen — ehrlich, immer da, und
+2. **Gezeichnete Titelbilder** für alle anderen, ehrlich, immer da, und
    sie behaupten nichts.
 3. **Der Betrieb selbst.** Wer sein Konto übernimmt, lädt sein eigenes Foto
    hoch. Das ist ohnehin das bessere Bild.
+
+## Nachtrag: vier Sachen aus der Rückmeldung
+
+### Der Server-Workflow lief nicht, und ich war schuld
+
+In `.gitignore` stand `data/`. Gemeint war der Ordner mit der Datenbank. Ohne
+führenden Schrägstrich passt das Muster aber auf **jeden** Ordner dieses
+Namens, also auch auf `src/data/` mit dem Ausgangsbestand.
+
+Die Dateien, die dort schon lagen, blieben eingecheckt. Die neue
+`src/data/zustand.js` wurde stillschweigend nicht mitgenommen. Lokal lief
+alles, alle Tests grün, der Push ging durch. Auf dem Runner, der frisch
+klont:
+
+    Cannot find module .../src/data/zustand.js
+
+Das ist die unangenehmste Sorte Fehler: Er entsteht beim Schreiben und zeigt
+sich erst auf einer anderen Maschine. Kein gewöhnlicher Test findet ihn, weil
+jeder Test auf demselben Rechner läuft, auf dem die Datei liegt.
+
+`tools/vollstaendig.mjs` fragt jetzt nicht das Dateisystem, sondern git: Es
+geht von `src/index.js` aus jedem lokalen Import nach und prüft für jede
+Datei, ob git sie kennt. Läuft in `npm test` und im Workflow, bevor der Server
+startet.
+
+### Das Banner ist weg
+
+Ein Band, das auf jeder Seite über allem klebt, kostet Platz auf jedem
+Bildschirm und sagt nach dem zweiten Mal nichts Neues mehr. Was noch fehlt,
+steht dort, wo es fehlt.
+
+### Die Menüs sahen aus wie Tabellen
+
+Zwei Bausteine trugen denselben Klassennamen: `.menu-item` war im
+Aufklappmenü ein Eintrag und auf der Speisekarte ein Gericht. Das Gericht hat
+eine Trennlinie darunter, und seine Regel stand weiter unten in der
+Stilvorlage, also gewann sie.
+
+Ergebnis: Das Aufklappmenü hatte unter **jedem** Eintrag einen Strich, und
+keine Änderung an der Menü-Regel half. Genau das sah nach Tabelle aus statt
+nach Menü.
+
+Der Namensraum heißt jetzt `dropdown-`. Und der Rest kam aus dem Vergleich
+mit Instagram und TikTok: keine Trennlinien zwischen Einträgen, große Radien,
+weicher Schatten statt Rahmen, 48 Pixel hohe Zeilen, Symbol vor jedem
+Eintrag, eine einzige Fuge zwischen zwei Gruppen. Der Hinweis unter der
+Darstellungswahl stand in Großbuchstaben („FOLGT DER EINSTELLUNG DEINES
+GERÄTS. HELL."), auch das war wieder `.t-tiny`.
+
+### Keine Gedankenstriche mehr
+
+„Diese Striche in Sätzen, das sieht nach KI aus." Stimmt, und es waren 1211
+Stück in fünf Repositories.
+
+Umgeschrieben mit einem Skript nach drei Regeln: vor einer Konjunktion ein
+Komma, vor einem neuen Hauptsatz ein Punkt, sonst ein Komma.
+
+Das Skript selbst hat dabei zwei Schäden angerichtet, die ich hier
+aufschreibe, weil sie lehrreich sind:
+
+1. Eine Aufräumregel `([.:!?])\s*,\s+` sollte „Satz. , Anfang" glätten. Sie
+   traf auch `(?, ?, ?)` in SQL-Anweisungen und machte daraus `(? ? ?)`.
+   **Ein Satzzeichen in Prosa ist in Code ein Platzhalter.**
+2. Eine Regel `\s+,` sollte ein Leerzeichen vor einem Komma entfernen. `\s`
+   schließt den Zeilenumbruch ein, also hat sie Kommentarzeilen
+   zusammengezogen. **Wer über Zeilenenden hinweg ersetzt, ersetzt mehr, als
+   er sieht.**
+
+Beides gefunden, weil danach die Prüfungen liefen. Ein Skript, das 220
+Dateien anfasst, ohne dass hinterher etwas ausgeführt wird, ist ein
+Blindflug.
 
 ## Was offen bleibt
 

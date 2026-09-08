@@ -1,4 +1,4 @@
-# Warum vier Repositories — und wie sie zusammenhängen
+# Warum vier Repositories, und wie sie zusammenhängen
 
 Bis zum 07.09.2026 lag alles in `design`. Auf Wunsch ist es jetzt aufgeteilt.
 Diese Seite beschreibt die Schnitte und die Stellen, an denen es weh tut.
@@ -9,7 +9,7 @@ Diese Seite beschreibt die Schnitte und die Stellen, an denen es weh tut.
 |---|---|---|
 | `design` | Farben, Schrift, Bausteine, alle Texte, Vokabular | Daten, Anmeldung, Netz, Routen |
 | `Server` | Fachlogik, Datenhaltung, HTTP, Rechte | React, Browser, Gestaltung |
-| `Website-` | Screens, Routen, Formulare, Sitzung | — führt beides zusammen |
+| `Website-` | Screens, Routen, Formulare, Sitzung |, führt beides zusammen |
 | `App` | Android-Projekt, Bauweg | Oberflächencode |
 
 ### Warum kennt `design` keine Daten?
@@ -24,13 +24,13 @@ alles als Eigenschaft herein:
 ```
 
 Die Verdrahtung liegt in der Website (`components/PlaceRowConnected.jsx`).
-Dadurch lässt sich die Galerie ohne Server starten — und man sieht jeden
+Dadurch lässt sich die Galerie ohne Server starten, und man sieht jeden
 Baustein einzeln.
 
 ### Warum kennt `Server` kein React?
 
 Die Fachlogik ist synchron, ohne Netz, ohne Browser. Sie arbeitet auf einem
-eingehängten „Store" — der Server hängt eine Datei ein, die Website den
+eingehängten „Store", der Server hängt eine Datei ein, die Website den
 Browserspeicher. Dieselben Funktionen, zwei Wirte.
 
 Das ist der Grund, warum die Website auch ohne Server läuft und sich dabei
@@ -58,7 +58,7 @@ npm run sync:design -- --from ../design   # oder aus einem lokalen Ordner
 **Wann abgleichen?** Immer nach einer Änderung in `design` oder `Server`.
 Am besten sofort, sonst merkt man es erst, wenn etwas fehlt.
 
-Die Alternative wäre ein Monorepo mit Arbeitsbereichen gewesen — wie im
+Die Alternative wäre ein Monorepo mit Arbeitsbereichen gewesen, wie im
 Konzept (Abschnitt 4) eigentlich vorgesehen. Die Aufteilung auf eigene
 Repositories war der ausdrückliche Wunsch; der Abgleich per Skript ist die
 schmerzärmste Art, sie umzusetzen.
@@ -81,7 +81,7 @@ Website im Alleinbetrieb mit der lokalen Sitzung. Dadurch
 
 - verhalten sich beide Betriebsarten gleich,
 - stehen die Rechte an genau einer Stelle,
-- und was hier nicht steht, ist nicht möglich — auch nicht mit curl.
+- und was hier nicht steht, ist nicht möglich, auch nicht mit curl.
 
 Hier stehen später die RLS-Policies von Supabase (Konzept Abschnitt 7).
 
@@ -118,7 +118,7 @@ hätte der Server Deutsch gesprochen.
 **Der Zustand der Betrachterin reist mit.** „gemerkt", „gefällt mir" und der
 Folgen-Zustand hängen jetzt an den Daten (`viewerSaved`, `viewerLiked`,
 `viewerFollow`), statt einzeln abgefragt zu werden. Über das Netz ginge das
-ohnehin nicht synchron — und es spart pro Liste ein Dutzend Nachfragen.
+ohnehin nicht synchron, und es spart pro Liste ein Dutzend Nachfragen.
 
 **Vier Screens fassten die Daten direkt an.** Sie gehen jetzt über die
 Aufrufliste und damit durch die Rechteprüfung.

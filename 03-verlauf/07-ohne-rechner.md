@@ -1,16 +1,16 @@
-# Runde 7 — Alles ohne Rechner
+# Runde 7. Alles ohne Rechner
 
 **Gefragt:** „kann ich des auch am Handy ausführen, builden lassen"
 
 ## Antwort in einem Satz
 
-Bauen ja, komplett ohne Rechner — GitHub baut, das Handy lädt herunter.
+Bauen ja, komplett ohne Rechner, GitHub baut, das Handy lädt herunter.
 Selbst bauen *auf* dem Handy lohnt nicht.
 
 ## Was gemacht wurde
 
 **1. Die Lücke aus der Aufteilung geschlossen.**
-Das Repository `Website-` hatte keinen Ablauf zum Veröffentlichen — der lag im
+Das Repository `Website-` hatte keinen Ablauf zum Veröffentlichen, der lag im
 Monolithen und war beim Aufteilen liegen geblieben. Jetzt gibt es
 `.github/workflows/pages.yml`: Push auf `main` oder Start von Hand, mit einem
 Feld für die Serveradresse. Zwei Feinheiten, die man leicht übersieht:
@@ -22,13 +22,13 @@ Feld für die Serveradresse. Zwei Feinheiten, die man leicht übersieht:
   reicht ihn als `basename` an den Router weiter.
 
 Geprüft: mit `VITE_BASE=/Website-/` gebaut, unter genau diesem Pfad
-ausgeliefert, Startseite und `/karte` im Browser geöffnet — beides lädt, keine
+ausgeliefert, Startseite und `/karte` im Browser geöffnet, beides lädt, keine
 Fehler in der Konsole. Der Push hat den Ablauf ausgelöst, Bau und
 Veröffentlichung sind grün:
 
 > **<https://todidervogel.github.io/Website-/>**
 
-(Die Seite selbst konnte ich von hier aus nicht abrufen — der Netzzugang
+(Die Seite selbst konnte ich von hier aus nicht abrufen, der Netzzugang
 dieser Umgebung lässt github.io nicht durch. Grün ist der Lauf, mit
 „Reported success" und genau dieser Adresse im Protokoll.)
 
@@ -40,7 +40,7 @@ steht auf 34. `allowMixedContent` in der Capacitor-Konfiguration regelt nur
 das Verhalten der WebView, nicht die Richtlinie des Systems.
 
 Behoben mit `android/app/src/debug/AndroidManifest.xml`
-(`usesCleartextTraffic="true"`) — nur im Debug-Bau, nicht in einer
+(`usesCleartextTraffic="true"`), nur im Debug-Bau, nicht in einer
 Veröffentlichung. `tools/pruefen.mjs` prüft die Datei jetzt mit, damit sie
 nicht wieder verschwindet.
 
@@ -53,7 +53,7 @@ Could not read script 'android/capacitor-cordova-android-plugins/
 cordova.variables.gradle' as it does not exist.
 ```
 
-Die Datei liegt bewusst nicht im Repository — `android/.gitignore` schließt
+Die Datei liegt bewusst nicht im Repository, `android/.gitignore` schließt
 `capacitor-cordova-android-plugins`, `assets/public` und die erzeugten
 Konfigurationsdateien aus, weil Capacitor sie erzeugt. Nur hat sie niemand
 erzeugt: `tools/build.mjs` kopierte `dist` von Hand ins Android-Projekt und
@@ -62,7 +62,7 @@ App gar nicht erst.
 
 Jetzt macht es Capacitor selbst. `webDir` zeigt dafür auf `.website/dist`.
 Nebeneffekt, der vorher fehlte: `assets/capacitor.config.json` wird
-mitgeschrieben — ohne sie gälten in der App die Voreinstellungen, also weder
+mitgeschrieben, ohne sie gälten in der App die Voreinstellungen, also weder
 unser Schema noch `allowMixedContent`. Die Korrektur aus Punkt 2 wäre ohne
 diese Datei wirkungslos geblieben.
 
@@ -85,23 +85,22 @@ brauchbare Aufbauten, nicht vier:
 | APK plus Server im WLAN | beim Server |
 
 **5. `OHNE-RECHNER.md`** fasst den ganzen Weg über den Browser zusammen:
-APK über Actions, Webseite über Pages, Code am Handy ändern — und was in
+APK über Actions, Webseite über Pages, Code am Handy ändern, und was in
 Termux realistisch ist (der Server ja, er hat keine Abhängigkeiten; die
 Website mühsam; das Android-SDK nein).
 
 **6. Zwei Repositories zeigen noch auf den alten Zweig.**
 Im `design`-Repo scheitert das Veröffentlichen: Bau grün, Veröffentlichen
-abgewiesen, ohne einen einzigen Schritt. Grund ist der **Standardzweig** —
-dort steht noch `claude/design-spec-screens-components-omyfb5`, und GitHub
+abgewiesen, ohne einen einzigen Schritt. Grund ist der **Standardzweig**, dort steht noch `claude/design-spec-screens-components-omyfb5`, und GitHub
 lässt in die Umgebung `github-pages` von Haus aus nur den Standardzweig
 hinein. In `Brain` steht ebenso noch `claude/app-website-mvp-3w6arm`.
 
-Das lässt sich von hier aus nicht ändern — die verfügbaren GitHub-Werkzeuge
+Das lässt sich von hier aus nicht ändern, die verfügbaren GitHub-Werkzeuge
 können Repository-Einstellungen nicht schreiben.
 
 Nebenbei aufgefallen: Im `design`-Repo lag noch der APK-Ablauf aus dem
 Monolithen. Ohne `android/` und `tools/build.mjs` wäre er dort sofort
-gescheitert — entfernt.
+gescheitert, entfernt.
 
 ## Offen
 

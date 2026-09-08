@@ -1,4 +1,4 @@
-# Runde 6 — Aufteilung auf vier Repositories
+# Runde 6: Aufteilung auf vier Repositories
 
 Datum: 07.09.2026
 
@@ -21,7 +21,7 @@ selbst testbar machen.
 | `Server` | Fachlogik, Datenhaltung, HTTP-API, Rechteprüfung |
 | `Website-` | Screens, Routen, Formulare, Sitzung |
 | `App` | Android-Projekt und der Bauweg für die APK |
-| `design` | Farben, Schrift, Bausteine, Texte, Vokabular — plus eine Galerie |
+| `design` | Farben, Schrift, Bausteine, Texte, Vokabular, plus eine Galerie |
 
 Die Schnitte und ihr Preis stehen in `02-technik/AUFTEILUNG.md`.
 
@@ -32,7 +32,7 @@ Fachlogik zog auf einen **echten Server**.
 
 - **Ohne Fremdabhängigkeiten.** `npm start` genügt, Node 20 reicht.
 - **Rechte am Server.** `domain/calls.js` sagt zu jedem Aufruf, wer ihn machen
-  darf. Was dort nicht steht, geht nicht — auch nicht mit curl. Das ist die
+  darf. Was dort nicht steht, geht nicht, auch nicht mit curl. Das ist die
   Stelle, an der später die RLS-Policies stehen.
 - **Anmeldung mit Zugangsmerkmal**, das ein Neuladen übersteht.
 - **Datenhaltung in `data/db.json`**, atomar geschrieben.
@@ -53,7 +53,7 @@ Jedes Repository lässt sich einzeln starten:
 | `App` | `npm run build:apk` | eine installierbare APK |
 
 Dazu `SELBST-TESTEN.md` in diesem Repo: von null zum laufenden MVP, mit fünf
-Dingen, die man ausprobieren sollte — darunter zwei Browser mit demselben
+Dingen, die man ausprobieren sollte, darunter zwei Browser mit demselben
 Stand und der Nachweis, dass der Server unerlaubte Aufrufe abweist.
 
 ### Branches
@@ -66,11 +66,11 @@ der vollständige gemeinsame Prototyp. Der Arbeitszweig
 ## Was dabei aufgefallen ist
 
 **Die Oberfläche fragte Daten synchron ab.** `api.social.isLiked(…)` mitten im
-Zeichnen — über das Netz unmöglich. „gemerkt", „gefällt mir" und der
+Zeichnen, über das Netz unmöglich. „gemerkt", „gefällt mir" und der
 Folgen-Zustand reisen jetzt an den Daten mit.
 
 **Die Öffnungszeiten sprachen Deutsch.** Mitten in der Fachlogik stand
-`t('hours.openUntil')`. Auf einem Server hat das nichts zu suchen — er liefert
+`t('hours.openUntil')`. Auf einem Server hat das nichts zu suchen, er liefert
 jetzt Zustand, den Satz baut die Oberfläche.
 
 **Vier Screens fassten die Daten direkt an**, an jeder Rechteprüfung vorbei.
@@ -78,7 +78,7 @@ Im Alleinbetrieb fiel das nicht auf; auf einem Server wäre es ein Loch
 gewesen. Sie gehen jetzt über die Aufrufliste.
 
 **„Passwort vergessen" hätte ein Loch gerissen.** Der alte Weg merkte sich das
-Konto und ließ danach ein neues Passwort setzen — ohne jeden Nachweis. Ohne
+Konto und ließ danach ein neues Passwort setzen, ohne jeden Nachweis. Ohne
 E-Mail-Versand gibt es keinen sauberen Weg, also sagt die Seite das jetzt
 offen, statt einen vorzutäuschen.
 

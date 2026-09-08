@@ -54,7 +54,7 @@ Fußzeile, kein Feed. Wer im Lokal sitzt, will lesen.
 - **Suche** filtert innerhalb der Kategorien, die Gliederung bleibt erhalten.
 - **Kennzeichnung** je Gericht: Vegan · Vegetarisch · Glutenfrei · Schärfe
   (ein bis drei Punkte) · Beliebt · Heute nicht verfügbar.
-- **Allergene** als hochgestellte Zahlen, mit Legende am Fuß — die in
+- **Allergene** als hochgestellte Zahlen, mit Legende am Fuß, die in
   Deutschland übliche Darstellung. In der Legende stehen nur die Allergene,
   die auf dieser Karte vorkommen.
 - **Gästebewertung pro Gericht**, berechnet aus allen Bewertungen. Das ist
@@ -73,7 +73,7 @@ Der Gastro-Bereich unter `/gastro/speisekarte`:
 - Gerichte anlegen und bearbeiten: Name, Beschreibung, Preis, Kategorie,
   Kennzeichnung, Schärfe, alle vierzehn Allergene, „beliebt", „heute
   verfügbar".
-- Der Schalter „Heute verfügbar" wirkt sofort — ausverkaufte Gerichte stehen
+- Der Schalter „Heute verfügbar" wirkt sofort, ausverkaufte Gerichte stehen
   ausgegraut mit dem Hinweis „Heute nicht verfügbar" auf der Karte.
 - Oben rechts führt „Als Gast ansehen" direkt auf die öffentliche Karte.
 

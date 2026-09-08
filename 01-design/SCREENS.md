@@ -1,7 +1,6 @@
 # Alle Screens
 
-55 Routen. Die Tabelle in `Website-/src/routes/index.js` ist die einzige Quelle
-— sowohl für den Router als auch für die Übersichtsseite unter `/uebersicht`.
+55 Routen. Die Tabelle in `Website-/src/routes/index.js` ist die einzige Quelle, sowohl für den Router als auch für die Übersichtsseite unter `/uebersicht`.
 
 ## Öffentlich (TEIL C)
 
@@ -12,22 +11,22 @@
 | `/feed` | Video-Feed | Umkreislogik nach Konzept 8.4, blättern, liken, speichern, folgen, Gesehenes ans Ende |
 | `/suche` | Suchergebnisse | Vier Reiter mit echter Suche, Trefferzahlen, Verlauf, Filter |
 | `/g/[slug]` | Gastro-Seite | Echte Daten, Angebot ganz oben, Reiter Videos/Speisekarte/Bewertungen/Infos, Speichern, Melden |
-| **`/g/[slug]/speisekarte`** | **Speisekarte** | **Neu** — eigene Seite ohne App-Rahmen |
+| **`/g/[slug]/speisekarte`** | **Speisekarte** | **Neu**, eigene Seite ohne App-Rahmen |
 | `/v/[id]` | Videodetail | Echte Daten, Gefällt mir, Speichern, Folgen, Melden |
 | `/p/[username]` | Fremdes Profil | Echte Daten, private Profile bleiben verschlossen |
-| `/fuer-gastronomen` | Landingpage | — |
+| `/fuer-gastronomen` | Landingpage |, |
 | `/gastro/eintragen` | Betrieb eintragen | Sucht echte Betriebe, setzt `claimStatus='pending'`, legt eine Einladung an |
 
 ## Konto (TEIL D)
 
 `/registrieren` · `/registrieren/code` · `/anmelden` · `/passwort-vergessen` ·
-`/passwort-neu` — alle mit echter Prüfung, echten Fehlermeldungen und
+`/passwort-neu`, alle mit echter Prüfung, echten Fehlermeldungen und
 rollenabhängiger Weiterleitung.
 
 ## Nutzer (TEIL E)
 
 `/upload` → `/upload/bearbeiten` → `/upload/restaurant` →
-`/upload/bewertung` → `/upload/veroeffentlichen` — ein Assistent mit
+`/upload/bewertung` → `/upload/veroeffentlichen`, ein Assistent mit
 gemeinsamem Entwurf und Schrittwächter. Am Ende entstehen wirklich ein Video
 (Status „in Prüfung") und, wenn ausgefüllt, eine Bewertung.
 
@@ -42,7 +41,7 @@ gemeinsamem Entwurf und Schrittwächter. Am Ende entstehen wirklich ein Video
 `/gastro/einstellungen`
 
 Alles hängt am angemeldeten Gastro-Konto. Admins dürfen ebenfalls hinein und
-sehen dann den ersten Betrieb — praktisch für die Prüfung.
+sehen dann den ersten Betrieb, praktisch für die Prüfung.
 
 ## Admin (TEIL G)
 
@@ -62,5 +61,5 @@ Nutzer-Launch muss dort ein Anwalt für IT-Recht drübersehen (Konzept 10).
 
 ## Werkzeug
 
-`/uebersicht` — listet alle Routen mit ihrem Abschnitt in der Spezifikation.
+`/uebersicht`, listet alle Routen mit ihrem Abschnitt in der Spezifikation.
 Fällt in Schritt 2 weg.

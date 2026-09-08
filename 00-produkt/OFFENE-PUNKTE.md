@@ -12,7 +12,7 @@
 
 ## Technische Lücken im Prototyp
 
-Bewusst so — es fehlt der Server, nicht die Idee.
+Bewusst so, es fehlt der Server, nicht die Idee.
 
 - **Kein echtes Video.** Aufnahme, Zuschnitt und Wiedergabe sind angedeutet.
   Braucht Capacitor-Plugins und Cloudflare Stream.
@@ -45,7 +45,7 @@ Bewusst so — es fehlt der Server, nicht die Idee.
 
 - **Standardzweig auf `main`** in `design` und `Brain` (Settings → General →
   Default branch). Solange dort der alte Entwurfszweig steht, weist GitHub
-  jede Veröffentlichung von `main` aus ab — die Umgebung `github-pages`
+  jede Veröffentlichung von `main` aus ab, die Umgebung `github-pages`
   lässt von Haus aus nur den Standardzweig hinein. `Website-`, `App` und
   `Server` stehen richtig.
 - **Kein öffentlicher Server.** Die veröffentlichte Webseite läuft deshalb im

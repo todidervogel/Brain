@@ -28,7 +28,7 @@ daneben (siehe unten).
 
 **Zwei Quellen, eine Anwendung.** Das Design-System und die Fachlogik haben je
 ein eigenes Repository; die Website spielt sich beide als Kopie ein und checkt
-sie mit ein. Grund: `npm install && npm run dev` soll genügen — ohne zweites
+sie mit ein. Grund: `npm install && npm run dev` soll genügen, ohne zweites
 Repository, ohne Netz, ohne Paketregister.
 
 Geändert wird trotzdem nur im Original:
@@ -58,7 +58,7 @@ cd Website- && VITE_API=http://localhost:4000 npm run dev
 
 Dann zwei Browserfenster öffnen: In einem als Gastro
 (`test@gastro.de` / `12345aA?`) ein Gericht anlegen, im anderen die
-Speisekarte neu laden. Es ist da. Ohne Server geht das nicht — dort trägt
+Speisekarte neu laden. Es ist da. Ohne Server geht das nicht, dort trägt
 jeder Browser seine eigenen Daten.
 
 ## Branches
